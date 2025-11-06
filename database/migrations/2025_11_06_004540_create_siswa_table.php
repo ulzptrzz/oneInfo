@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kelas', function(Blueprint $table){
+        Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kelas', 50);
             $table->string('jurusan');
@@ -26,6 +26,8 @@ return new class extends Migration
             $table->integer(10);
             $table->string('foto');
 
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('kelas_id');
             $table->foreign('kelas_id')->references('id')->on('kelas')->onDelete('cascade');
             $table->timestamps();

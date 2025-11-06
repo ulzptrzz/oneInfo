@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategori_program', function (Blueprint $table){
+        Schema::create('kategori_program', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kategori');
             $table->string('deskripsi');
@@ -30,6 +30,8 @@ return new class extends Migration
             $table->enum('tingkat', ['nasional', 'provinsi', 'kota']);
             $table->string('mata_lomba');
 
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('kategori_program_id');
             $table->foreign('kategori_program_id')->references('id')->on('kategori_program')->onDelete('cascade');
             $table->timestamps();
