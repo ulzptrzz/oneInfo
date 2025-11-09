@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_kelas', 50);
             $table->string('jurusan');
             $table->enum('tingkat', ['X', 'XI', 'XII']);
-            $table->date('tahun_ajaran');
+            $table->year('tahun_ajaran');
             $table->timestamps();
         });
 
