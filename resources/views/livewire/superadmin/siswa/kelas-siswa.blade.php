@@ -6,6 +6,9 @@
                 <a href="{{ route('superadmin.siswa.akun-siswa') }}"
                     class="block hover:bg-blue-600 rounded px-3 py-2">Akun
                     Siswa</a>
+                <a href="{{ route('superadmin.admin.akun-admin') }}"
+                    class="block hover:bg-blue-600 rounded px-3 py-2">Akun
+                    Admin</a>
             </nav>
         </aside>
 

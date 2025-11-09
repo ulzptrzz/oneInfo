@@ -15,7 +15,7 @@ class Login extends Component
     public $role = 'admin'; 
     protected $messages = [
         'email.required' => 'Email wajib di isi',
-        'email.email' => 'Format email tidak valid',
+        'email.email' => 'Format email tidak sesuai',
         'password.required' => 'Password wajib diisi',
         'password.min' => 'Password minimal 8 karakter',
         'nis.required' => 'NIS wajib diisi',
