@@ -1,8 +1,34 @@
-<aside class="w-64 bg-blue-700 text-white p-6 space-y-6">
-    <h1 class="text-xl font-bold">Admin OneInfo</h1>
-    <nav class="space-y-2">
-        <a href="{{ route('admin.kategori-program') }}" class="block hover:bg-[#ffc436] rounded px-3 py-2">Kategori</a>
-        <a href="{{ route('admin.program') }}" class="block hover:bg-[#ffc436] rounded px-3 py-2">Program</a>
-        <a href="{{ route('admin.perizinan') }}" class="block hover:bg-[#ffc436] rounded px-3 py-2">Perizinan</a>
-    </nav>
+<aside class="w-64 min-h-screen bg-[#0C356A] text-white p-6 flex flex-col justify-between shadow-lg">
+    <!-- Bagian Atas -->
+    <div>
+        <div class="flex items-center gap-2 mb-6">
+            <h1 class="text-xl font-bold tracking-wide">Admin OneInfo</h1>
+        </div>
+        <hr class="border-gray-500 mb-4">
+
+        <!-- Navigation -->
+        <nav class="space-y-2">
+            <a href="{{ route('admin.kategori-program') }}"
+               class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200 
+                      hover:bg-[#FFC436] hover:text-[#0C356A] group">
+                <i class='bx bx-cabinet text-lg text-white group-hover:text-[#0C356A]'></i>
+                <span>Kategori</span>
+            </a>
+
+            <a href="{{ route('admin.program') }}"
+               class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200 
+                      hover:bg-[#FFC436] hover:text-[#0C356A] group">
+                <i class='bx bx-receipt text-lg text-white group-hover:text-[#0C356A]'></i>
+                <span>Program</span>
+            </a>
+
+            <a href="{{ route('admin.perizinan') }}"
+               class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200 
+                      hover:bg-[#FFC436] hover:text-[#0C356A] group">
+                <i class='bx bx-folder-open text-lg text-white group-hover:text-[#0C356A]'></i>
+                <span>Perizinan</span>
+            </a>
+        </nav>
+    </div>
+    <livewire:auth.logout />
 </aside>
