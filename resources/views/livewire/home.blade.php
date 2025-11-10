@@ -15,7 +15,7 @@
         </div>
     </header>
 
-    {{-- KATALOG LOOMBA --}}
+    {{-- KATALOG LOMBA --}}
     <div class="container items-center m-7">
         <h2 class="text-3xl text-center font-semibold text-[#0C356A] md-20">Katalog Program</h2>
         <p class="mt-4 text-lg text-center text-gray-700 mb-4">Lihat berbagai program menarik yang didukung oleh SMKN 1 Kota Bekasi</p>
@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-                    <img src="" alt="{{ asset('assets/pertukaranPelajar.png') }}">
+                    <img src="{{ asset('assets/pertukaranPelajar.png') }}" alt="">
                     <h2 class="text-lg font-semibold mb-2 text-gray-600">Pertukaran Pelajar Luar Negeri</h2>
                     <p>Ayo berinovasi dan ciptakan solusi untuk masa depan!</p>
                 </div>

@@ -3,37 +3,32 @@
 namespace App\Livewire\Admin\KategoriProgram;
 
 use App\Models\KategoriProgram;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Index extends Component
 {
-    public $kategori_id, $nama_kategori, $deskripsi;
-    public $isEditing = false;
+    public $kategoriProgram;
 
-    public function save() {
-        $this->validate();
-        KategoriProgram::updateOrCreate(['id' => $this->kategori_id], ['nama' => $this->nama_kategori], ['deskripsi' => $this->deskripsi]);
-        $this->resetForm();
-    }
+    public function mount(){
+        $user = Auth::user();
 
-    public function edit($id) {
-        $kategori = KategoriProgram::find($id);
-        $this->kategori_id = $kategori->id;
-        $this->nama_kategori = $kategori->nama;
-        $this->deskripsi = $kategori->deskripsi;
-        $this->isEditing = true;
+        $this->kategoriProgram = KategoriProgram::all();
     }
 
     public function delete($id){
-        KategoriProgram::find($id)?->delete();
-    }
+        $kategori = KategoriProgram::find($id);
 
-    public function resetForm() {
-        $this->reset(['kategori_id', 'nama_kategori', 'deskripsi', 'isEditing']);
+        if($kategori){
+            $kategori->delete();
+            session()->flash('message', 'Kategori berhasil dihapus.');
+
+            $this->kategoriProgram = KategoriProgram::orderBy('id', 'desc')->get();
+        }
     }
 
     public function render()
     {
-        return view('livewire.admin.kategori-program.index', ['kategoris' => KategoriProgram::orderBy('id', 'desc')->get(),])->dashboard('admin.dashboard');
+        return view('livewire.admin.kategori-program.index', ['kategori' => $this->kategoriProgram,]);
     }
 }

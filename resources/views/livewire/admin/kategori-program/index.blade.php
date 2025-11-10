@@ -1,38 +1,47 @@
-<div>
-    @section('title', 'Manajemen Kategori Program')
-
-    <div>
-        <h1 class="text-2xl font-bold mb-6">Manajemen Kategori Program</h1>
-
-        <form wire:submit.prevent="save" class="flex gap-3 mb-6">
-            <input wire:model.defer="nama" type="text" placeholder="Nama kategori" class="border rounded px-3 py-2 flex-1">
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
-                {{ $isEditing ? 'Update' : 'Tambah' }}
-            </button>
-        </form>
-
-        @error('nama') <p class="text-red-600 text-sm mb-3">{{ $message }}</p> @enderror
-
-        <table class="min-w-full bg-white rounded-lg shadow">
-            <thead class="bg-gray-200">
+<div class="flex min-h-screen">
+    <x-sidebar/>
+    <div class="p-6">
+        @if (session()->has('message'))
+            <div class="bg-green-100 text-green-800 px-3 py-2 rounded mb-3">
+                {{ session('message') }}
+            </div>
+        @endif
+    
+        <div class="flex justify-between mb-4">
+            <h2 class="text-2xl font-bold">Daftar Kategori Program</h2>
+            <a href="{{ route('create-kategori') }}"
+               class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+               + Tambah Kategori
+            </a>
+        </div>
+    
+        <table class="w-full border-collapse border border-gray-300 rounded-xl">
+            <thead class="rounded-2xl">
                 <tr>
-                    <th class="p-3 text-left">#</th>
-                    <th class="p-3 text-left">Nama</th>
-                    <th class="p-3 text-left">Aksi</th>
+                    <th class="border p-2">No
+                    </th>
+                    <th class="border p-2">Nama</th>
+                    <th class="border p-2">Deskripsi</th>
+                    <th class="border p-2">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($kategoris as $index => $k)
-                <tr class="border-t">
-                    <td class="p-3">{{ $index + 1 }}</td>
-                    <td class="p-3">{{ $k->nama }}</td>
-                    <td class="p-3 space-x-2">
-                        <button wire:click="edit({{ $k->id }})" class="text-blue-600 hover:underline">Edit</button>
-                        <button wire:click="delete({{ $k->id }})" class="text-red-600 hover:underline">Hapus</button>
-                    </td>
-                </tr>
-                @endforeach
+                @foreach ($kategoriProgram as $index => $item)
+                    <tr>
+                        <td class="border p-2 text-center">{{ $loop->iteration }}</td>
+                        <td class="border p-2 text-center">{{ $item->nama_kategori }}</td>
+                        <td class="border p-2 text-center">{{ $item->deskripsi ?? '-' }}</td>
+                        <td class="border p-2 text-center">
+                            <a href="{{ route('edit-kategori', $item->id) }}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-500">Edit</a>
+                            <button wire:click="delete({{ $item->id }})" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Hapus</button>
+                        </td>
+                    </tr>                
+                @endforeach  
             </tbody>
         </table>
+    
+        <div class="mt-3">
+        </div>
     </div>
 </div>
+

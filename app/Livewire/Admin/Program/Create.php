@@ -2,12 +2,68 @@
 
 namespace App\Livewire\Admin\Program;
 
+use App\Models\KategoriProgram;
+use Livewire\WithFileUploads;
 use Livewire\Component;
+use App\Models\Program;
 
 class Create extends Component
 {
+    use WithFileUploads;
+    public $nama_program = '';
+    public $deskripsi = '';
+    public $tanggal_mulai = '';
+    public $tanggal_selesai = '';
+    public $status = '';
+    public $poster = '';
+    public $penyelenggara = '';
+    public $tingkat = '';
+    public $mata_lomba = '';
+    public $kategori_program_id = '';
+    public $user_id = '';
+
+    protected $rules = [
+        'nama_program' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'tanggal_mulai' => 'required|date',
+        'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+        'status' => 'required|in:draft,published,archived',
+        'poster' => 'nullable|image|max:2048',
+        'penyelenggara' => 'nullable|string|max:255',
+        'tingkat' => 'nullable|string|max:255',
+        'mata_lomba' => 'nullable|string|max:255',
+        'kategori_program_id' => 'required|exists:kategori_program,id',
+        'user_id' => 'required|exists:users,user_id',
+    ];
+
+    public function save()
+    {
+        $this->validate();
+
+        $path = $this->poster ? $this->poster->store('posters', 'public') : null;
+
+
+        Program::create([
+            'nama_program' => $this->nama_program,
+            'deskripsi' => $this->deskripsi,
+            'tanggal_mulai' => $this->tanggal_mulai,
+            'tanggal_selesai' => $this->tanggal_selesai,
+            'status' => $this->status,
+            'poster' => $path,
+            'penyelenggara' => $this->penyelenggara,
+            'tingkat' => $this->tingkat,
+            'mata_lomba' => $this->mata_lomba,
+            'kategori_program_id' => $this->kategori_program_id,
+            'user_id' => auth()->id(),
+        ]);
+
+        session()->flash('message', 'Program berhasil ditambahkan.');
+        return redirect()->route('admin.program');
+    }
+
     public function render()
     {
-        return view('livewire.admin.program.create');
+        $kategori_program = KategoriProgram::all();
+        return view('livewire.admin.program.create', compact('kategori_program'));
     }
 }

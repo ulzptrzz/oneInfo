@@ -1,3 +1,3 @@
 <div>
-    {{-- Stop trying to control. --}}
+    <h2>Tambah Data Perizinan</h2>
 </div>
