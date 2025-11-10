@@ -8,6 +8,7 @@ use App\Livewire\Superadmin\Siswa\CreateKelas;
 use App\Livewire\Superadmin\Dashboard;
 use App\Livewire\Superadmin\Siswa\CreateSiswa;
 use App\Livewire\Superadmin\Siswa\EditKelas;
+use App\Livewire\Superadmin\Siswa\EditSiswa;
 use App\Livewire\Superadmin\Siswa\KelasSiswa;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->group( fun
     //Kelola Siswa
     Route::get('/kelola-siswa', AkunSiswa::class)->name('superadmin.siswa.akun-siswa');
     Route::get('/create-siswa', CreateSiswa::class)->name('superadmin.siswa.create-siswa');
+    Route::get('/edit-siswa{id}', EditSiswa::class)->name('superadmin.siswa.edit-siswa');
 
     //Kelola Admin
     Route::get('/kelola-admin', AkunAdmin::class)->name('superadmin.admin.akun-admin');

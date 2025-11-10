@@ -1,14 +1,6 @@
 <div>
     <div class="flex min-h-screen">
-        <aside class="w-64 bg-blue-700 text-white p-6 space-y-6">
-            <h1 class="text-xl font-bold">Admin OneInfo</h1>
-            <nav class="space-y-2">
-                <a href="{{ route('superadmin.siswa.akun-siswa') }}" class="block hover:bg-blue-600 rounded px-3 py-2">Akun
-                    Siswa</a>
-                <a href="{{ route('superadmin.admin.akun-admin') }}" class="block hover:bg-blue-600 rounded px-3 py-2">Akun
-                    Admin</a>
-            </nav>
-        </aside>
+        <x-sidebar-superadmin />
 
         <div>
             <h1 class="mb-5 text-2xl font-bold text-[#0C356A]">Tambah Kelas</h1>
@@ -49,9 +41,8 @@
                 <!-- Tahun Ajaran -->
                 <div>
                     <label for="tahun_ajaran" class="block mb-1">Tahun Ajaran</label>
-                    <input type="number" id="tahun_ajaran" wire:model="tahun_ajaran"
-                        class="border rounded p-2 w-full" placeholder="2025" min="1901" max="2155"
-                        step="1">
+                    <input type="number" id="tahun_ajaran" wire:model="tahun_ajaran" class="border rounded p-2 w-full"
+                        placeholder="2025" min="1901" max="2155" step="1">
                     @error('tahun_ajaran')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror

@@ -4,61 +4,76 @@ namespace App\Livewire\Auth;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Layout;
+use App\Models\Siswa;
 
 class Login extends Component
 {
-    #[Layout('components.layouts.app')]
+    public $email = '';
+    public $password = '';
+    public $nis = '';
+    public $nisn = '';
+    public $role = 'siswa'; 
 
-    public $email, $password;
-    public $nis, $nisn;
-    public $role = 'admin'; 
-    protected $messages = [
-        'email.required' => 'Email wajib di isi',
-        'email.email' => 'Format email tidak sesuai',
-        'password.required' => 'Password wajib diisi',
-        'password.min' => 'Password minimal 8 karakter',
-        'nis.required' => 'NIS wajib diisi',
-        'nisn.required' => 'NISN wajib diisi',
-    ];
+    protected function messages()
+    {
+        return [
+            'email.required'    => 'Email wajib diisi',
+            'email.email'       => 'Format email tidak valid',
+            'password.required' => 'Password wajib diisi',
+            'nis.required'      => 'NIS wajib diisi',
+            'nisn.required'     => 'NISN wajib diisi',
+        ];
+    }
 
     public function setRole($role)
     {
         $this->role = $role;
         $this->reset(['email', 'password', 'nis', 'nisn']);
+        $this->resetErrorBag();
     }
 
     public function login()
     {
         if ($this->role === 'admin') {
+            // LOGIN ADMIN & SUPERADMIN
             $this->validate([
-                'email' => 'required|email',
-                'password' => 'required|min:8',
+                'email'    => 'required|email',
+                'password' => 'required',
             ]);
 
             if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
                 $user = Auth::user();
+                $roleName = $user->role->name;
 
-                if ($user->role->name === 'superadmin') {
+                if ($roleName === 'superadmin') {
                     return redirect()->route('superadmin.dashboard');
-                } elseif ($user->role->name === 'admin') {
+                }
+
+                if ($roleName === 'admin') {
                     return redirect()->route('admin.dashboard');
-                } 
-            } else {
-                $this->addError('email', 'Email atau password salah.');
+                }
             }
-        } else {
-            // mode siswa
+
+            $this->addError('email', 'Email atau password salah.');
+        } 
+        else {
+            // LOGIN SISWA (pakai NIS + NISN)
             $this->validate([
-                'nis' => 'required',
+                'nis'  => 'required',
                 'nisn' => 'required',
             ]);
 
-            if (Auth::attempt(['nis' => $this->nis, 'nisn' => $this->nisn])) {
+            $siswa = Siswa::where('nis', $this->nis)
+                          ->where('nisn', $this->nisn)
+                          ->first();
+
+            if ($siswa && $siswa->user) {
+                Auth::login($siswa->user);
+                $this->dispatch('$refresh');
                 return redirect()->route('siswa.dashboard');
-            } else {
-                $this->addError('nis', 'NIS atau NISN salah.');
             }
+
+            $this->addError('nis', 'NIS atau NISN salah / akun belum terdaftar.');
         }
     }
 
