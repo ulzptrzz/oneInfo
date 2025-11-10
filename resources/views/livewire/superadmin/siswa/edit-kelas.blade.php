@@ -1,0 +1,74 @@
+<div>
+    <div class="flex min-h-screen">
+        <aside class="w-64 bg-blue-700 text-white p-6 space-y-6">
+            <h1 class="text-xl font-bold">Admin OneInfo</h1>
+            <nav class="space-y-2">
+                <a href="{{ route('superadmin.siswa.akun-siswa') }}"
+                    class="block hover:bg-blue-600 rounded px-3 py-2">Akun
+                    Siswa</a>
+                <a href="{{ route('superadmin.admin.akun-admin') }}"
+                    class="block hover:bg-blue-600 rounded px-3 py-2">Akun
+                    Admin</a>
+            </nav>
+        </aside>
+
+        <div>
+            <h1 class="mb-5 text-2xl font-bold text-[#0C356A]">Edit Kelas</h1>
+
+            <form wire:submit.prevent="update" class="space-y-4">
+                <!-- Nama Kelas -->
+                <div>
+                    <label>Nama Kelas</label>
+                    <input type="text" wire:model="nama_kelas" class="border p-2 w-full">
+                    @error('nama_kelas')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Jurusan -->
+                <div>
+                    <label>Jurusan</label>
+                    <input type="text" wire:model="jurusan" class="border p-2 w-full">
+                    @error('jurusan')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Tingkat -->
+                <div>
+                    <label>Tingkat</label>
+                    <select wire:model="tingkat" class="border p-2 w-full">
+                        <option value="">Pilih Tingkat</option>
+                        <option value="X">X</option>
+                        <option value="XI">XI</option>
+                        <option value="XII">XII</option>
+                    </select>
+                    @error('tingkat')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Tahun Ajaran -->
+                <div>
+                    <label for="tahun_ajaran" class="block mb-1">Tahun Ajaran</label>
+                    <input type="number" id="tahun_ajaran" wire:model="tahun_ajaran" class="border rounded p-2 w-full"
+                        placeholder="2025" min="1901" max="2155" step="1">
+                    @error('tahun_ajaran')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Tombol -->
+                <div class="flex gap-3">
+                    <a href="{{ route('superadmin.siswa.kelas-siswa') }}"
+                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">
+                        Batal
+                    </a>
+                    <button type="submit" class="bg-[#0C356A] text-white px-4 py-2 rounded">
+                        Edit Kelas
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
