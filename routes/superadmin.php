@@ -18,15 +18,15 @@ Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->group( fun
     //Kelola Kelas Siswa
     Route::get('/kelola-kelas', KelasSiswa::class)->name('superadmin.siswa.kelas-siswa');
     Route::get('/create-kelas', CreateKelas::class)->name('superadmin.siswa.create-kelas-siswa');
-    Route::get('/edit-kelas{id}', EditKelas::class)->name('superadmin.siswa.edit-kelas-siswa');
+    Route::get('/edit-kelas/{id}', EditKelas::class)->name('superadmin.siswa.edit-kelas-siswa');
     
     //Kelola Siswa
     Route::get('/kelola-siswa', AkunSiswa::class)->name('superadmin.siswa.akun-siswa');
     Route::get('/create-siswa', CreateSiswa::class)->name('superadmin.siswa.create-siswa');
-    Route::get('/edit-siswa{id}', EditSiswa::class)->name('superadmin.siswa.edit-siswa');
+    Route::get('/edit-siswa/{id}', EditSiswa::class)->name('superadmin.siswa.edit-siswa');
 
     //Kelola Admin
     Route::get('/kelola-admin', AkunAdmin::class)->name('superadmin.admin.akun-admin');
     Route::get('/create-admin', CreateAdmin::class)->name('superadmin.admin.create-admin');
-    Route::get('/edit-admin{id}', EditAdmin::class)->name('superadmin.admin.edit-admin');
+    Route::get('/edit-admin/{id}', EditAdmin::class)->name('superadmin.admin.edit-admin');
 });
