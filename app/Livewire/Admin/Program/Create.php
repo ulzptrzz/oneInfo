@@ -10,8 +10,8 @@ use App\Models\Program;
 class Create extends Component
 {
     use WithFileUploads;
-    public $nama_program = '';
-    public $deskripsi = '';
+    public $name = '';
+    public $deskripsi_singkat = '';
     public $tanggal_mulai = '';
     public $tanggal_selesai = '';
     public $status = '';
@@ -23,8 +23,8 @@ class Create extends Component
     public $user_id = '';
 
     protected $rules = [
-        'nama_program' => 'required|string|max:255',
-        'deskripsi' => 'required|string',
+        'name' => 'required|string|max:255',
+        'deskripsi_singkat' => 'required|string',
         'tanggal_mulai' => 'required|date',
         'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
         'status' => 'required|in:draft,published,archived',
@@ -33,7 +33,6 @@ class Create extends Component
         'tingkat' => 'nullable|string|max:255',
         'mata_lomba' => 'nullable|string|max:255',
         'kategori_program_id' => 'required|exists:kategori_program,id',
-        'user_id' => 'required|exists:users,user_id',
     ];
 
     public function save()
@@ -44,8 +43,8 @@ class Create extends Component
 
 
         Program::create([
-            'nama_program' => $this->nama_program,
-            'deskripsi' => $this->deskripsi,
+            'name' => $this->name,
+            'deskripsi_singkat' => $this->deskripsi_singkat,
             'tanggal_mulai' => $this->tanggal_mulai,
             'tanggal_selesai' => $this->tanggal_selesai,
             'status' => $this->status,

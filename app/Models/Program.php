@@ -10,8 +10,8 @@ class Program extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'nama_program',
-        'deskripsi',
+        'name',
+        'deskripsi_singkat',
         'tanggal_mulai',
         'tanggal_selesai',
         'status',

@@ -20,9 +20,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/program', ProgramIndex::class)->name('admin.program');
     Route::get('/program/create', ProgramCreate::class)->name('create-program');
-    Route::get('/program/edit', ProgramEdit::class)->name('edit-program');
+    Route::get('/program/edit/{id}', ProgramEdit::class)->name('edit-program');
 
     Route::get('/perizinan', PerizinanIndex::class)->name('admin.perizinan');
     Route::get('/perizinan/create', PerizinanCreate::class)->name('create-perizinan');
-    Route::get('/perizinan/edit', ProgramEdit::class)->name('edit-perizinan');
+    Route::get('/perizinan/edit/{id}', ProgramEdit::class)->name('edit-perizinan');
 });

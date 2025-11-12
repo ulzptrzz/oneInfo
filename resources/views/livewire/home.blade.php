@@ -15,38 +15,8 @@
         </div>
     </header>
 
-    {{-- KATALOG LOMBA --}}
-    <div class="container items-center m-7">
-        <h2 class="text-3xl text-center font-semibold text-[#0C356A] md-20">Katalog Program</h2>
-        <p class="mt-4 text-lg text-center text-gray-700 mb-4">Lihat berbagai program menarik yang didukung oleh SMKN 1 Kota Bekasi</p>
-        <div class="flex">
-            <div class="flex">
-                <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-                    <img src="{{ asset('assets/FLS3N.png') }}" alt="foto-poster" class="w-full h-48 object-cover">
-                    <h2 class="text-lg font-semibold mb-2 text-gray-600">Lomba FLS2N</h2>
-                    <p>Ayo berinovasi dan ciptakan solusi untuk masa depan!</p>
-                </div>
-
-                <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-                    <img src="{{ asset('assets/pertukaranPelajar.png') }}" alt="">
-                    <h2 class="text-lg font-semibold mb-2 text-gray-600">Pertukaran Pelajar Luar Negeri</h2>
-                    <p>Ayo berinovasi dan ciptakan solusi untuk masa depan!</p>
-                </div>
-
-                <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-                    <img src="{{ asset('assets/TOEIC.png') }}" alt="">
-                    <h2 class="text-lg font-semibold mb-2 text-gray-600">Program Tes TOEIC</h2>
-                    <p>Ayo berinovasi dan ciptakan solusi untuk masa depan!</p>
-                </div>
-
-                <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-                    <img src="{{ asset('assets/FLS3N.png') }}" alt="">
-                    <h2 class="text-lg font-semibold mb-2 text-gray-600">Lomba FLS2N</h2>
-                    <p>Ayo berinovasi dan ciptakan solusi untuk masa depan!</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{-- KATALOG PROGRAM --}}
+    <x-katalog-program/>
 
     {{-- SECTION PRESTASI --}}
     <div class="container items-center m-7">
@@ -97,7 +67,7 @@
 
         <div class="overflow-hidden flex flex-col md:flex-row gap-8 items-start">
             <img src="{{ asset('assets/foto-artikel.jpg') }}" alt="foto-artikel" class="w-full md:w-1/2 h-64 object-cover rounded-xl">
-            
+
             <div class="bg-white shadow-md p-6 flex flex-col justify-center md:w-1/2 pb-14">
                 <h3 class="text-2xl font-semibold text-gray-800 mb-1">Title of the Risen Event</h3>
                 <p class="text-gray-500 text-sm mb-2">

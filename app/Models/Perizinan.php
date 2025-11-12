@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Perizinan extends Model
 {
     protected $table = 'perizinan';
-    protected $primaryKey = 'perizinan_id';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'file',
         'status',

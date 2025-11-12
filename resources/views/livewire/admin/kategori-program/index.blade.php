@@ -15,7 +15,6 @@
             </a>
         </div>
 
-
         <div class="overflow-x-auto">
             <table class="min-w-full text-gray-700 m-4">
                 <thead class="bg-gray-800 text-white rounded-2xl">
