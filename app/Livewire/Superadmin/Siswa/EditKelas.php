@@ -3,15 +3,17 @@
 namespace App\Livewire\Superadmin\Siswa;
 
 use App\Models\Kelas;
+use App\Models\Jurusan;
 use Livewire\Component;
 
 class EditKelas extends Component
 {
-    public $kelasId, $nama_kelas, $jurusan, $tingkat, $tahun_ajaran;
+    public $kelasId, $nama_kelas, $jurusan_id, $tingkat, $tahun_ajaran, $jurusan_kelas;
 
     public function mount($id)
     {
         $this->kelasId = $id;
+        $this->jurusan_kelas = Jurusan::all();
         $this->loadKelas();
     }
 
@@ -20,7 +22,7 @@ class EditKelas extends Component
         $kelas = Kelas::findOrFail($this->kelasId);
 
         $this->nama_kelas = $kelas->nama_kelas;
-        $this->jurusan = $kelas->jurusan;
+        $this->jurusan_id = $kelas->jurusan_id;
         $this->tingkat = $kelas->tingkat;
         $this->tahun_ajaran = $kelas->tahun_ajaran;
     }
@@ -29,7 +31,7 @@ class EditKelas extends Component
     {
         $this->validate([
             'nama_kelas' => 'required|string|max:50,' . $this->kelasId,
-            'jurusan' => 'required|string|max:50',
+            'jurusan_id' => 'required|exists:kelas,id',
             'tingkat' => 'required',
             'tahun_ajaran' => 'required|integer|min:1901|max:2155',
         ]);
@@ -37,7 +39,7 @@ class EditKelas extends Component
         $kelas = Kelas::findOrFail($this->kelasId);
         $kelas->update([
             'nama_kelas' => $this->nama_kelas,
-            'jurusan' => $this->jurusan,
+            'jurusan_id' => $this->jurusan_id,
             'tingkat' => $this->tingkat,
             'tahun_ajaran' => $this->tahun_ajaran,
         ]);

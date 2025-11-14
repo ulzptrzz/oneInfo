@@ -6,10 +6,13 @@ use App\Livewire\Superadmin\Admin\EditAdmin;
 use App\Livewire\Superadmin\Siswa\AkunSiswa;
 use App\Livewire\Superadmin\Siswa\CreateKelas;
 use App\Livewire\Superadmin\Dashboard;
+use App\Livewire\Superadmin\Siswa\CreateJurusan;
 use App\Livewire\Superadmin\Siswa\CreateSiswa;
+use App\Livewire\Superadmin\Siswa\EditJurusan;
 use App\Livewire\Superadmin\Siswa\EditKelas;
 use App\Livewire\Superadmin\Siswa\EditSiswa;
 use App\Livewire\Superadmin\Siswa\KelasSiswa;
+use App\Livewire\Superadmin\Siswa\KelolaJurusan;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->group( function() {
@@ -24,6 +27,11 @@ Route::prefix('superadmin')->middleware(['auth', 'role:superadmin'])->group( fun
     Route::get('/kelola-siswa', AkunSiswa::class)->name('superadmin.siswa.akun-siswa');
     Route::get('/create-siswa', CreateSiswa::class)->name('superadmin.siswa.create-siswa');
     Route::get('/edit-siswa/{id}', EditSiswa::class)->name('superadmin.siswa.edit-siswa');
+
+    //Kelola Jurusan 
+    Route::get('/kelola-jurusan', KelolaJurusan::class)->name('superadmin.siswa.kelola-jurusan');
+    Route::get('/create-jurusan', CreateJurusan::class)->name('superadmin.siswa.create-jurusan');
+    Route::get('/edit-jurusan/{id}', EditJurusan::class)->name('superadmin.siswa.edit-jurusan');
 
     //Kelola Admin
     Route::get('/kelola-admin', AkunAdmin::class)->name('superadmin.admin.akun-admin');
