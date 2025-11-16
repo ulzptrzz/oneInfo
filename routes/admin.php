@@ -12,6 +12,15 @@ use App\Livewire\Admin\Program\Create as ProgramCreate;
 use App\Livewire\Admin\Program\Edit as ProgramEdit;
 use App\Livewire\Admin\Program\Index as ProgramIndex;
 use App\Livewire\Admin\Program\Detail as ProgramDetail;
+use App\Livewire\Admin\Dokumentasi\Index as DokumentasiIndex;
+use App\Livewire\Admin\Dokumentasi\Create as DokumentasiCreate;
+use App\Livewire\Admin\Dokumentasi\Edit as DokumentasiEdit;
+use App\Livewire\Admin\Prestasi\Index as PrestasiIndex;
+use App\Livewire\Admin\Prestasi\Create as PrestasiCreate;
+use App\Livewire\Admin\Prestasi\Edit as PrestasiEdit;
+use App\Livewire\Admin\Artikel\Index as ArtikelIndex;
+use App\Livewire\Admin\Artikel\Create as ArtikelCreate;
+use App\Livewire\Admin\Artikel\Edit as ArtikelEdit;
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('admin.dashboard');
@@ -28,4 +37,17 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/perizinan', PerizinanIndex::class)->name('admin.perizinan');
     Route::get('/perizinan/create', PerizinanCreate::class)->name('create-perizinan');
     Route::get('/perizinan/edit/{id}', PerizinanEdit::class)->name('edit-perizinan');
+    Route::get('/perizinan/edit', ProgramEdit::class)->name('edit-perizinan');
+
+    Route::get('/dokumentasi', DokumentasiIndex::class)->name('admin.dokumentasi');
+    Route::get('/dokumentasi/create', DokumentasiCreate::class)->name('create-dokumentasi');
+    Route::get('/dokumentasi/edit/{id}', DokumentasiEdit::class)->name('edit-dokumentasi');
+
+    Route::get('/prestasi', PrestasiIndex::class)->name('admin.prestasi');
+    Route::get('/prestasi/create', PrestasiCreate::class)->name('create-prestasi');
+    Route::get('/prestasi/edit/{id}', PrestasiEdit::class)->name('edit-prestasi');
+    
+    Route::get('/artikel', ArtikelIndex::class)->name('admin.artikel');
+    Route::get('/artikel/create', ArtikelCreate::class)->name('create-artikel');
+    Route::get('/Artikel/edit/{id}', ArtikelEdit::class)->name('edit-artikel');
 });
