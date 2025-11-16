@@ -58,9 +58,12 @@ class CreateSiswa extends Component
 
         $photo = $this->foto->store('siswa', 'public');
 
+        $email = $this->generateEmail($this->name);
+        $emailUnique = $this->getuniqueEmail($email);
+
         $user = User::create([
             'name' => $this->name,
-            'email' => $this->nis . '@siswa.com', 
+            'email' => $emailUnique,
             'phone' => '08' . rand(100000000, 999999999),
             'password' => Hash::make($this->nisn),
             'role_id' => 3
@@ -74,13 +77,48 @@ class CreateSiswa extends Component
             'kelas_id' => $this->kelas_id,
             'user_id' => $user->id,
         ]);
-        
+
         // Reset form
         $this->reset();
 
         return redirect()->route('superadmin.siswa.akun-siswa');
     }
 
+    public function generateEmail($name)
+    {
+        $name = trim($name);
+        if (empty($name)) return '';
+
+        $words = preg_split('/\s+/', $name);
+        $words = array_filter($words);
+        $count = count($words);
+
+        if ($count === 1) {
+            return strtolower($words[0]) . '@smkn1kotabekasi.sch.id';
+        }
+
+        $first = strtolower($words[0]);
+        $last = strtolower($words[$count - 1]);
+
+        return $first . '.' . $last . '@smkn1kotabekasi.sch.id';
+    }
+
+    public function getUniqueEmail($email)
+    {
+        $emailUnique = $email;
+        $counter = 1;
+
+        $parts = explode('@', $email);
+        $username = $parts[0];
+        $domain = '@' . $parts[1];
+
+        while (User::where('email', $emailUnique)->exists()) {
+            $emailUnique = $username . $counter . $domain;
+            $counter++;
+        }
+
+        return $emailUnique;
+    }
     public function render()
     {
         return view('livewire.superadmin.siswa.create-siswa');

@@ -60,32 +60,34 @@
                             @enderror
                         </div>
                     @else
-                        <!-- NIS -->
+                        <!-- Email -->
                         <div>
-                            <label for="nis" class="block text-sm font-semibold text-slate-700 mb-2">NIS</label>
-                            <input type="text" id="nis" wire:model="nis" placeholder="Masukkan NIS anda"
+                            <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">Email</label>
+                            <input type="email" id="email" wire:model="email" placeholder="Masukkan email anda"
                                 class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500" />
-                            @error('nis')
+                            @error('email')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <!-- NISN -->
                         <div class="relative">
-                            <label for="nisn" class="block text-sm font-semibold text-slate-700 mb-2">NISN</label>
+                            <label for="password" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Password (NISN)
+                            </label>
 
                             <div class="relative">
-                                <input type="password" id="nisn" wire:model="nisn" placeholder="Masukkan NISN anda"
-                                    class="w-full px-4 py-3 pr-12 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none text-base" />
+                                <input type="password" id="password" wire:model="password"
+                                    placeholder="Masukkan NISN anda"
+                                    class="w-full px-4 py-3 pr-12 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500" />
 
-                                <!-- Tombol Toggle NISN -->
-                                <button type="button" onclick="toggleNisn()"
-                                    class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 hover:text-[#0C356A] focus:outline-none transition-colors">
-                                    <i id="nisnEyeIcon" class="bx bx-hide text-xl"></i>
+                                <button type="button" onclick="togglePassword()"
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 hover:text-[#0C356A]">
+                                    <i id="eyeIcon" class="bx bx-hide text-xl"></i>
                                 </button>
                             </div>
 
-                            @error('nisn')
+                            @error('password')
                                 <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
                             @enderror
                         </div>
@@ -117,18 +119,5 @@
         }
     }
 
-    function toggleNisn() {
-        const nisnField = document.getElementById('nisn');
-        const nisnEyeIcon = document.getElementById('nisnEyeIcon');
-
-        if (nisnField && nisnEyeIcon) {
-            if (nisnField.type === 'password') {
-                nisnField.type = 'text';
-                nisnEyeIcon.classList.replace('bx-hide', 'bx-show');
-            } else {
-                nisnField.type = 'password';
-                nisnEyeIcon.classList.replace('bx-show', 'bx-hide');
-            }
-        }
-    }
+    
 </script>

@@ -4,13 +4,69 @@ namespace App\Livewire\Superadmin\Siswa;
 
 use App\Models\Siswa;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\Siswa as ImportSiswa;
 
 class AkunSiswa extends Component
 {
+    use WithFileUploads;
+
     public $sesions = [];
+    public $fileExcel;
     public $confirmDeleteId = null;
     public $showDeleteModal = false;
+    public $showExcelModal = false;
 
+    protected $listeners = ['cancelDelete'];
+
+    public function openExcelModal()
+    {
+        $this->showExcelModal = true;
+        $this->resetErrorBag();
+        $this->fileExcel = null;
+    }
+
+    public function closeExcelModal()
+    {
+        $this->showExcelModal = false;
+        $this->fileExcel = null;
+        $this->resetErrorBag();
+    }
+
+    public function importExcel()
+    {
+        $this->validate([
+            'fileExcel' => 'required|mimes:xlsx,xls',
+        ]);
+
+        try {
+            Excel::import(new \App\Imports\Siswa, $this->fileExcel);
+
+            $this->closeExcelModal();
+            $this->loadData();
+
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'success',
+                'message' => 'Berhasil mengimport 500 siswa!'
+            ]);
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errors = [];
+
+            foreach ($failures as $failure) {
+                $row = $failure->row();
+                $attribute = $failure->attribute();
+                $errorMsg = $failure->errors()[0] ?? 'Invalid data';
+
+                $errors[] = "Baris {$row} ({$attribute}): {$errorMsg}";
+            }
+
+            $this->addError('fileExcel', implode('<br>', $errors));
+        } catch (\Exception $e) {
+            $this->addError('fileExcel', 'Gagal import: ' . $e->getMessage());
+        }
+    }
     public function mount()
     {
         $this->loadData();

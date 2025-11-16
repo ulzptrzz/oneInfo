@@ -17,6 +17,10 @@
                         class="flex items-center gap-1 bg-[#0C356A] text-white px-3 py-2 rounded-md hover:bg-[#082d5b] transition">
                         <i class='bx bx-plus'></i> Siswa
                     </a>
+                    <button wire:click="openExcelModal"
+                        class="flex items-center gap-1 bg-[#0C356A] text-white px-3 py-2 rounded-md hover:bg-[#082d5b] transition">
+                        <i class='bx bx-upload'></i> Import Excel
+                    </button>
                 </div>
             </div>
             <table class="min-w-full divide-y divide-gray-200">
@@ -47,7 +51,8 @@
                                 {{ $sesion->nisn }}
                             </td>
                             <td class="border p-2 text-center">
-                                <img src="{{ asset('storage/' . $sesion->foto) }}" alt="Foto Siswa" class="w-32 rounded">
+                                <img src="{{ asset('storage/' . $sesion->foto) }}" alt="Foto Siswa"
+                                    class="w-32 rounded">
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <a href="{{ route('superadmin.siswa.edit-siswa', $sesion->id) }}"
@@ -82,6 +87,83 @@
                                 <span wire:loading.remove>Hapus</span>
                                 <span wire:loading>Hapus...</span>
                             </button>
+                        </div>
+                    </div>
+                </div>
+            @endif
+            @if ($showExcelModal)
+                <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+                    wire:ignore.self>
+                    <div class="bg-white rounded-lg shadow-xl p-6 max-w-md w-full" @click.away="closeExcelModal">
+                        <h3 class="text-lg font-semibold text-[#0C356A] mb-4">Import Siswa dari Excel</h3>
+
+                        @if ($errors->has('fileExcel'))
+                            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">
+                                {!! $errors->first('fileExcel') !!}
+                            </div>
+                        @endif
+
+                        <form wire:submit.prevent="importExcel">
+                            <div class="mb-4">
+                                <input type="file" wire:model="fileExcel"
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                                    accept=".xlsx,.xls">
+                                @error('fileExcel')
+                                    <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="flex justify-end gap-3">
+                                <button type="button" wire:click="closeExcelModal"
+                                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">
+                                    Batal
+                                </button>
+                                <button type="submit"
+                                    class="px-4 py-2 bg-[#0C356A] text-white rounded hover:bg-[#082d5b] disabled:opacity-50"
+                                    wire:loading.attr="disabled">
+                                    <span wire:loading.remove>Import</span>
+                                    <span wire:loading>Memproses...</span>
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="mt-4 text-xs text-gray-600 border-t pt-3">
+                            <p><strong>Format Excel (baris pertama = header):</strong></p>
+                            <table class="text-xs mt-2 w-full">
+                                <tr>
+                                    <th class="text-left">Kolom</th>
+                                    <th class="text-left pl-2">Contoh</th>
+                                </tr>
+                                <tr>
+                                    <td>name</td>
+                                    <td>Budi Santoso</td>
+                                </tr>
+                                <tr>
+                                    <td>nis</td>
+                                    <td>12345</td>
+                                </tr>
+                                <tr>
+                                    <td>nisn</td>
+                                    <td>0001234567</td>
+                                </tr>
+                                <tr>
+                                    <td>foto</td>
+                                    <td>siswa/budi.jpg</td>
+                                </tr>
+                                <tr>
+                                    <td>user_id</td>
+                                    <td>5 (opsional)</td>
+                                </tr>
+                                <tr>
+                                    <td>kelas_id</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+                            <p class="mt-2">Download template:
+                                <a href="{{ asset('template_siswa.xlsx') }}" class="text-blue-600 underline">
+                                    template_siswa.xlsx
+                                </a>
+                            </p>
                         </div>
                     </div>
                 </div>

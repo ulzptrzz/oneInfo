@@ -12,7 +12,7 @@ class Login extends Component
     public $password = '';
     public $nis = '';
     public $nisn = '';
-    public $role = 'siswa'; 
+    public $role = 'siswa';
 
     protected function messages()
     {
@@ -20,15 +20,13 @@ class Login extends Component
             'email.required'    => 'Email wajib diisi',
             'email.email'       => 'Format email tidak valid',
             'password.required' => 'Password wajib diisi',
-            'nis.required'      => 'NIS wajib diisi',
-            'nisn.required'     => 'NISN wajib diisi',
         ];
     }
 
     public function setRole($role)
     {
         $this->role = $role;
-        $this->reset(['email', 'password', 'nis', 'nisn']);
+        $this->reset(['email', 'password']);
         $this->resetErrorBag();
     }
 
@@ -55,25 +53,23 @@ class Login extends Component
             }
 
             $this->addError('email', 'Email atau password salah.');
-        } 
-        else {
-            // LOGIN SISWA (pakai NIS + NISN)
+        } else {
+            // LOGIN SISWA 
             $this->validate([
-                'nis'  => 'required',
-                'nisn' => 'required',
+                'email'    => 'required|email',
+                'password' => 'required',
             ]);
 
-            $siswa = Siswa::where('nis', $this->nis)
-                          ->where('nisn', $this->nisn)
-                          ->first();
+            if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
+                $user = Auth::user();
 
-            if ($siswa && $siswa->user) {
-                Auth::login($siswa->user);
-                $this->dispatch('$refresh');
-                return redirect()->route('siswa.dashboard');
+                if ($user->role_id === 3 && $user->siswa) {
+                    $this->dispatch('$refresh');
+                    return redirect()->route('siswa.dashboard');
+                }
             }
 
-            $this->addError('nis', 'NIS atau NISN salah / akun belum terdaftar.');
+            $this->addError('email', 'email atau nis salah / akun belum terdaftar.');
         }
     }
 
