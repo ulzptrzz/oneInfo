@@ -97,6 +97,11 @@
                                 </td>
                                 <td class="px-6 py-4 text-center">
                                     <div class="flex items-center justify-center gap-2">
+                                        <a href="{{ route('detail-program', $item->id) }}"
+                                           class="bg-yellow-500 text-white px-3 py-1.5 rounded-lg hover:bg-yellow-600 text-sm font-medium inline-flex items-center gap-1 transition">
+                                            <i class='bx bx-eye'></i>
+                                            Detail
+                                        </a>
                                         <a href="{{ route('edit-program', $item->id) }}"
                                            class="bg-blue-500 text-white px-3 py-1.5 rounded-lg hover:bg-blue-600 text-sm font-medium inline-flex items-center gap-1 transition">
                                             <i class='bx bx-edit'></i>

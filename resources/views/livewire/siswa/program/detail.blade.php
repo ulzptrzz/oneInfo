@@ -12,7 +12,7 @@
 
         <h1 class="text-3xl font-bold">{{ $program->name }}</h1>
 
-        <p class="text-gray-500 mt-1">{{ $program->kategori->nama_kategori }}</p>
+        <p class="text-gray-500 mt-1">{{ $program->kategoriProgram->nama_kategori }}</p>
 
         <p class="text-gray-600 mt-3 leading-relaxed">
             {{ $program->deskripsi_singkat }}

@@ -165,19 +165,7 @@
     </section>
 
     {{-- KATALOG PROGRAM - Enhanced --}}
-    <section id="program" class="py-20 px-7 bg-gray-50">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-8">
-                <h2 class="text-4xl md:text-5xl font-bold text-[#0C356A] mb-4">
-                    Katalog <span class="text-[#ffc436]">Program</span>
-                </h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Lihat berbagai program menarik yang didukung oleh SMKN 1 Kota Bekasi
-                </p>
-            </div>
-            <x-katalog-program/>
-        </div>
-    </section>
+    <x-katalog-program :program="$program"/>
 
     {{-- SECTION PRESTASI - Enhanced --}}
     <section id="prestasi" class="py-20 px-7 bg-white">
