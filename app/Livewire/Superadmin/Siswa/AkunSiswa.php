@@ -41,7 +41,7 @@ class AkunSiswa extends Component
         ]);
 
         try {
-            Excel::import(new \App\Imports\Siswa, $this->fileExcel);
+            Excel::import(new ImportSiswa, $this->fileExcel);
 
             $this->closeExcelModal();
             $this->loadData();

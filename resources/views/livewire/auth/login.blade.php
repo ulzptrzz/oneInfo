@@ -73,7 +73,7 @@
                         <!-- NISN -->
                         <div class="relative">
                             <label for="password" class="block text-sm font-semibold text-slate-700 mb-2">
-                                Password (NISN)
+                                NISN
                             </label>
 
                             <div class="relative">

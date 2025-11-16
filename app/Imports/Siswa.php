@@ -15,7 +15,7 @@ class Siswa implements ToCollection, WithStartRow, WithHeadingRow, WithValidatio
 {
     public function startRow(): int
     {
-        return 2; // Baris 2 (skip header)
+        return 2; 
     }
 
     public function rules(): array
@@ -57,7 +57,7 @@ class Siswa implements ToCollection, WithStartRow, WithHeadingRow, WithValidatio
                 'kelas_id' => $row['kelas_id'],
             ];
 
-            $siswa = ModelSiswa::where('name', $row['name'])->fisrt();
+            $siswa = ModelSiswa::where('name', $row['name'])->first();
 
             if ($siswa) {
                 $siswa->update($data);
