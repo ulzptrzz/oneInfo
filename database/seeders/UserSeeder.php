@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\Kelas;
 use App\Models\Siswa;
+use App\Models\Jurusan;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,25 +18,37 @@ class UserSeeder extends Seeder
         $superadmin = Role::firstOrCreate(['name' => 'superadmin']);
         $admin      = Role::firstOrCreate(['name' => 'admin']);
         $siswaRole  = Role::firstOrCreate(['name' => 'siswa']);
+        $jurusan_Rpl = Jurusan::firstOrCreate([
+            'nama_jurusan' => 'Rekayasa Perangkat Lunak',
+            'deskripsi' => 'mempelajari prinsip dan teknik untuk merancang, mengembangkan, menguji, dan memelihara perangkat lunak atau aplikasi'
+        ]);
+        $jurusan_Tkj = Jurusan::firstOrCreate([
+            'nama_jurusan' => 'Teknik Komputer Dan Jaringan',
+            'deskripsi' => 'mendalami perakitan, pengoperasian, dan pemeliharaan perangkat keras komputer serta perancangan dan pengelolaan jaringan komputer'
+        ]);
+        $jurusan_Dkv = Jurusan::firstOrCreate([
+            'nama_jurusan' => 'Desain Komunikasi Visual',
+            'deskripsi' => ' mempelajari cara menyampaikan pesan secara kreatif melalui media visual, seperti logo, poster, ilustrasi, desain grafis, animasi, dan desain web'
+        ]);
 
         // 2. Kelas
         $kelasX   = Kelas::firstOrCreate([
-            'nama_kelas'   => 'X RPL 1',
-            'jurusan'      => 'RPL',
+            'nama_kelas'   => 'A',
+            'jurusan_id'      => $jurusan_Rpl->id,
             'tingkat'      => 'X',
             'tahun_ajaran' => '2025',
         ]);
 
         $kelasXI  = Kelas::firstOrCreate([
-            'nama_kelas'   => 'XI RPL 1',
-            'jurusan'      => 'RPL',
+            'nama_kelas'   => 'B',
+            'jurusan_id'      => $jurusan_Tkj->id,
             'tingkat'      => 'XI',
             'tahun_ajaran' => '2025',
         ]);
 
         $kelasXII = Kelas::firstOrCreate([
-            'nama_kelas'   => 'XII RPL 1',
-            'jurusan'      => 'RPL',
+            'nama_kelas'   => 'A',
+            'jurusan_id'      => $jurusan_Dkv->id,
             'tingkat'      => 'XII',
             'tahun_ajaran' => '2025',
         ]);
@@ -47,6 +60,7 @@ class UserSeeder extends Seeder
             'phone'    => '081234567890',
             'password' => Hash::make('super12345'),
             'role_id'  => $superadmin->id,
+            'foto'     => 'default.jpg'
         ]);
 
         User::firstOrCreate(['email' => 'admin@gmail.com'], [
@@ -55,6 +69,7 @@ class UserSeeder extends Seeder
             'phone'    => '081234567891',
             'password' => Hash::make('admin12345'),
             'role_id'  => $admin->id,
+            'foto'     => 'default.jpg'
         ]);
 
         // 4. Data Siswa

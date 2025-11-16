@@ -17,7 +17,7 @@ class CreateSiswa extends Component
     public $name = '';
     public $nis = '';
     public $nisn = '';
-    public $foto = '';
+    public $foto;
     public $kelas_id = '';
 
     public $kelas_siswa;
@@ -56,7 +56,7 @@ class CreateSiswa extends Component
     {
         $this->validate();
 
-        $photo = $this->foto ? $this->foto->store('siswa', 'public') : null;
+        $photo = $this->foto->store('siswa', 'public');
 
         $user = User::create([
             'name' => $this->name,

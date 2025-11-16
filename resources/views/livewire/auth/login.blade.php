@@ -32,32 +32,62 @@
                             <label for="email" class="block text-sm font-semibold text-slate-700 mb-2">Email</label>
                             <input type="email" id="email" wire:model="email" placeholder="Masukkan email anda"
                                 class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500" />
-                            @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('email')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <!-- Password -->
-                        <div>
-                            <label for="password" class="block text-sm font-semibold text-slate-700 mb-2">Password</label>
-                            <input type="password" id="password" wire:model="password" placeholder="Masukkan password anda"
-                                class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500" />
-                            @error('password') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                        </div>
+                        <div class="relative">
+                            <label for="password" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Password
+                            </label>
 
+                            <div class="relative">
+                                <input type="password" id="password" wire:model="password"
+                                    placeholder="Masukkan password anda"
+                                    class="w-full px-4 py-3 pl-4 pr-12 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none text-base" />
+
+                                <!-- Tombol Toggle Password -->
+                                <button type="button" onclick="togglePassword()"
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 hover:text-[#0C356A] focus:outline-none transition-colors">
+                                    <i id="eyeIcon" class="bx bx-hide text-xl"></i>
+                                </button>
+                            </div>
+
+                            @error('password')
+                                <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                            @enderror
+                        </div>
                     @else
                         <!-- NIS -->
                         <div>
                             <label for="nis" class="block text-sm font-semibold text-slate-700 mb-2">NIS</label>
                             <input type="text" id="nis" wire:model="nis" placeholder="Masukkan NIS anda"
                                 class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500" />
-                            @error('nis') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('nis')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <!-- NISN -->
-                        <div>
+                        <div class="relative">
                             <label for="nisn" class="block text-sm font-semibold text-slate-700 mb-2">NISN</label>
-                            <input type="text" id="nisn" wire:model="nisn" placeholder="Masukkan NISN anda"
-                                class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500" />
-                            @error('nisn') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
+                            <div class="relative">
+                                <input type="password" id="nisn" wire:model="nisn" placeholder="Masukkan NISN anda"
+                                    class="w-full px-4 py-3 pr-12 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none text-base" />
+
+                                <!-- Tombol Toggle NISN -->
+                                <button type="button" onclick="toggleNisn()"
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-500 hover:text-[#0C356A] focus:outline-none transition-colors">
+                                    <i id="nisnEyeIcon" class="bx bx-hide text-xl"></i>
+                                </button>
+                            </div>
+
+                            @error('nisn')
+                                <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
+                            @enderror
                         </div>
                     @endif
 
@@ -71,3 +101,34 @@
         </div>
     </div>
 </div>
+<script>
+    function togglePassword() {
+        const passwordField = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            eyeIcon.classList.remove('bx-hide');
+            eyeIcon.classList.add('bx-show');
+        } else {
+            passwordField.type = 'password';
+            eyeIcon.classList.remove('bx-show');
+            eyeIcon.classList.add('bx-hide');
+        }
+    }
+
+    function toggleNisn() {
+        const nisnField = document.getElementById('nisn');
+        const nisnEyeIcon = document.getElementById('nisnEyeIcon');
+
+        if (nisnField && nisnEyeIcon) {
+            if (nisnField.type === 'password') {
+                nisnField.type = 'text';
+                nisnEyeIcon.classList.replace('bx-hide', 'bx-show');
+            } else {
+                nisnField.type = 'password';
+                nisnEyeIcon.classList.replace('bx-show', 'bx-hide');
+            }
+        }
+    }
+</script>

@@ -8,6 +8,10 @@
                     class="flex items-center gap-1 bg-[#0C356A] text-white px-3 py-2 rounded-md hover:bg-[#082d5b] transition">
                     <i class='bx bx-plus'></i> Kelas
                 </a>
+                <a href="{{ route('superadmin.siswa.kelola-jurusan') }}"
+                    class="flex items-center gap-1 bg-[#0C356A] text-white px-3 py-2 rounded-md hover:bg-[#082d5b] transition">
+                    <i class='bx bx-plus'></i> Jurusan
+                </a>
             </div>
 
             <table class="min-w-full divide-y divide-gray-200">
@@ -32,7 +36,7 @@
                                 {{ $sesion->nama_kelas }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {{ $sesion->jurusan }}
+                                {{ $sesion->jurusan?->nama_jurusan ?? 'tidak ada jurusan' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                 {{ $sesion->tingkat }}

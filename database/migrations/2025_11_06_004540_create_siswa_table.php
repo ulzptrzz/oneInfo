@@ -11,12 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('jurusan', function (Blueprint $table){
+            $table->id();
+            $table->string('nama_jurusan', 100);
+            $table->string('deskripsi');
+            $table->timestamps();
+        });
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kelas', 50);
-            $table->string('jurusan');
             $table->enum('tingkat', ['X', 'XI', 'XII']);
             $table->year('tahun_ajaran');
+            $table->unsignedBigInteger('jurusan_id');
+            $table->foreign('jurusan_id')->references('id')->on('jurusan')->onDelete('cascade');
             $table->timestamps();
         });
 

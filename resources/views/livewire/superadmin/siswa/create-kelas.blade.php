@@ -17,8 +17,13 @@
 
                 <!-- Jurusan -->
                 <div>
-                    <label>Jurusan</label>
-                    <input type="text" wire:model="jurusan" class="border p-2 w-full">
+                    <label class="block font-semibold text-gray-700 mb-1">Jurusan</label>
+                    <select id="" wire:model="jurusan_id" class="border p-2 w-full rounded">
+                        <option value="">-- Pilih Jurusan --</option>
+                        @foreach ($jurusan_kelas as $jurusan)
+                            <option value="{{ $jurusan->id }}">{{ $jurusan->nama_jurusan }}</option>
+                        @endforeach
+                    </select>
                     @error('jurusan')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror

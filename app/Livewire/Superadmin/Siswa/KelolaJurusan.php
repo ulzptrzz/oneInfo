@@ -2,47 +2,42 @@
 
 namespace App\Livewire\Superadmin\Siswa;
 
-use App\Models\Kelas;
+use App\Models\Jurusan;
 use Livewire\Component;
 
-class KelasSiswa extends Component
+class KelolaJurusan extends Component
 {
     public $sesions = [];
     public $confirmDeleteId = null;
     public $showDeleteModal = false;
 
-    public function mount()
-    {
+    public function mount(){
         $this->loadData();
     }
 
-    public function loadData()
-    {
-        $this->sesions = Kelas::with('jurusan')->orderBy('tahun_ajaran', 'desc')->get();
+    public function loadData(){
+        $this->sesions = Jurusan::all();
     }
 
-    public function confirmDelete($id)
-    {
+    public function confirmDelete($id) {
         $this->confirmDeleteId = $id;
         $this->showDeleteModal = true;
     }
 
-    public function hapus()
-    {
-        Kelas::findOrFail($this->confirmDeleteId)->delete();
+    public function hapus(){
+        Jurusan::findOrFail($this->confirmDeleteId)->delete();
         $this->showDeleteModal = false;
         $this->confirmDeleteId = null;
         $this->loadData();
     }
 
-    public function cancelDelete()
-    {
+    public function cancelDelete(){
         $this->showDeleteModal = false;
         $this->confirmDeleteId = null;
     }
 
     public function render()
     {
-        return view('livewire.superadmin.siswa.kelas-siswa');
+        return view('livewire.superadmin.siswa.kelola-jurusan');
     }
 }

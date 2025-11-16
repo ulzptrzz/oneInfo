@@ -3,33 +3,20 @@
         <x-sidebar-superadmin />
 
         <div>
-            <div class="flex">
-                <div class="text-[#0C356A]">
-                    <h2 class="text-xl font-bold ">Kelola Akun Siswa</h2>
-                    <p>Kelola akun siswa dengan baik</p>
-                </div>
-                <div class="flex gap-2">
-                    <a href="{{ route('superadmin.siswa.kelas-siswa') }}"
-                        class="flex items-center gap-1 bg-[#0C356A] text-white px-3 py-2 rounded-md hover:bg-[#082d5b] transition">
-                        <i class='bx bx-plus'></i> Kelas
-                    </a>
-                    <a href="{{ route('superadmin.siswa.create-siswa') }}"
-                        class="flex items-center gap-1 bg-[#0C356A] text-white px-3 py-2 rounded-md hover:bg-[#082d5b] transition">
-                        <i class='bx bx-plus'></i> Siswa
-                    </a>
-                </div>
+            <div class="flex justify-end">
+                <a href="{{ route('superadmin.siswa.create-jurusan') }}"
+                    class="flex items-center gap-1 bg-[#0C356A] text-white px-3 py-2 rounded-md hover:bg-[#082d5b] transition">
+                    <i class='bx bx-plus'></i> Jurusan
+                </a>
             </div>
+
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Nama Siswa</th>
+                            Nama Jurusan</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Nis</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Nisn</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Foto</th>
+                            Deskripsi</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Aksi</th>
                     </tr>
@@ -38,19 +25,13 @@
                     @foreach ($sesions as $sesion)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {{ $sesion->name }}
+                                {{ $sesion->nama_jurusan }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {{ $sesion->nis }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {{ $sesion->nisn }}
-                            </td>
-                            <td class="border p-2 text-center">
-                                <img src="{{ asset('storage/' . $sesion->foto) }}" alt="Foto Siswa" class="w-32 rounded">
+                                {{ Str::limit($sesion->deskripsi, 40) }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <a href="{{ route('superadmin.siswa.edit-siswa', $sesion->id) }}"
+                                <a href="{{ route('superadmin.siswa.edit-jurusan', $sesion->id) }}"
                                     class="text-[#0C356A] hover:text-[#065fbd] font-medium">
                                     Edit
                                 </a>
@@ -87,6 +68,7 @@
                 </div>
             @endif
         </div>
+
         <script>
             document.addEventListener('click', function(e) {
                 const modal = document.querySelector('.fixed.inset-0');

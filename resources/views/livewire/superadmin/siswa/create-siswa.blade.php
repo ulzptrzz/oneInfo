@@ -37,7 +37,7 @@
             <!-- Foto -->
             <div>
                 <label class="block font-semibold text-gray-700 mb-1">Foto</label>
-                <input type="file" wire:model="foto" class="border p-2 w-full rounded">
+                <input type="file" wire:model="foto" accept="image/*" class="border p-2 w-full rounded">
 
                 @if ($foto)
                     <div class="mt-3">
