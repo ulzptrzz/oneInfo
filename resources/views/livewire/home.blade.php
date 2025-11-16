@@ -16,7 +16,7 @@
     </header>
 
     {{-- KATALOG PROGRAM --}}
-    <x-katalog-program/>
+    <x-katalog-program :program="$program"/>
 
     {{-- SECTION PRESTASI --}}
     <div class="container items-center m-7">

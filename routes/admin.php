@@ -7,9 +7,11 @@ use App\Livewire\Admin\KategoriProgram\Edit;
 use App\Livewire\Admin\KategoriProgram\Index;
 use App\Livewire\Admin\Perizinan\Create as PerizinanCreate;
 use App\Livewire\Admin\Perizinan\Index as PerizinanIndex;
+use App\Livewire\Admin\Perizinan\Edit as PerizinanEdit;
 use App\Livewire\Admin\Program\Create as ProgramCreate;
 use App\Livewire\Admin\Program\Edit as ProgramEdit;
 use App\Livewire\Admin\Program\Index as ProgramIndex;
+use App\Livewire\Admin\Program\Detail as ProgramDetail;
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('admin.dashboard');
@@ -21,8 +23,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/program', ProgramIndex::class)->name('admin.program');
     Route::get('/program/create', ProgramCreate::class)->name('create-program');
     Route::get('/program/edit/{id}', ProgramEdit::class)->name('edit-program');
+    Route::get('/program/detail/{id}', ProgramDetail::class)->name('detail-program');
 
     Route::get('/perizinan', PerizinanIndex::class)->name('admin.perizinan');
     Route::get('/perizinan/create', PerizinanCreate::class)->name('create-perizinan');
-    Route::get('/perizinan/edit/{id}', ProgramEdit::class)->name('edit-perizinan');
+    Route::get('/perizinan/edit/{id}', PerizinanEdit::class)->name('edit-perizinan');
 });

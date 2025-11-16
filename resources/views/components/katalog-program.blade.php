@@ -1,44 +1,38 @@
+@props(['program'])
+
 <div class="max-w-6xl mx-auto px-6 py-12">
     <h2 class="text-3xl text-center font-bold text-[#0C356A] mb-3">Katalog Program</h2>
     <p class="text-lg text-center text-gray-600 mb-10">
         Lihat berbagai program menarik yang didukung oleh SMKN 1 Kota Bekasi
     </p>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
-        {{-- CARD 1 --}}
-        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-            <img src="{{ asset('assets/FLS3N.png') }}" alt="Lomba FLS2N" class="w-full h-80 object-cover">
-            <div class="p-5 text-center">
-                <h3 class="text-xl font-semibold text-[#0C356A] mb-2">Lomba FLS2N</h3>
-                <p class="text-gray-600 text-sm">Ayo berinovasi dan ciptakan solusi untuk masa depan!</p>
-            </div>
-        </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
 
-        {{-- CARD 2 --}}
-        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-            <img src="{{ asset('assets/pertukaranPelajar.png') }}" alt="Pertukaran Pelajar" class="w-full h-80 object-cover">
-            <div class="p-5 text-center">
-                <h3 class="text-xl font-semibold text-[#0C356A] mb-2">Pertukaran Pelajar Luar Negeri</h3>
-                <p class="text-gray-600 text-sm">Peluang berharga untuk mengenal dunia dan memperluas wawasan!</p>
-            </div>
-        </div>
+        @foreach ($program as $item)
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+            
+            <img src="{{ asset('storage/' . $item->poster) }}"
+                 alt="{{ $item->name }}"
+                 class="w-full h-64 object-cover">
 
-        {{-- CARD 3 --}}
-        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-            <img src="{{ asset('assets/TOEIC.png') }}" alt="Program Tes TOEIC" class="w-full h-80 object-cover">
-            <div class="p-5 text-center">
-                <h3 class="text-xl font-semibold text-[#0C356A] mb-2">Program Tes TOEIC</h3>
-                <p class="text-gray-600 text-sm">Uji kemampuan bahasa Inggrismu dengan standar internasional!</p>
-            </div>
-        </div>
+            <div class="p-4 text-center">
+                <h3 class="text-lg font-semibold text-[#0C356A]">
+                    {{ $item->name }}
+                </h3>
 
-        {{-- CARD 4 --}}
-        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-            <img src="{{ asset('assets/FLS3N.png') }}" alt="Lomba FLS2N" class="w-full h-80 object-cover">
-            <div class="p-5 text-center">
-                <h3 class="text-xl font-semibold text-[#0C356A] mb-2">Lomba FLS2N</h3>
-                <p class="text-gray-600 text-sm">Tunjukkan kreativitasmu di ajang seni tingkat nasional!</p>
+                <p class="text-sm text-gray-500 mt-1">
+                    {{ $item->kategoriProgram->nama_kategori ?? '-' }}
+                </p>
             </div>
         </div>
+        @endforeach
+
+    </div>
+
+    <div class="text-center mt-10">
+        <a href="{{ route('katalog-program') }}"
+           class="bg-[#0C356A] text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-[#082954] transition">
+            Lihat Lebih Banyak
+        </a>
     </div>
 </div>

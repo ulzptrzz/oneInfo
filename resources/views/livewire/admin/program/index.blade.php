@@ -38,6 +38,7 @@
                         </td>
                         <td class="border p-2 text-center">{{ $item->kategori_program_id }}</td>
                         <td class="border p-2 text-center">
+                            <a href="{{ route('detail-program', $item->id) }}" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-500">Detail</a>
                             <a href="{{ route('edit-program', $item->id) }}" class="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-500">Edit</a>
                             <button wire:click="delete({{ $item->id }})" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Hapus</button>
                         </td>

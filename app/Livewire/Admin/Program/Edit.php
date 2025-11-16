@@ -29,7 +29,7 @@ class Edit extends Component
     public function mount($id)
     {
         $program = Program::findOrFail($id);
-        $this->program_id = $program->program_id;
+        $this->program_id = $program->id;
         $this->name = $program->name;
         $this->deskripsi_singkat = $program->deskripsi_singkat;
         $this->tanggal_mulai = $program->tanggal_mulai;
@@ -46,7 +46,7 @@ class Edit extends Component
     {
         $program = Program::findOrFail($this->program_id);
 
-        if ($this->poster instanceof \Livewire\TemporaryUploadedFile) {
+        if ($this->poster instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile){
             $path = $this->poster->store('posters', 'public');
         } else {
             $path = $this->oldPoster; 

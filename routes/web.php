@@ -5,10 +5,6 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/', Home::class)->name('home');
 
 Route::prefix('auth')->group( function(){
