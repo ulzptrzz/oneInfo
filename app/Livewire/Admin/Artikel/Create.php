@@ -12,7 +12,7 @@ class Create extends Component
 
     public $judul = '';
     public $deskripsi = '';
-    public $status = 'draft';
+    public $status = '';
     public $tanggal = '';
     public $thumbnail;
 

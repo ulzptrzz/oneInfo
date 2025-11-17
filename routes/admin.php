@@ -21,6 +21,9 @@ use App\Livewire\Admin\Prestasi\Edit as PrestasiEdit;
 use App\Livewire\Admin\Artikel\Index as ArtikelIndex;
 use App\Livewire\Admin\Artikel\Create as ArtikelCreate;
 use App\Livewire\Admin\Artikel\Edit as ArtikelEdit;
+use App\Livewire\Admin\Artikel\Detail as ArtikelDetail;
+
+
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('admin.dashboard');
@@ -50,4 +53,6 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/artikel', ArtikelIndex::class)->name('admin.artikel');
     Route::get('/artikel/create', ArtikelCreate::class)->name('create-artikel');
     Route::get('/Artikel/edit/{id}', ArtikelEdit::class)->name('edit-artikel');
+    Route::get('/admin/artikel/detail/{id}', ArtikelDetail::class)->name('detail-artikel');
+
 });
