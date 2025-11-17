@@ -151,9 +151,6 @@
         </div>
     </header>
 
-    {{-- KATALOG PROGRAM --}}
-    <x-katalog-program :program="$program" />
-
     {{-- STATS SECTION - New Addition --}}
     <section class="py-16 px-7 bg-white -mt-10 relative z-20">
         <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -176,8 +173,10 @@
         </div>
     </section>
 
-    {{-- KATALOG PROGRAM - Enhanced --}}
-    <x-katalog-program :program="$program" />
+    <section class="py-20 px-7 bg-white">
+        {{-- KATALOG PROGRAM - Enhanced --}}
+        <x-katalog-program :program="$program"/>
+    </section>
 
     {{-- SECTION PRESTASI - Enhanced --}}
     <section id="prestasi" class="py-20 px-7 bg-white">
@@ -195,7 +194,6 @@
                 <div class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
                     <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
                     <div class="p-6 text-center">
-                        <div class="text-4xl mb-3">🥈</div>
                         <h3 class="text-lg font-bold text-[#0C356A] mb-2">Mathilda Anneke Waworuntu</h3>
                         <p class="text-gray-700">Juara 2 Runner Up Harvard Essay Competition</p>
                     </div>
@@ -204,7 +202,6 @@
                 <div class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
                     <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
                     <div class="p-6 text-center">
-                        <div class="text-4xl mb-3">🏅</div>
                         <h3 class="text-lg font-bold text-[#0C356A] mb-2">Tim Olimpiade Sains</h3>
                         <p class="text-gray-700">Medali Emas OSN Tingkat Provinsi</p>
                     </div>
@@ -213,7 +210,6 @@
                 <div class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
                     <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
                     <div class="p-6 text-center">
-                        <div class="text-4xl mb-3">🎯</div>
                         <h3 class="text-lg font-bold text-[#0C356A] mb-2">Tim Debat Bahasa Inggris</h3>
                         <p class="text-gray-700">Juara 1 National English Debate</p>
                     </div>
@@ -222,7 +218,6 @@
                 <div class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
                     <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
                     <div class="p-6 text-center">
-                        <div class="text-4xl mb-3">💡</div>
                         <h3 class="text-lg font-bold text-[#0C356A] mb-2">Tim Innovation Challenge</h3>
                         <p class="text-gray-700">Best Innovation Award 2025</p>
                     </div>

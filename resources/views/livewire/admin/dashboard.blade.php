@@ -83,7 +83,6 @@
         {{-- Recent Activity --}}
         <div class="bg-white rounded-xl shadow-md p-6">
           <h3 class="text-xl font-bold text-[#0C356A] mb-4 flex items-center gap-2">
-            <i class='bx bx-time-five'></i>
             Aktivitas Terbaru
           </h3>
           <div class="space-y-4">
@@ -120,7 +119,6 @@
         {{-- Quick Links --}}
         <div class="bg-white rounded-xl shadow-md p-6">
           <h3 class="text-xl font-bold text-[#0C356A] mb-4 flex items-center gap-2">
-            <i class='bx bx-rocket'></i>
             Quick Actions
           </h3>
           <div class="grid grid-cols-2 gap-3">
@@ -140,39 +138,6 @@
               <i class='bx bx-news text-3xl text-purple-600 mb-2'></i>
               <p class="text-sm font-semibold text-purple-900">Tambah Artikel</p>
             </a>
-          </div>
-        </div>
-      </div>
-
-      {{-- Info Cards --}}
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-lg">
-          <div class="flex items-start gap-3">
-            <i class='bx bx-info-circle text-2xl text-blue-500'></i>
-            <div>
-              <h4 class="font-semibold text-blue-900 mb-1">Tips Hari Ini</h4>
-              <p class="text-sm text-blue-700">Pastikan semua data program sudah diupdate untuk semester baru</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-green-50 border-l-4 border-green-500 p-5 rounded-lg">
-          <div class="flex items-start gap-3">
-            <i class='bx bx-check-circle text-2xl text-green-500'></i>
-            <div>
-              <h4 class="font-semibold text-green-900 mb-1">System Status</h4>
-              <p class="text-sm text-green-700">Semua sistem berjalan normal dan optimal</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded-lg">
-          <div class="flex items-start gap-3">
-            <i class='bx bx-calendar text-2xl text-yellow-600'></i>
-            <div>
-              <h4 class="font-semibold text-yellow-900 mb-1">Reminder</h4>
-              <p class="text-sm text-yellow-700">Ada 3 program yang akan berakhir minggu ini</p>
-            </div>
           </div>
         </div>
       </div>

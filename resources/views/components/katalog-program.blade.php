@@ -23,5 +23,5 @@
         </div>
         @endforeach
     </div>
-    <div class="text-center mt-10"> <a href="{{ route('katalog-program') }}" class="bg-[#0C356A] text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-[#082954] transition"> Lihat Lebih Banyak </a> </div>
+    <div class="text-center mt-10"> <a href="{{ route('katalog-program') }}" class="bg-[#0C356A] text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-[#082954] transition"> Lihat Lebih Banyak </a> </div>
 </div>
