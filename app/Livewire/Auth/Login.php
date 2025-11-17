@@ -65,7 +65,7 @@ class Login extends Component
 
                 if ($user->role_id === 3 && $user->siswa) {
                     $this->dispatch('$refresh');
-                    return redirect()->route('siswa.dashboard');
+                    return redirect()->route('home');
                 }
             }
 

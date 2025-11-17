@@ -31,4 +31,10 @@ class Program extends Model
     {
         return $this->belongsTo(KategoriProgram::class, 'kategori_program_id', 'id');
     }
+
+    public function bookmarkedBy()
+{
+    return $this->belongsToMany(User::class, 'bookmarks');
+}
+
 }

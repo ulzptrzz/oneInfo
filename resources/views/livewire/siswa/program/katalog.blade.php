@@ -7,10 +7,10 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
         @foreach ($program as $item)
-        <div class="bg-white shadow rounded-xl overflow-hidden hover:shadow-lg transition">
+        <div class="bg-white relative shadow rounded-xl overflow-hidden hover:shadow-lg transition">
 
             <img src="{{ asset('storage/' . $item->poster) }}"
-                 class="w-full h-48 object-cover">
+                class="w-full h-48 object-cover">
 
             <div class="p-4">
                 <h2 class="text-xl font-semibold">{{ $item->name }}</h2>
@@ -26,9 +26,13 @@
                 </p>
 
                 <a href="{{ route('katalog-detail', $item->id) }}"
-                   class="inline-block mt-3 text-blue-600 font-semibold hover:underline">
+                    class="inline-block mt-3 text-blue-600 font-semibold hover:underline">
                     Lihat Detail →
                 </a>
+
+                <livewire:siswa.program.bookmark-toggle
+                    :program-id="$item->id"
+                    :key="'bookmark-'.$item->id" />
             </div>
 
         </div>

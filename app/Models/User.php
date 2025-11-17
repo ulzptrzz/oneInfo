@@ -61,4 +61,13 @@ class User extends Authenticatable
         return $this->hasOne(Siswa::class, 'user_id');
     }
 
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
+    public function bookmarkedPrograms()
+    {
+        return $this->belongsToMany(Program::class, 'bookmarks');
+    }
 }

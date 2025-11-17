@@ -10,8 +10,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
         }
 
         .stat-card-hover {
@@ -62,14 +69,19 @@
             position: absolute;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transform: rotate(45deg);
             animation: shine 3s infinite;
         }
 
         @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
         }
 
         .scroll-animate {
@@ -107,7 +119,7 @@
 
     <header class="text-white">
         <x-navbar />
-        
+
         {{-- HERO SECTION - Enhanced --}}
         <div class="hero-gradient pt-28 pb-16 px-7 relative overflow-hidden">
             {{-- Decorative Elements --}}
@@ -140,7 +152,7 @@
     </header>
 
     {{-- KATALOG PROGRAM --}}
-    <x-katalog-program :program="$program"/>
+    <x-katalog-program :program="$program" />
 
     {{-- STATS SECTION - New Addition --}}
     <section class="py-16 px-7 bg-white -mt-10 relative z-20">
@@ -165,7 +177,7 @@
     </section>
 
     {{-- KATALOG PROGRAM - Enhanced --}}
-    <x-katalog-program :program="$program"/>
+    <x-katalog-program :program="$program" />
 
     {{-- SECTION PRESTASI - Enhanced --}}
     <section id="prestasi" class="py-20 px-7 bg-white">
@@ -275,8 +287,8 @@
                 <div class="shine-effect">
 
                     {{-- GAMBAR --}}
-                    <img class="w-full h-64 object-cover" 
-                        src="{{ asset('assets/TOEIC.png') }}" 
+                    <img class="w-full h-64 object-cover"
+                        src="{{ asset('assets/TOEIC.png') }}"
                         alt="Documentation">
                 </div>
 
@@ -294,9 +306,9 @@
             {{-- Q&A SECTION --}}
             <div class="mt-16">
                 <div class="text-center mb-8">
-                <h2 class="text-4xl md:text-5xl font-bold text-[#0C356A] mb-4">
-                    Pertanyaan <span class="text-[#ffc436]">Umum</span>
-                </h2>
+                    <h2 class="text-4xl md:text-5xl font-bold text-[#0C356A] mb-4">
+                        Pertanyaan <span class="text-[#ffc436]">Umum</span>
+                    </h2>
                 </div>
 
                 <div class="space-y-4">
@@ -371,7 +383,7 @@
     {{-- CTA SECTION - New Addition --}}
     <section class="py-20 px-7 hero-gradient relative overflow-hidden">
         <div class="absolute w-96 h-96 bg-[#ffc436] opacity-10 rounded-full -top-20 right-1/4"></div>
-        
+
         <div class="max-w-4xl mx-auto text-center text-white relative z-10">
             <h2 class="text-4xl md:text-5xl font-bold mb-6">
                 Siap Bergabung dengan OneInfo.id?
@@ -397,7 +409,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const animateElements = document.querySelectorAll('.scroll-animate');
-            
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -415,7 +427,7 @@
 
             // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
+                anchor.addEventListener('click', function(e) {
                     e.preventDefault();
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {

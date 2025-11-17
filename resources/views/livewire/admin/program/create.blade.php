@@ -111,7 +111,7 @@
                             <option value="">-- Pilih Tingkat --</option>
                             <option value="nasional">Nasional</option>
                             <option value="provinsi">Provinsi</option>
-                            <option value="kabupaten">Kabupaten</option>
+                            <option value="kota">Kota</option>
                         </select>
                         @error('tingkat') 
                             <p class="text-red-600 text-sm mt-1 flex items-center gap-1">

@@ -107,8 +107,15 @@
         }
 
         @keyframes logoBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
         }
 
         .mobile-nav-link {
@@ -148,14 +155,26 @@
                 <a href="#tentang" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
                     Tentang
                 </a>
-                
-                {{-- Login Button --}}
+
+                @if (auth()->guest())
                 <a href="/auth/login" class="login-btn ml-4 px-6 py-2.5 bg-[#ffc436] text-[#0C356A] font-bold rounded-full inline-flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                     </svg>
                     Login
                 </a>
+                @endif
+
+                @if(auth()->check() && auth()->user()->role_id == 3)
+                    <a href="/dashboard" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                        Dashboard
+                    </a>
+                    <a href="{{ route('siswa.bookmark') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                        Bookmark
+                    </a>
+                    <livewire:auth.logout />
+                @endif
+
             </div>
 
             {{-- Mobile Menu Button --}}
@@ -186,7 +205,7 @@
                 <a href="#tentang" class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
                     ℹ️ Tentang
                 </a>
-                
+
                 {{-- Mobile Login Button --}}
                 <div class="px-6 py-3">
                     <a href="/auth/login" class="block text-center px-6 py-3 bg-[#ffc436] text-[#0C356A] font-bold rounded-full">
@@ -215,9 +234,9 @@
         function toggleMobileMenu() {
             const mobileMenu = document.getElementById('mobileMenu');
             const hamburger = document.getElementById('hamburger');
-            
+
             hamburger.classList.toggle('active');
-            
+
             if (mobileMenu.classList.contains('mobile-menu-hidden')) {
                 mobileMenu.classList.remove('mobile-menu-hidden');
                 mobileMenu.classList.add('mobile-menu-visible');
@@ -232,7 +251,7 @@
             const mobileMenu = document.getElementById('mobileMenu');
             const hamburger = document.getElementById('hamburger');
             const navbar = document.getElementById('navbar');
-            
+
             if (!navbar.contains(event.target) && mobileMenu.classList.contains('mobile-menu-visible')) {
                 mobileMenu.classList.remove('mobile-menu-visible');
                 mobileMenu.classList.add('mobile-menu-hidden');
@@ -245,7 +264,7 @@
             link.addEventListener('click', function() {
                 const mobileMenu = document.getElementById('mobileMenu');
                 const hamburger = document.getElementById('hamburger');
-                
+
                 mobileMenu.classList.remove('mobile-menu-visible');
                 mobileMenu.classList.add('mobile-menu-hidden');
                 hamburger.classList.remove('active');
@@ -256,9 +275,9 @@
         window.addEventListener('scroll', function() {
             const sections = ['beranda', 'program', 'prestasi', 'artikel', 'tentang'];
             const navLinks = document.querySelectorAll('.nav-link');
-            
+
             let current = '';
-            
+
             sections.forEach(section => {
                 const element = document.getElementById(section);
                 if (element) {
@@ -268,7 +287,7 @@
                     }
                 }
             });
-            
+
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === '#' + current) {
@@ -279,13 +298,13 @@
 
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     const navbarHeight = document.getElementById('navbar').offsetHeight;
                     const targetPosition = target.offsetTop - navbarHeight;
-                    
+
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
