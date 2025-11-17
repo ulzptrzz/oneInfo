@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Admin\Program;
 
+use App\Mail\ProgramEmail;
 use App\Models\KategoriProgram;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use App\Models\Program;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class Create extends Component
 {
@@ -41,8 +44,8 @@ class Create extends Component
 
         $path = $this->poster ? $this->poster->store('posters', 'public') : null;
 
-
-        Program::create([
+        // SIMPAN PROGRAM DAN KEMBALIKAN OBJEK PROGRAM
+        $program = Program::create([
             'name' => $this->name,
             'deskripsi_singkat' => $this->deskripsi_singkat,
             'tanggal_mulai' => $this->tanggal_mulai,
@@ -56,9 +59,17 @@ class Create extends Component
             'user_id' => auth()->id(),
         ]);
 
+        // KIRIM EMAIL KE SEMUA SISWA
+        $siswa = User::where('role_id', 3)->get();
+
+        foreach ($siswa as $akun) {
+            Mail::to($akun->email)->send(new ProgramEmail($program));
+        }
+
         session()->flash('message', 'Program berhasil ditambahkan.');
         return redirect()->route('admin.program');
     }
+
 
     public function render()
     {

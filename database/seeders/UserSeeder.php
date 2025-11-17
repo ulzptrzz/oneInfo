@@ -86,6 +86,13 @@ class UserSeeder extends Seeder
                 'nisn' => '0087318200',
                 'kelas_id' => $kelasXI->id,
                 'email' => 'shakila.maisya@smkn1kotabekasi.sch.id'
+            ],
+             [
+                'name' => 'Mathilda Anneke',
+                'nis' => '232410274',
+                'nisn' => '0087318110',
+                'kelas_id' => $kelasXI->id,
+                'email' => 'mathilda.waworuntu@smkn1kotabekasi.sch.id'
             ]
         ];
 
