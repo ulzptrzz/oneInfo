@@ -12,7 +12,7 @@
                 <h3 class="text-lg font-semibold text-[#0C356A]"> {{ $item->name }} </h3>
                 <p class="text-sm text-gray-500 mt-1"> {{ $item->kategoriProgram->nama_kategori ?? '-' }} </p>
             </div>
-            <a href="{{ route('katalog-detail', $item->id) }}"
+            <a href="{{ route('detail-program', $item->id) }}"
                 class="inline-block mt-3 text-blue-600 font-semibold hover:underline">
                 Lihat Detail →
             </a>
@@ -23,5 +23,5 @@
         </div>
         @endforeach
     </div>
-    <div class="text-center mt-10"> <a href="{{ route('katalog-program') }}" class="bg-[#0C356A] text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-[#082954] transition"> Lihat Lebih Banyak </a> </div>
+    <div class="text-center mt-10"> <a href="{{ route('list-program') }}" class="bg-[#0C356A] text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-[#082954] transition"> Lihat Lebih Banyak </a> </div>
 </div>

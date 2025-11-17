@@ -16,7 +16,7 @@
             {{ $item->kategoriProgram->nama_kategori ?? '-' }}
         </p>
     </div>
-    <a href="{{ route('katalog-detail', $item->id) }}"
+    <a href="{{ route('detail-program', $item->id) }}"
         class="inline-block mt-3 text-blue-600 font-semibold hover:underline">
         Lihat Detail →
     </a>

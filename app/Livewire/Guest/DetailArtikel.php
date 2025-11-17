@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Siswa\Artikel;
+namespace App\Livewire\Guest;
 
 use Livewire\Component;
 
@@ -8,6 +8,6 @@ class DetailArtikel extends Component
 {
     public function render()
     {
-        return view('livewire.siswa.artikel.detail-artikel');
+        return view('livewire.guest.detail-artikel');
     }
 }

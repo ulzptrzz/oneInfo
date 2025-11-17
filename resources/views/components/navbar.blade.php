@@ -140,19 +140,19 @@
 
             {{-- Desktop Menu --}}
             <div class="hidden lg:flex items-center space-x-1">
-                <a href="#beranda" class="nav-link px-4 py-2 font-medium text-[#0C356A] active">
+                <a href="{{ route('home') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A] active">
                     Beranda
                 </a>
-                <a href="#program" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                <a href="{{ route('list-program') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
                     Program
                 </a>
-                <a href="#prestasi" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                <a href="{{ route('list-prestasi') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
                     Prestasi
                 </a>
-                <a href="#artikel" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                <a href="{{ route('list-artikel') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
                     Artikel
                 </a>
-                <a href="#tentang" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                <a href="{{ route('list-tentang') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
                     Tentang
                 </a>
 
@@ -166,13 +166,9 @@
                 @endif
 
                 @if(auth()->check() && auth()->user()->role_id == 3)
-                    <a href="/dashboard" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                    <a href="{{ route('siswa.dashboard') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
                         Dashboard
                     </a>
-                    <a href="{{ route('siswa.bookmark') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
-                        Bookmark
-                    </a>
-                    <livewire:auth.logout />
                 @endif
 
             </div>
