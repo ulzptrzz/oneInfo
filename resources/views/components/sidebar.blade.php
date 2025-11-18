@@ -52,8 +52,14 @@
             <a href="{{ route('list-pendaftaran-program') }}"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200 
                         hover:bg-[#FFC436] hover:text-[#0C356A] group">
-                    <i class='bx bx-news text-lg text-white group-hover:text-[#0C356A]'></i>
+                    <i class='bx bx-file text-lg text-white group-hover:text-[#0C356A]'></i>
                     <span>Pendaftaran</span>
+            </a>
+            <a href="{{ route('admin.profil') }}"
+                class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200 
+                        hover:bg-[#FFC436] hover:text-[#0C356A] group">
+                    <i class='bx bx-user text-lg text-white group-hover:text-[#0C356A]'></i>
+                    <span>Profile</span>
             </a>
         </nav>
     </div>

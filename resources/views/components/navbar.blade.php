@@ -190,23 +190,23 @@
             <div class="py-4">
                 <a href="{{ route('home') }}"
                     class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('home') ? 'active' : '' }}">
-                    🏠 Beranda
+                    Beranda
                 </a>
                 <a href="{{ route('list-program') }}"
                     class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-program') || request()->routeIs('detail-program') ? 'active' : '' }}">
-                    📚 Program
+                    Program
                 </a>
                 <a href="{{ route('list-prestasi') }}"
                     class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-prestasi') ? 'active' : '' }}">
-                    🏆 Prestasi
+                    Prestasi
                 </a>
                 <a href="{{ route('list-artikel') }}"
                     class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-artikel') || request()->routeIs('artikel-detail') ? 'active' : '' }}">
-                    📰 Artikel
+                    Artikel
                 </a>
                 <a href="{{ route('list-tentang') }}"
                     class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-tentang') ? 'active' : '' }}">
-                    ℹ️ Tentang
+                    Tentang
                 </a>
 
                 {{-- Mobile Login Button --}}

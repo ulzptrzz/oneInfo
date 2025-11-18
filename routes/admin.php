@@ -24,6 +24,7 @@ use App\Livewire\Admin\Artikel\Edit as ArtikelEdit;
 use App\Livewire\Admin\Artikel\Detail as ArtikelDetail;
 use App\Livewire\Admin\ListPendaftaran;
 use App\Livewire\Admin\ProfilAdmin;
+use App\Livewire\Admin\EditProfil as ProfilAdminEdit; 
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('admin.dashboard');
@@ -57,4 +58,6 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/artikel/detail/{id}', ArtikelDetail::class)->name('detail-artikel');
 
     Route::get('/profil-admin', ProfilAdmin::class)->name('admin.profil');
+    Route::get('/profil-admin/edit', ProfilAdminEdit::class)->name('admin.edit-profil');
+
 });
