@@ -132,20 +132,24 @@
                         Jelajahi berbagai program dan lomba menarik di <span class="text-[#ffc436]">OneInfo</span>!
                     </h1>
                     <p class="mt-4 text-lg md:text-xl opacity-90 mb-8">
-                        Website pusat informasi SMKN 1 Kota Bekasi mengenai berbagai program, lomba, dan kursus untuk pelajar berprestasi
+                        Website pusat informasi SMKN 1 Kota Bekasi mengenai berbagai program, lomba, dan kursus untuk
+                        pelajar berprestasi
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="#program" class="bg-[#ffc436] text-[#0C356A] px-8 py-3 rounded-full font-semibold text-lg shadow-lg btn-hover-scale inline-block">
+                        <a href="#program"
+                            class="bg-[#ffc436] text-[#0C356A] px-8 py-3 rounded-full font-semibold text-lg shadow-lg btn-hover-scale inline-block">
                             Lihat Program
                         </a>
-                        <a href="#tentang" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-[#0C356A] transition-all duration-300 inline-block">
+                        <a href="#tentang"
+                            class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-[#0C356A] transition-all duration-300 inline-block">
                             Pelajari Lebih Lanjut
                         </a>
                     </div>
                 </div>
 
                 <div class="flex justify-center">
-                    <img class="w-full max-w-lg hero-float drop-shadow-2xl" src="{{ asset('assets/gambar-hero.png') }}" alt="gambar-hero">
+                    <img class="w-full max-w-lg hero-float drop-shadow-2xl" src="{{ asset('assets/gambar-hero.png') }}"
+                        alt="gambar-hero">
                 </div>
             </div>
         </div>
@@ -155,15 +159,15 @@
     <section class="py-16 px-7 bg-white -mt-10 relative z-20">
         <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
             <div class="stat-card-hover bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl text-center">
-                <div class="text-5xl font-bold text-[#0C356A] mb-2">50+</div>
+                <div class="text-5xl font-bold text-[#0C356A] mb-2">{{ $totalProgram ?? '0' }}</div>
                 <div class="text-gray-600 font-medium">Program Tersedia</div>
             </div>
             <div class="stat-card-hover bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl text-center">
-                <div class="text-5xl font-bold text-[#0C356A] mb-2">1000+</div>
+                <div class="text-5xl font-bold text-[#0C356A] mb-2">{{ $totalSiswa ?? '0' }}</div>
                 <div class="text-gray-600 font-medium">Siswa Terdaftar</div>
             </div>
             <div class="stat-card-hover bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl text-center">
-                <div class="text-5xl font-bold text-[#0C356A] mb-2">100+</div>
+                <div class="text-5xl font-bold text-[#0C356A] mb-2">{{ $totalPrestasi ?? '0' }}</div>
                 <div class="text-gray-600 font-medium">Prestasi Diraih</div>
             </div>
             <div class="stat-card-hover bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl text-center">
@@ -175,7 +179,7 @@
 
     <section class="py-20 px-7 bg-white">
         {{-- KATALOG PROGRAM - Enhanced --}}
-        <x-katalog-program :program="$program"/>
+        <x-katalog-program :program="$program" />
     </section>
 
     {{-- SECTION PRESTASI - Enhanced --}}
@@ -191,7 +195,8 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
+                <div
+                    class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
                     <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
                     <div class="p-6 text-center">
                         <h3 class="text-lg font-bold text-[#0C356A] mb-2">Mathilda Anneke Waworuntu</h3>
@@ -199,7 +204,8 @@
                     </div>
                 </div>
 
-                <div class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
+                <div
+                    class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
                     <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
                     <div class="p-6 text-center">
                         <h3 class="text-lg font-bold text-[#0C356A] mb-2">Tim Olimpiade Sains</h3>
@@ -207,7 +213,8 @@
                     </div>
                 </div>
 
-                <div class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
+                <div
+                    class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
                     <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
                     <div class="p-6 text-center">
                         <h3 class="text-lg font-bold text-[#0C356A] mb-2">Tim Debat Bahasa Inggris</h3>
@@ -215,7 +222,8 @@
                     </div>
                 </div>
 
-                <div class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
+                <div
+                    class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
                     <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
                     <div class="p-6 text-center">
                         <h3 class="text-lg font-bold text-[#0C356A] mb-2">Tim Innovation Challenge</h3>
@@ -238,28 +246,46 @@
                 </p>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-xl overflow-hidden grid md:grid-cols-2 gap-0 scroll-animate">
-                <div class="h-full">
-                    <img src="{{ asset('assets/foto-artikel.jpg') }}" alt="foto-artikel" class="w-full h-full object-cover">
-                </div>
+            @if ($artikel)
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden grid md:grid-cols-2 gap-0 scroll-animate">
+                    <div class="h-full">
+                        <img src="{{ $artikel->thumbnail ? asset('storage/' . $artikel->thumbnail) : asset('assets/foto-artikel.jpg') }}"
+                            alt="{{ $artikel->judul }}" class="w-full h-full object-cover">
+                    </div>
 
-                <div class="p-8 md:p-10 flex flex-col justify-center">
-                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Title of the Risen Event</h3>
-                    <p class="text-gray-500 text-sm mb-4">
-                        📍 1015 California Ave, Los Angeles CA <br>
-                        <span class="text-gray-600">🕐 7:00 pm — 8:00 pm</span>
-                    </p>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dignissim eu turpis non hendrerit. Nunc nec luctus tellus.
-                    </p>
-                    <a href="#" class="link-arrow-slide text-[#0C356A] font-bold inline-flex items-center hover:text-[#ffc436] text-lg">
-                        View Event Details
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 arrow-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
+                    <div class="p-8 md:p-10 flex flex-col justify-center">
+                        <h3 class="text-3xl font-bold text-gray-800 mb-4">{{ $artikel->judul }}</h3>
+                        <p class="text-gray-500 text-sm mb-4">
+                            Waktu Upload : {{ $artikel->tanggal }}
+                        </p>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            {{ $artikel->deskripsi }}
+                        </p>
+                        <a href="{{ route('guest.artikel.detail', $artikel->id) }}"
+                            class="link-arrow-slide text-[#0C356A] font-bold inline-flex items-center hover:text-[#ffc436] text-lg">
+                            View Event Details
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 arrow-icon" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @else
+                <div class="col-span-1 md:col-span-2 lg:col-span-3">
+                    <div
+                        class="bg-[#D6EBFF] rounded-xl flex flex-col items-center justify-center py-8 px-4 text-center">
+                        <svg width="120px" height="120px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg" class="mb-3">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M9.29289 1.29289C9.48043 1.10536 9.73478 1 10 1H18C19.6569 1 21 2.34315 21 4V7C21 7.55228 20.5523 8 20 8C19.4477 8 19 7.55228 19 7V4C19 3.44772 18.5523 3 18 3H11V8C11 8.55228 10.5523 9 10 9H5V20C5 20.5523 5.44772 21 6 21H11C11.5523 21 12 21.4477 12 22C12 22.5523 11.5523 23 11 23H6C4.34315 23 3 21.6569 3 20V8C3 7.73478 3.10536 7.48043 3.29289 7.29289L9.29289 1.29289ZM6.41421 7H9V4.41421L6.41421 7ZM18.25 20.75C18.25 21.4404 17.6904 22 17 22C16.3096 22 15.75 21.4404 15.75 20.75C15.75 20.0596 16.3096 19.5 17 19.5C17.6904 19.5 18.25 20.0596 18.25 20.75ZM15.1353 12.9643C15.3999 12.4596 16.0831 12 17 12C18.283 12 19 12.8345 19 13.5C19 14.1655 18.283 15 17 15C16.4477 15 16 15.4477 16 16V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V16.8866C19.6316 16.5135 21 15.2471 21 13.5C21 11.404 19.0307 10 17 10C15.4566 10 14.0252 10.7745 13.364 12.0357C13.1075 12.5248 13.2962 13.1292 13.7853 13.3857C14.2744 13.6421 14.8788 13.4535 15.1353 12.9643Z"
+                                fill="#0C356A" />
+                        </svg>
+                        <p class="text-[#0C356A] font-semibold text-[15px]">Belum ada Artikel</p>
+                    </div>
+                </div>
+            @endif
         </div>
     </section>
 
@@ -282,9 +308,7 @@
                 <div class="shine-effect">
 
                     {{-- GAMBAR --}}
-                    <img class="w-full h-64 object-cover"
-                        src="{{ asset('assets/TOEIC.png') }}"
-                        alt="Documentation">
+                    <img class="w-full h-64 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Documentation">
                 </div>
 
                 <div class="p-8 bg-gradient-to-br from-blue-50 to-white">
@@ -306,47 +330,58 @@
                     </h2>
                 </div>
 
-                <div class="space-y-4">
-
-                    {{-- ITEM 1 --}}
-                    <div x-data="{ open: false }" class="border border-gray-200 rounded-xl shadow-sm">
-                        <button @click="open = !open"
-                            class="w-full flex justify-between items-center p-5 text-left text-[#0C356A] font-semibold">
-                            Apa tujuan dari kegiatan TOEIC 2025?
-                            <span x-text="open ? '-' : '+'"></span>
-                        </button>
-                        <div x-show="open" x-collapse class="px-5 pb-5 text-gray-600">
-                            Kegiatan ini bertujuan meningkatkan kemampuan bahasa Inggris siswa khususnya dalam menghadapi tes TOEIC.
+                <div class="space-y-4 max-w-4xl mx-auto">
+                    <!-- Item 1 -->
+                    <details class="group border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                        <summary
+                            class="flex justify-between items-center p-5 text-left text-[#0C356A] font-semibold cursor-pointer list-none bg-white hover:bg-gray-50 transition-colors">
+                            <span>Apa tujuan dari kegiatan TOEIC 2025?</span>
+                            <svg class="w-5 h-5 text-[#0C356A] transition-transform group-open:rotate-180"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 text-gray-600 bg-gray-50">
+                            Kegiatan ini bertujuan meningkatkan kemampuan bahasa Inggris siswa khususnya dalam
+                            menghadapi tes TOEIC.
                         </div>
-                    </div>
+                    </details>
 
-                    {{-- ITEM 2 --}}
-                    <div x-data="{ open: false }" class="border border-gray-200 rounded-xl shadow-sm">
-                        <button @click="open = !open"
-                            class="w-full flex justify-between items-center p-5 text-left text-[#0C356A] font-semibold">
-                            Siapa yang dapat mengikuti kegiatan ini?
-                            <span x-text="open ? '-' : '+'"></span>
-                        </button>
-                        <div x-show="open" x-collapse class="px-5 pb-5 text-gray-600">
-                            Seluruh siswa SMKN 1 Kota Bekasi yang ingin meningkatkan kemampuan berbahasa Inggris dapat mengikuti kegiatan ini.
+                    <!-- Item 2 -->
+                    <details class="group border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                        <summary
+                            class="flex justify-between items-center p-5 text-left text-[#0C356A] font-semibold cursor-pointer list-none bg-white hover:bg-gray-50 transition-colors">
+                            <span>Siapa yang dapat mengikuti kegiatan ini?</span>
+                            <svg class="w-5 h-5 text-[#0C356A] transition-transform group-open:rotate-180"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 text-gray-600 bg-gray-50">
+                            Seluruh siswa SMKN 1 Kota Bekasi yang ingin meningkatkan kemampuan berbahasa Inggris dapat
+                            mengikuti kegiatan ini.
                         </div>
-                    </div>
+                    </details>
 
-                    {{-- ITEM 3 --}}
-                    <div x-data="{ open: false }" class="border border-gray-200 rounded-xl shadow-sm">
-                        <button @click="open = !open"
-                            class="w-full flex justify-between items-center p-5 text-left text-[#0C356A] font-semibold">
-                            Apakah kegiatan ini berbayar?
-                            <span x-text="open ? '-' : '+'"></span>
-                        </button>
-                        <div x-show="open" x-collapse class="px-5 pb-5 text-gray-600">
+                    <!-- Item 3 -->
+                    <details class="group border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+                        <summary
+                            class="flex justify-between items-center p-5 text-left text-[#0C356A] font-semibold cursor-pointer list-none bg-white hover:bg-gray-50 transition-colors">
+                            <span>Apakah kegiatan ini berbayar?</span>
+                            <svg class="w-5 h-5 text-[#0C356A] transition-transform group-open:rotate-180"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 text-gray-600 bg-gray-50">
                             Tidak, kegiatan ini sepenuhnya gratis untuk siswa.
                         </div>
-                    </div>
-
+                    </details>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -364,10 +399,13 @@
                             Tentang <span class="text-[#ffc436]">OneInfo.id</span>
                         </h2>
                         <p class="text-lg text-gray-700 leading-relaxed mb-6">
-                            OneInfo.id adalah platform informasi sekolah yang dirancang untuk memudahkan siswa, guru, dan masyarakat dalam mengakses berbagai kegiatan di SMKN 1 Kota Bekasi.
+                            OneInfo.id adalah platform informasi sekolah yang dirancang untuk memudahkan siswa, guru,
+                            dan masyarakat dalam mengakses berbagai kegiatan di SMKN 1 Kota Bekasi.
                         </p>
                         <p class="text-lg text-gray-700 leading-relaxed">
-                            Melalui OneInfo.id, kamu bisa menemukan program, lomba, dan prestasi terbaru secara cepat dan terorganisir. Website ini hadir untuk menjadi sumber informasi terpercaya dan inspiratif bagi seluruh warga sekolah.
+                            Melalui OneInfo.id, kamu bisa menemukan program, lomba, dan prestasi terbaru secara cepat
+                            dan terorganisir. Website ini hadir untuk menjadi sumber informasi terpercaya dan inspiratif
+                            bagi seluruh warga sekolah.
                         </p>
                     </div>
                 </div>
@@ -387,14 +425,17 @@
                 Jangan lewatkan kesempatan untuk mengembangkan potensi diri dan meraih prestasi gemilang bersama kami
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
-                <a href="#" class="bg-[#ffc436] text-[#0C356A] px-10 py-4 rounded-full font-bold text-lg shadow-lg btn-hover-scale inline-block">
+                <a href="#"
+                    class="bg-[#ffc436] text-[#0C356A] px-10 py-4 rounded-full font-bold text-lg shadow-lg btn-hover-scale inline-block">
                     Daftar Sekarang
                 </a>
-                <a href="#" class="border-2 border-white text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-[#0C356A] transition-all duration-300 inline-block">
+                <a href="#"
+                    class="border-2 border-white text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-[#0C356A] transition-all duration-300 inline-block">
                     Hubungi Kami
                 </a>
             </div>
         </div>
+        <x-whatsapp />
     </section>
 
     {{-- SECTION FOOTER --}}

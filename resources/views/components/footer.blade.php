@@ -138,11 +138,6 @@
                                 → Tentang Kami
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="footer-link text-sm hover:text-[#ffc436] opacity-90 hover:opacity-100">
-                                → PPDB 2025
-                            </a>
-                        </li>
                     </ul>
                 </div>
 

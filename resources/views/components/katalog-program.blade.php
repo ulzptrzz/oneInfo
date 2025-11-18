@@ -1,7 +1,7 @@
 @props(['program'])
 
 <div class="max-w-6xl mx-auto px-6 py-12">
-    <h2 class="text-4xl md:text-5xl font-bold text-[#0C356A] mb-4">
+    <h2 class="text-4xl text-center md:text-5xl font-bold text-[#0C356A] mb-4">
         Katalog <span class="text-[#ffc436]">Program</span>
     </h2>
     <p class="text-lg text-center text-gray-600 mb-10"> Lihat berbagai program menarik yang didukung oleh SMKN 1 Kota

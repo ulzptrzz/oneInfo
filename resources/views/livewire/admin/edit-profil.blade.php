@@ -1,22 +1,4 @@
 <div>
-    {{-- Mobile Hamburger Button --}}
-    <button @click="$store.sidebar.toggle()" 
-            class="lg:hidden fixed top-4 left-4 z-50 bg-[#0C356A] text-white p-3 rounded-lg shadow-lg hover:bg-[#ffc436] hover:text-[#0C356A] transition">
-        <i class='bx bx-menu text-2xl'></i>
-    </button>
-
-    {{-- Overlay (Mobile) --}}
-    <div x-show="$store.sidebar.isOpen" 
-         @click="$store.sidebar.close()"
-         x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0"
-         x-transition:enter-end="opacity-100"
-         x-transition:leave="transition ease-in duration-150"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
-         class="lg:hidden fixed inset-0 bg-black/50 z-40"
-         style="display: none;">
-    </div>
 
     <div class="flex min-h-screen bg-gray-50">
           <x-sidebar/>
@@ -296,33 +278,3 @@
         
     </div>
 </div>
-
-{{-- Alpine Store for Sidebar State --}}
-<script>
-document.addEventListener('alpine:init', () => {
-    Alpine.store('sidebar', {
-        isOpen: window.innerWidth >= 1024,
-        
-        toggle() {
-            this.isOpen = !this.isOpen;
-        },
-        
-        close() {
-            if (window.innerWidth < 1024) {
-                this.isOpen = false;
-            }
-        },
-        
-        open() {
-            this.isOpen = true;
-        }
-    });
-    
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        if (window.innerWidth >= 1024) {
-            Alpine.store('sidebar').isOpen = true;
-        }
-    });
-});
-</script>

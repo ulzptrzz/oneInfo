@@ -7,15 +7,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfilAdmin extends Component
 {
-    public $user;
-
-    public function mount()
-    {
-        $this->user  = Auth::user();
-
-    }
     public function render()
     {
-        return view('livewire.admin.profil-admin');
+        $user = Auth::user()->fresh(); 
+
+        return view('livewire.admin.profil-admin', [
+            'user' => $user
+        ]);
     }
 }

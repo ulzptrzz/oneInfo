@@ -6,15 +6,18 @@
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
+
         .navbar-scrolled {
             box-shadow: 0 4px 20px rgba(12, 53, 106, 0.1);
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
         }
+
         .nav-link {
             position: relative;
             transition: all 0.3s ease;
         }
+
         .nav-link::before {
             content: '';
             position: absolute;
@@ -27,44 +30,54 @@
             transform: translateX(-50%);
             border-radius: 2px;
         }
+
         .nav-link:hover::before,
         .nav-link.active::before {
             width: 100%;
         }
+
         .nav-link:hover {
             color: #ffc436;
             transform: translateY(-2px);
         }
+
         .login-btn {
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(255, 196, 54, 0.3);
         }
+
         .login-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 15px rgba(255, 196, 54, 0.4);
         }
+
         /* Mobile Menu */
         .mobile-menu {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform-origin: top;
         }
+
         .mobile-menu-hidden {
             opacity: 0;
             transform: scaleY(0);
             max-height: 0;
         }
+
         .mobile-menu-visible {
             opacity: 1;
             transform: scaleY(1);
             max-height: 500px;
         }
+
         .hamburger {
             cursor: pointer;
             transition: all 0.3s ease;
         }
+
         .hamburger:hover {
             transform: scale(1.1);
         }
+
         .hamburger span {
             display: block;
             width: 28px;
@@ -74,37 +87,47 @@
             transition: all 0.3s ease;
             border-radius: 2px;
         }
+
         .hamburger.active span:nth-child(1) {
             transform: rotate(45deg) translate(8px, 8px);
             background: #ffc436;
         }
+
         .hamburger.active span:nth-child(2) {
             opacity: 0;
         }
+
         .hamburger.active span:nth-child(3) {
             transform: rotate(-45deg) translate(7px, -7px);
             background: #ffc436;
         }
+
         .logo-bounce {
             animation: logoBounce 2s ease-in-out infinite;
         }
+
         @keyframes logoBounce {
+
             0%,
             100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-5px);
             }
         }
+
         .mobile-nav-link {
             transition: all 0.3s ease;
         }
+
         .mobile-nav-link:hover,
         .mobile-nav-link.active {
             background: rgba(255, 196, 54, 0.1);
             transform: translateX(10px);
         }
+
         .mobile-nav-link.active {
             border-left-color: #ffc436 !important;
         }
@@ -123,25 +146,25 @@
 
             {{-- Desktop Menu --}}
             <div class="hidden lg:flex items-center space-x-1">
-                <a href="{{ route('home') }}" 
-                   class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('home') ? 'active' : '' }}">
+                <a href="{{ route('home') }}"
+                    class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('home') ? 'active' : '' }}">
                     Beranda
                 </a>
-                <a href="{{ route('list-program') }}" 
-                   class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-program') || request()->routeIs('detail-program') ? 'active' : '' }}">
+                <a href="{{ route('list-program') }}"
+                    class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-program') || request()->routeIs('detail-program') ? 'active' : '' }}">
                     Program
                 </a>
-                <a href="{{ route('list-prestasi') }}" 
-                   class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-prestasi') ? 'active' : '' }}">
+                <a href="{{ route('list-prestasi') }}"
+                    class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-prestasi') ? 'active' : '' }}">
                     Prestasi
                 </a>
-                <a href="{{ route('list-artikel') }}" 
-                   class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-artikel') || request()->routeIs('artikel-detail') ? 'active' : '' }}">
+                <a href="{{ route('list-artikel') }}"
+                    class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-artikel') || request()->routeIs('artikel-detail') ? 'active' : '' }}">
                     Artikel
                 </a>
-                <a href="{{ route('list-tentang') }}" 
-                   class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-tentang') ? 'active' : '' }}">
-                    Tentang
+                <a href="{{ route('list-dokumentasi') }}"
+                    class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-tentang') ? 'active' : '' }}">
+                    Dokumentasi
                 </a>
 
                 @auth
@@ -204,25 +227,45 @@
                     class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-artikel') || request()->routeIs('artikel-detail') ? 'active' : '' }}">
                     Artikel
                 </a>
-                <a href="{{ route('list-tentang') }}"
+                <a href="{{ route('list-dokumentasi') }}"
                     class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-tentang') ? 'active' : '' }}">
-                    Tentang
+                    Dokumentasi
                 </a>
 
                 {{-- Mobile Login Button --}}
-                @guest
-                    <div class="px-6 py-3">
+                <div class="p-6">
+                    @auth
+                        @if (auth()->user()->role_id == 1)
+                            <a href="{{ route('superadmin.dashboard') }}"
+                                class="w-full block text-center px-8 py-4 bg-[#0C356A] hover:bg-[#082d5b] text-white font-bold rounded-full transition shadow-lg">
+                                Dashboard
+                            </a>
+                        @elseif(auth()->user()->role_id == 2)
+                            <a href="{{ route('admin.dashboard') }}"
+                                class="w-full block text-center px-8 py-4 bg-[#0C356A] hover:bg-[#082d5b] text-white font-bold rounded-full transition shadow-lg">
+                                Dashboard
+                            </a>
+                        @elseif(auth()->user()->role_id == 3)
+                            <a href="{{ route('siswa.dashboard') }}"
+                                class="w-full block text-center px-8 py-4 bg-[#0C356A] hover:bg-[#082d5b] text-white font-bold rounded-full transition shadow-lg">
+                                Dashboard
+                            </a>
+                        @endif
+                    @else
                         <a href="{{ route('login') }}"
-                            class="block text-center px-6 py-3 bg-[#ffc436] text-[#0C356A] font-bold rounded-full">
-                            🔐 Login
+                            class="login-btn ml-4 px-6 py-2.5 bg-[#ffc436] text-[#0C356A] font-bold rounded-full inline-flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                            </svg>
+                            Login
                         </a>
-                    </div>
-                @endguest
+                    @endauth
+                </div>
             </div>
         </div>
     </nav>
 
-    {{-- Spacer to prevent content from going under fixed navbar --}}
     <div class="h-20"></div>
 
     <script>
