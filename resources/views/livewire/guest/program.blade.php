@@ -5,7 +5,11 @@
 
     <div class="max-w-6xl mx-auto p-6">
 
-        <h1 class="text-3xl font-bold mb-6">Katalog Program</h1>
+        <h2 class="text-4xl text-center  md:text-5xl font-bold text-[#0C356A] mb-4">
+            Katalog <span class="text-[#ffc436]">Program</span>
+        </h2>
+        <p class="text-lg text-center text-gray-600 mb-10"> Lihat berbagai program menarik yang didukung oleh SMKN 1 Kota
+            Bekasi </p>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
