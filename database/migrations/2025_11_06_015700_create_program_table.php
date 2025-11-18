@@ -21,7 +21,7 @@ return new class extends Migration
         Schema::create('program', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->string('deskripsi_singkat', 50);
+            $table->text('deskripsi_singkat');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->enum('status', ['draft', 'published', 'archived']);

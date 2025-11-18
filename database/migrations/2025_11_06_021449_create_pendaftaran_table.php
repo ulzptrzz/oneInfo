@@ -21,6 +21,8 @@ return new class extends Migration
 
             $table->unsignedBigInteger('program_id');
             $table->foreign('program_id')->references('id')->on('program')->onDelete('cascade');
+
+            $table->unique(['siswa_id', 'program_id']);
             $table->timestamps();
         });
     }

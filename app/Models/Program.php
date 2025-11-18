@@ -29,12 +29,11 @@ class Program extends Model
     }
     public function kategoriProgram()
     {
-        return $this->belongsTo(KategoriProgram::class, 'kategori_program_id', 'id');
+        return $this->belongsTo(KategoriProgram::class, 'kategori_program_id');
     }
 
     public function bookmarkedBy()
-{
-    return $this->belongsToMany(User::class, 'bookmarks');
-}
-
+    {
+        return $this->belongsToMany(User::class, 'bookmarks');
+    }
 }

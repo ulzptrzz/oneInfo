@@ -134,7 +134,8 @@
             <div class="flex gap-3 items-center">
                 <img class="w-14 h-14 logo-bounce" src="{{ asset('assets/logo-smk.png') }}" alt="logo-smk">
                 <a href="#beranda" class="font-bold text-2xl">
-                    <span class="text-[#ffc436]">One</span><span class="text-[#0C356A]">Info</span><span class="text-[#ffc436]">.id</span>
+                    <span class="text-[#ffc436]">One</span><span class="text-[#0C356A]">Info</span><span
+                        class="text-[#ffc436]">.id</span>
                 </a>
             </div>
 
@@ -156,20 +157,33 @@
                     Tentang
                 </a>
 
-                @if (auth()->guest())
-                <a href="/auth/login" class="login-btn ml-4 px-6 py-2.5 bg-[#ffc436] text-[#0C356A] font-bold rounded-full inline-flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                    </svg>
-                    Login
-                </a>
-                @endif
-
-                @if(auth()->check() && auth()->user()->role_id == 3)
-                    <a href="{{ route('siswa.dashboard') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
-                        Dashboard
+                @auth
+                    @if (auth()->user()->role_id == 1)
+                        <a href="{{ route('superadmin.dashboard') }}"
+                            class="login-btn px-6 py-2.5 bg-[#0C356A] text-white font-bold rounded-full inline-flex items-center gap-2 hover:bg-[#082d5b]">
+                            Dashboard
+                        </a>
+                    @elseif(auth()->user()->role_id == 2)
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="login-btn px-6 py-2.5 bg-[#0C356A] text-white font-bold rounded-full inline-flex items-center gap-2 hover:bg-[#082d5b]">
+                            Dashboard
+                        </a>
+                    @elseif(auth()->user()->role_id == 3)
+                        <a href="{{ route('siswa.dashboard') }}"
+                            class="login-btn px-6 py-2.5 bg-[#0C356A] text-white font-bold rounded-full inline-flex items-center gap-2 hover:bg-[#082d5b]">
+                            Dashboard
+                        </a>
+                    @endif
+                @else
+                    <a href="{{ route('login') }}"
+                        class="login-btn ml-4 px-6 py-2.5 bg-[#ffc436] text-[#0C356A] font-bold rounded-full inline-flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        Login
                     </a>
-                @endif
+                @endauth
 
             </div>
 
@@ -184,27 +198,34 @@
         </div>
 
         {{-- Mobile Menu --}}
-        <div class="mobile-menu mobile-menu-hidden lg:hidden mt-4 bg-white rounded-2xl shadow-xl overflow-hidden" id="mobileMenu">
+        <div class="mobile-menu mobile-menu-hidden lg:hidden mt-4 bg-white rounded-2xl shadow-xl overflow-hidden"
+            id="mobileMenu">
             <div class="py-4">
-                <a href="#beranda" class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
+                <a href="#beranda"
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
                     🏠 Beranda
                 </a>
-                <a href="#program" class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
+                <a href="#program"
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
                     📚 Program
                 </a>
-                <a href="#prestasi" class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
+                <a href="#prestasi"
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
                     🏆 Prestasi
                 </a>
-                <a href="#artikel" class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
+                <a href="#artikel"
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
                     📰 Artikel
                 </a>
-                <a href="#tentang" class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
+                <a href="#tentang"
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
                     ℹ️ Tentang
                 </a>
 
                 {{-- Mobile Login Button --}}
                 <div class="px-6 py-3">
-                    <a href="/auth/login" class="block text-center px-6 py-3 bg-[#ffc436] text-[#0C356A] font-bold rounded-full">
+                    <a href="/auth/login"
+                        class="block text-center px-6 py-3 bg-[#ffc436] text-[#0C356A] font-bold rounded-full">
                         🔐 Login
                     </a>
                 </div>
