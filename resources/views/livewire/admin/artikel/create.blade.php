@@ -44,7 +44,7 @@
                         wire:model="deskripsi"
                         rows="5"
                         placeholder="Tulis deskripsi artikel..."
-                        class="w-full h-20 border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#FFC436] focus:outline-none transition resize-none"
+                        class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#FFC436] focus:outline-none transition resize-none"
                     ></textarea>
                     @error('deskripsi')
                         <p class="text-red-600 text-sm mt-1 flex items-center gap-1">

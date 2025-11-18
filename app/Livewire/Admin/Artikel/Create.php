@@ -38,7 +38,7 @@ class Create extends Component
             'thumbnail' => $path,
         ]);
 
-        session()->flash('message', 'Artikel berhasil dibuat!');
+        session()->flash('message', 'Artikel berhasil ditambahkan.');
         return redirect()->route('admin.artikel');
     }
 

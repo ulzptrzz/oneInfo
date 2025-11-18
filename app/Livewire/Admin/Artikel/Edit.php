@@ -55,7 +55,7 @@ class Edit extends Component
             'thumbnail' => $path,
         ]);
 
-        session()->flash('message', 'Artikel berhasil diperbarui!');
+        session()->flash('message', 'Artikel berhasil diperbarui.');
         return redirect()->route('admin.artikel');
     }
 

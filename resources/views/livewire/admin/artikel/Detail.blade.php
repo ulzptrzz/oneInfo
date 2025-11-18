@@ -63,6 +63,14 @@
                         </p>
                     </div>
 
+                    {{-- Konten --}}
+                    <div>
+                        <p class="text-sm font-semibold text-gray-600">Konten Artikel</p>
+                        <div class="text-gray-800 leading-relaxed mt-2">
+                            {!! nl2br(e($artikel->konten)) !!}
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

@@ -6,18 +6,15 @@
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
-
         .navbar-scrolled {
             box-shadow: 0 4px 20px rgba(12, 53, 106, 0.1);
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
         }
-
         .nav-link {
             position: relative;
             transition: all 0.3s ease;
         }
-
         .nav-link::before {
             content: '';
             position: absolute;
@@ -30,54 +27,44 @@
             transform: translateX(-50%);
             border-radius: 2px;
         }
-
         .nav-link:hover::before,
         .nav-link.active::before {
             width: 100%;
         }
-
         .nav-link:hover {
             color: #ffc436;
             transform: translateY(-2px);
         }
-
         .login-btn {
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(255, 196, 54, 0.3);
         }
-
         .login-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 15px rgba(255, 196, 54, 0.4);
         }
-
         /* Mobile Menu */
         .mobile-menu {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform-origin: top;
         }
-
         .mobile-menu-hidden {
             opacity: 0;
             transform: scaleY(0);
             max-height: 0;
         }
-
         .mobile-menu-visible {
             opacity: 1;
             transform: scaleY(1);
             max-height: 500px;
         }
-
         .hamburger {
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .hamburger:hover {
             transform: scale(1.1);
         }
-
         .hamburger span {
             display: block;
             width: 28px;
@@ -87,44 +74,39 @@
             transition: all 0.3s ease;
             border-radius: 2px;
         }
-
         .hamburger.active span:nth-child(1) {
             transform: rotate(45deg) translate(8px, 8px);
             background: #ffc436;
         }
-
         .hamburger.active span:nth-child(2) {
             opacity: 0;
         }
-
         .hamburger.active span:nth-child(3) {
             transform: rotate(-45deg) translate(7px, -7px);
             background: #ffc436;
         }
-
         .logo-bounce {
             animation: logoBounce 2s ease-in-out infinite;
         }
-
         @keyframes logoBounce {
-
             0%,
             100% {
                 transform: translateY(0);
             }
-
             50% {
                 transform: translateY(-5px);
             }
         }
-
         .mobile-nav-link {
             transition: all 0.3s ease;
         }
-
-        .mobile-nav-link:hover {
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
             background: rgba(255, 196, 54, 0.1);
             transform: translateX(10px);
+        }
+        .mobile-nav-link.active {
+            border-left-color: #ffc436 !important;
         }
     </style>
 
@@ -133,7 +115,7 @@
             {{-- Logo --}}
             <div class="flex gap-3 items-center">
                 <img class="w-14 h-14 logo-bounce" src="{{ asset('assets/logo-smk.png') }}" alt="logo-smk">
-                <a href="#beranda" class="font-bold text-2xl">
+                <a href="{{ route('home') }}" class="font-bold text-2xl">
                     <span class="text-[#ffc436]">One</span><span class="text-[#0C356A]">Info</span><span
                         class="text-[#ffc436]">.id</span>
                 </a>
@@ -141,19 +123,24 @@
 
             {{-- Desktop Menu --}}
             <div class="hidden lg:flex items-center space-x-1">
-                <a href="{{ route('home') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A] active">
+                <a href="{{ route('home') }}" 
+                   class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('home') ? 'active' : '' }}">
                     Beranda
                 </a>
-                <a href="{{ route('list-program') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                <a href="{{ route('list-program') }}" 
+                   class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-program') || request()->routeIs('detail-program') ? 'active' : '' }}">
                     Program
                 </a>
-                <a href="{{ route('list-prestasi') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                <a href="{{ route('list-prestasi') }}" 
+                   class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-prestasi') ? 'active' : '' }}">
                     Prestasi
                 </a>
-                <a href="{{ route('list-artikel') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                <a href="{{ route('list-artikel') }}" 
+                   class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-artikel') || request()->routeIs('artikel-detail') ? 'active' : '' }}">
                     Artikel
                 </a>
-                <a href="{{ route('list-tentang') }}" class="nav-link px-4 py-2 font-medium text-[#0C356A]">
+                <a href="{{ route('list-tentang') }}" 
+                   class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-tentang') ? 'active' : '' }}">
                     Tentang
                 </a>
 
@@ -201,34 +188,36 @@
         <div class="mobile-menu mobile-menu-hidden lg:hidden mt-4 bg-white rounded-2xl shadow-xl overflow-hidden"
             id="mobileMenu">
             <div class="py-4">
-                <a href="#beranda"
-                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
+                <a href="{{ route('home') }}"
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('home') ? 'active' : '' }}">
                     🏠 Beranda
                 </a>
-                <a href="#program"
-                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
+                <a href="{{ route('list-program') }}"
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-program') || request()->routeIs('detail-program') ? 'active' : '' }}">
                     📚 Program
                 </a>
-                <a href="#prestasi"
-                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
+                <a href="{{ route('list-prestasi') }}"
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-prestasi') ? 'active' : '' }}">
                     🏆 Prestasi
                 </a>
-                <a href="#artikel"
-                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
+                <a href="{{ route('list-artikel') }}"
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-artikel') || request()->routeIs('artikel-detail') ? 'active' : '' }}">
                     📰 Artikel
                 </a>
-                <a href="#tentang"
-                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent hover:border-[#ffc436]">
+                <a href="{{ route('list-tentang') }}"
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-tentang') ? 'active' : '' }}">
                     ℹ️ Tentang
                 </a>
 
                 {{-- Mobile Login Button --}}
-                <div class="px-6 py-3">
-                    <a href="/auth/login"
-                        class="block text-center px-6 py-3 bg-[#ffc436] text-[#0C356A] font-bold rounded-full">
-                        🔐 Login
-                    </a>
-                </div>
+                @guest
+                    <div class="px-6 py-3">
+                        <a href="{{ route('login') }}"
+                            class="block text-center px-6 py-3 bg-[#ffc436] text-[#0C356A] font-bold rounded-full">
+                            🔐 Login
+                        </a>
+                    </div>
+                @endguest
             </div>
         </div>
     </nav>
@@ -285,48 +274,6 @@
                 mobileMenu.classList.remove('mobile-menu-visible');
                 mobileMenu.classList.add('mobile-menu-hidden');
                 hamburger.classList.remove('active');
-            });
-        });
-
-        // Active link highlighting based on scroll position
-        window.addEventListener('scroll', function() {
-            const sections = ['beranda', 'program', 'prestasi', 'artikel', 'tentang'];
-            const navLinks = document.querySelectorAll('.nav-link');
-
-            let current = '';
-
-            sections.forEach(section => {
-                const element = document.getElementById(section);
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    if (rect.top <= 100 && rect.bottom >= 100) {
-                        current = section;
-                    }
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const navbarHeight = document.getElementById('navbar').offsetHeight;
-                    const targetPosition = target.offsetTop - navbarHeight;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
             });
         });
     </script>

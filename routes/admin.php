@@ -54,7 +54,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/artikel', ArtikelIndex::class)->name('admin.artikel');
     Route::get('/artikel/create', ArtikelCreate::class)->name('create-artikel');
     Route::get('/Artikel/edit/{id}', ArtikelEdit::class)->name('edit-artikel');
-    Route::get('/admin/artikel/detail/{id}', ArtikelDetail::class)->name('detail-artikel');
+    Route::get('/artikel/detail/{id}', ArtikelDetail::class)->name('detail-artikel');
 
     Route::get('/profil-admin', ProfilAdmin::class)->name('admin.profil');
 });
