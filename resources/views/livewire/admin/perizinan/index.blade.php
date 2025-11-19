@@ -7,7 +7,7 @@
 
     <x-sidebar active="perizinan" />
     
-    <div class="w-full mx-10 mt-10 bg-white rounded-2xl shadow-md overflow-hidden">
+    <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
         {{-- Header --}}
         <div class="bg-[#0C356A] text-white p-7 flex justify-between items-center">
             <h2 class="text-2xl font-bold flex items-center gap-2">Daftar Perizinan</h2>

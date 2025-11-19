@@ -30,7 +30,7 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-600 text-sm font-medium mb-1">Total Program</p>
-              <h3 class="text-3xl font-bold text-[#0C356A]">24</h3>
+              <h3 class="text-3xl font-bold text-[#0C356A]">{{ $totalProgram ?? '0' }}</h3>
             </div>
             <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
               <i class='bx bx-receipt text-3xl text-white'></i>
@@ -43,7 +43,7 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-600 text-sm font-medium mb-1">Dokumentasi</p>
-              <h3 class="text-3xl font-bold text-[#0C356A]">156</h3>
+              <h3 class="text-3xl font-bold text-[#0C356A]">{{ $totalDokumentasi ?? '0' }}</h3>
             </div>
             <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
               <i class='bx bx-camera text-3xl text-white'></i>
@@ -56,7 +56,7 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-600 text-sm font-medium mb-1">Prestasi Siswa</p>
-              <h3 class="text-3xl font-bold text-[#0C356A]">89</h3>
+              <h3 class="text-3xl font-bold text-[#0C356A]">{{ $totalPrestasi ?? '0' }}</h3>
             </div>
             <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
               <i class='bx bx-medal text-3xl text-white'></i>
@@ -69,7 +69,7 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-gray-600 text-sm font-medium mb-1">Artikel</p>
-              <h3 class="text-3xl font-bold text-[#0C356A]">12</h3>
+              <h3 class="text-3xl font-bold text-[#0C356A]">{{ $totalArtikel ?? '0' }}</h3>
             </div>
             <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
               <i class='bx bx-news text-3xl text-white'></i>

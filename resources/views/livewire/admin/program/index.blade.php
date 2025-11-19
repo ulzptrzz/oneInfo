@@ -7,14 +7,20 @@
 
     <x-sidebar active="program" />
 
-    <div class="w-full mx-10 mt-10 bg-white rounded-2xl shadow-md overflow-hidden">
+    <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
         {{-- Header --}}
         <div class="bg-[#0C356A] text-white p-7 flex justify-between items-center">
-            <h2 class="text-2xl font-bold flex items-center gap-2">Daftar Program</h2>
-            <a href="{{ route('create-program') }}"
-                class="bg-[#ffc436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
-                + Tambah Program
-            </a>
+            <h2 class="text-2xl font-bold items-center">Daftar Program</h2>
+            <div class="flex gap-5 justify-end">
+                <a href="{{ route('admin.kategori-program') }}"
+                    class="bg-[#ffc436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
+                    + Tambah Kategori
+                </a>
+                <a href="{{ route('create-program') }}"
+                    class="bg-[#ffc436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
+                    + Tambah Program
+                </a>
+            </div>
         </div>
 
         {{-- Success Message --}}

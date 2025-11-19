@@ -1,9 +1,9 @@
 <div>
     <div class="flex min-h-screen">
         <x-sidebar />
-        <div>
-            <div class="p-6 bg-gray-50 min-h-screen">
-                <h1 class="text-3xl font-bold text-gray-800 mb-8">Manajemen Pendaftaran Program</h1>
+        <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
+            <div class="p-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-8">Pendaftaran Program</h1>
 
                 @if (session('success'))
                     <div
@@ -99,8 +99,7 @@
                                 <tr>
                                     <td colspan="6" class="text-center py-10 text-gray-500">
                                         <div class="col-span-1 md:col-span-2 lg:col-span-3">
-                                            <div
-                                                class="flex flex-col items-center justify-center text-center">
+                                            <div class="flex flex-col items-center justify-center text-center">
                                                 <svg width="120px" height="120px" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg" class="mb-3">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"

@@ -1,50 +1,58 @@
 <div>
     <div class="flex min-h-screen">
-       <x-sidebar-superadmin />
-        <div>
-            <div class="flex justify-end">
+        <x-sidebar-superadmin />
+        <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
+            <div class="bg-[#0C356A] text-white p-7 flex justify-between items-center">
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+                    List Akun Admin
+                </h2>
+
                 <a href="{{ route('superadmin.admin.create-admin') }}"
-                    class="flex items-center gap-1 bg-[#0C356A] text-white px-3 py-2 rounded-md hover:bg-[#082d5b] transition">
-                    <i class='bx bx-plus'></i> Admin
+                    class="bg-[#FFC436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
+                    + Tambah Admin
                 </a>
             </div>
 
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-100 border-b-2 border-gray-200">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                             Nama
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                             Email
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                             Phone
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
                             Aksi
                         </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse ($kelola_admins as $admin)
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {{ $admin->name }}
+                        <tr class="table-row">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-sm font-medium text-gray-900">{{ $admin->name }}</span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $admin->email }}
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-sm font-medium text-gray-900">{{ $admin->email }}</span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $admin->phone ?? '-' }}
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span
+                                    class="text-sm font-medium text-gray-900">{{ $admin->phone ?? '08123456789' }}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 <a href="{{ route('superadmin.admin.edit-admin', $admin->id) }}"
-                                    class="text-[#0C356A] hover:text-[#065fbd] font-medium">
+                                    class="bg-blue-500 text-white px-3 py-1.5 rounded-lg hover:bg-blue-600 text-sm font-medium inline-flex items-center gap-1 transition">
+                                    <i class='bx bx-edit'></i>
                                     Edit
                                 </a>
                                 <button type="button" wire:click="confirmDelete({{ $admin->id }})"
-                                    class="text-red-600 hover:text-red-900 font-medium">
+                                    wire:confirm="Apakah kamu yakin ingin menghapus program '{{ $admin->name }}'?"
+                                    class="bg-red-500 text-white px-3 py-1.5 rounded-lg hover:bg-red-600 text-sm font-medium inline-flex items-center gap-1 transition">
+                                    <i class='bx bx-trash'></i>
                                     Hapus
                                 </button>
                             </td>

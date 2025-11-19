@@ -7,7 +7,7 @@
 
     <x-sidebar />
     
-    <div class="w-full mx-10 mt-10 bg-white rounded-2xl shadow-md overflow-hidden">
+    <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
         <div class="bg-[#0C356A] text-white p-7 flex justify-between items-center">
             @if (session()->has('message'))
             <div class="bg-green-100 text-green-800 px-3 py-2 rounded mb-3">

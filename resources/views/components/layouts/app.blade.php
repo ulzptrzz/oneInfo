@@ -12,7 +12,7 @@
 
 </head>
 
-<body class="text-dark" style="background-color: #FCF3FD;">
+<body class="text-dark bg-gray-50">
     <main>
         {{ $slot }}
     </main>
