@@ -3,7 +3,7 @@
 
     <div class="w-full mx-10 mt-10 bg-white rounded-2xl shadow-md overflow-hidden">
         {{-- Header --}}
-        <div class="bg-gradient-to-r from-[#0C356A] to-[#1e40af] text-white p-6">
+        <div class="bg-gradient-to-right from-[#0C356A] to-[#1e40af] text-white p-6">
             <h1 class="text-2xl font-bold flex items-center gap-2">
                 Tambah Program
             </h1>
@@ -33,7 +33,7 @@
                 {{-- Deskripsi --}}
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        Deskripsi Singkat
+                        Deskripsi
                     </label>
                     <textarea
                         wire:model="deskripsi"
@@ -128,9 +128,13 @@
                             wire:model="tingkat"
                             class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#FFC436] focus:outline-none transition">
                             <option value="">-- Pilih Tingkat --</option>
-                            <option value="nasional">Nasional</option>
-                            <option value="provinsi">Provinsi</option>
+                            <option value="sekolah">Sekolah</option>
+                            <option value="kecamatan">Kecamatan</option>
                             <option value="kota">Kota</option>
+                            <option value="provinsi">Provinsi</option>
+                            <option value="nasional">Nasional</option>
+                            <option value="regional">Regional</option>
+                            <option value="internasional">Internasional</option>
                         </select>
                         @error('tingkat')
                         <p class="text-red-600 text-sm mt-1 flex items-center gap-1">

@@ -14,6 +14,9 @@ class Edit extends Component
     public $program_id, $name, $deskripsi, $tanggal_mulai, $tanggal_selesai, $status;
     public $poster, $oldPoster;
     public $penyelenggara = [];
+    public $penyelenggaraInput = '';
+public $mataLombaInput = '';
+
     public $tingkat, $mata_lomba = [], $pelaksanaan;
     public $link_pendaftaran;
     public $panduan_lomba, $panduan_file, $panduan_link;
@@ -108,7 +111,33 @@ class Edit extends Component
         session()->flash('message', 'Program berhasil diperbarui.');
         return redirect()->route('admin.program');
     }
+    public function addPenyelenggara()
+    {
+        if ($this->penyelenggaraInput !== "") {
+            $this->penyelenggara[] = $this->penyelenggaraInput;
+            $this->penyelenggaraInput = "";
+        }
+    }
 
+    public function removePenyelenggara($index)
+    {
+        unset($this->penyelenggara[$index]);
+        $this->penyelenggara = array_values($this->penyelenggara);
+    }
+
+    public function addMataLomba()
+    {
+        if ($this->mataLombaInput !== "") {
+            $this->mata_lomba[] = $this->mataLombaInput;
+            $this->mataLombaInput = "";
+        }
+    }
+
+    public function removeMataLomba($index)
+    {
+        unset($this->mata_lomba[$index]);
+        $this->mata_lomba = array_values($this->mata_lomba);
+    }
     public function render()
     {
         $kategori_program = KategoriProgram::all();

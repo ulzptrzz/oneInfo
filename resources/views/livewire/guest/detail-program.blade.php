@@ -1,74 +1,174 @@
 <div class="max-w-4xl mx-auto p-6">
 
-    <a href="{{ route('list-program') }}" class="text-blue-600 hover:underline mb-4 inline-block">
-        ← Kembali
-    </a>
+    <div class="max-w-4xl mx-auto p-6">
 
-    <div class="bg-white shadow-lg rounded-xl p-6">
+        <a href="{{ route('list-program') }}" class="text-blue-600 hover:underline mb-4 inline-block">
+            ← Kembali
+        </a>
 
-        <img src="{{ asset('storage/' . $program->poster) }}" class="rounded-xl w-full h-64 object-cover mb-6">
-
-        <h1 class="text-3xl font-bold">{{ $program->name }}</h1>
-
-        <p class="text-gray-500 mt-1">{{ $program->kategoriProgram?->nama_kategori ?? 'Tidak ada kategori' }}</p>
-
-        <p class="text-gray-600 mt-3 leading-relaxed">
-            {{ $program->deskripsi }}
-        </p>
-
-        <div class="mt-4">
-            <p><strong>Tanggal:</strong>
-                {{ \Carbon\Carbon::parse($program->tanggal_mulai)->translatedFormat('d F Y') }}
-                -
-                {{ \Carbon\Carbon::parse($program->tanggal_selesai)->translatedFormat('d F Y') }}
-            </p>
-
-            <p><strong>Penyelenggara:</strong> {{ $program->penyelenggara }}</p>
-            <p><strong>Tingkat:</strong> {{ $program->tingkat }}</p>
-            <p><strong>Mata Lomba:</strong> {{ $program->mata_lomba }}</p>
-
-            
-        </div>
-        <div class="mt-10">
-            @if (!$sudahDaftar)
-                <button wire:click="daftar" wire:loading.attr="disabled"
-                    class="bg-[#0C356A] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#082d5b] transition shadow-lg flex items-center gap-3 text-lg">
-                    <span wire:loading.remove>Daftar Program</span>
-                    <span wire:loading>Sedang mengirim...</span>
-                </button>
-            @else
-                @if ($statusPendaftaran === 'pending')
-                    <div
-                        class="bg-yellow-100 border border-yellow-400 text-yellow-800 px-6 py-4 rounded-lg inline-block">
-                        Menunggu persetujuan admin...
-                    </div>
-                @elseif($statusPendaftaran === 'approved')
-                    <div
-                        class="bg-green-100 border border-green-400 text-green-800 px-6 py-4 rounded-lg inline-block font-bold">
-                        Selamat! Pendaftaran kamu telah disetujui!
-                    </div>
-                @elseif($statusPendaftaran === 'rejected')
-                    <div class="bg-red-100 border border-red-400 text-red-800 px-6 py-4 rounded-lg inline-block">
-                        Maaf, pendaftaran kamu ditolak.
-                    </div>
-                @endif
-            @endif
-
-            @if (session()->has('message'))
-                <div
-                    class="mt-4 text-sm {{ str_starts_with(session('message'), 'success') ? 'text-green-600' : 'text-red-600' }}">
-                    {{ ltrim(session('message'), 'success|error|') }}
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <div class="bg-[#0C356A] rounded-xl text-white px-6 py-5 flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl font-semibold">{{ $program->name }}</h2>
                 </div>
-            @endif
-
-            @if ($message)
-                @php $parts = explode('|', $message); @endphp
-                <div
-                    class="mt-4 p-4 rounded-lg {{ $parts[0] == 'success' ? 'bg-green-100 text-green-700 border border-green-300' : 'bg-red-100 text-red-700 border border-red-300' }}">
-                    {{ $parts[1] }}
+                <div class="bg-white rounded-full p-1 shadow-md">
+                    <livewire:siswa.program.bookmark-toggle :program-id="$program->id" :key="'bookmark-' . $program->id" />
                 </div>
-            @endif
-        </div>
+            </div>
 
+            <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                {{-- Poster dengan Lightbox TANPA Library Apapun --}}
+                <div class="md:col-span-1 relative">
+                    <!-- Gambar thumbnail yang bisa diklik -->
+                    <img
+                        src="{{ asset('storage/' . $program->poster) }}"
+                        alt="Poster {{ $program->name }}"
+                        class="rounded-lg w-full object-cover shadow-lg cursor-zoom-in transition-transform hover:scale-105"
+                        onclick="openLightbox('{{ asset('storage/' . $program->poster) }}')">
+
+                    <!-- Lightbox (awalnya hidden) -->
+                    <div id="lightbox" class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-95 hidden" onclick="closeLightbox()">
+                        <div class="relative max-w-5xl max-h-full p-4">
+                            <img id="lightbox-img" src="" alt="Poster besar" class="max-w-full max-h-screen rounded-lg shadow-2xl">
+
+                            <!-- Tombol X besar X -->
+                            <button class="absolute top-4 right-4 text-white text-6xl font-thin hover:text-gray-400 focus:outline-none">
+                                &times;
+                            </button>
+
+                            <!-- Petunjuk kecil -->
+                            <p class="text-center text-white text-sm mt-4 opacity-70">Klik di mana saja untuk menutup</p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Detail --}}
+                <div class="md:col-span-2 space-y-6">
+                    {{-- Tanggal --}}
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-gray-500 font-semibold text-sm">Tanggal Mulai</p>
+                            <p class="font-medium">
+                                {{ \Carbon\Carbon::parse($program->tanggal_mulai)->translatedFormat('d F Y') }}
+                            </p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-500 font-semibold text-sm">Tanggal Selesai</p>
+                            <p class="font-medium">
+                                {{ \Carbon\Carbon::parse($program->tanggal_selesai)->translatedFormat('d F Y') }}
+                            </p>
+                        </div>
+                    </div>
+
+                    {{-- Tingkat & Lomba --}}
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-gray-500 font-semibold text-sm">Tingkat</p>
+                            <p>{{ $program->tingkat }}</p>
+                        </div>
+
+                        <div>
+                            <p class="text-gray-500 font-semibold text-sm">Pelaksanaan</p>
+                            <p>{{ $program->pelaksanaan }}</p>
+
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-gray-500 font-semibold text-sm">Penyelenggara</p>
+                            <ul class="list-disc ml-5 space-y-1">
+                                @foreach (json_decode($program->penyelenggara, true) as $pg)
+                                <li>{{ $pg }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-500 font-semibold text-sm">Mata Lomba</p>
+
+                            <div class="flex flex-wrap gap-2">
+                                @foreach (json_decode($program->mata_lomba, true) as $ml)
+                                <span class="px-3 py-1 bg-yellow-100 text-yellow-500 rounded-full text-sm">
+                                    {{ $ml }}
+                                </span>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Link Pendaftaran --}}
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+
+                            <p class="text-gray-500 font-semibold text-sm mb-1">Link Pendaftaran</p>
+
+                            @if ($program->link_pendaftaran)
+                            <a href="{{ $program->link_pendaftaran }}" target="_blank"
+                                class="text-blue-600 underline">
+                                Buka Link Pendaftaran
+                            </a>
+                            @else
+                            <p class="text-gray-400 italic">Tidak ada link pendaftaran</p>
+                            @endif
+                        </div>
+
+                        <div>
+                            <p class="text-gray-500 font-semibold text-sm mb-1">Panduan Lomba</p>
+
+                            @if(Str::contains($program->panduan_lomba, '.pdf'))
+                            <a href="{{ asset('storage/' . $program->panduan_lomba) }}" target="_blank">
+                                <i class='bx bx-file text-lg'></i> Download Panduan PDF
+                            </a>
+                            @endif
+
+
+                            @if(Str::startsWith($program->panduan_lomba, 'http'))
+                            <a href="{{ $program->panduan_lomba }}" target="_blank">
+                                Lihat Panduan
+                            </a>
+                            @endif
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="px-6 pb-6">
+                <div class="bg-[#FFF7E8] border rounded-xl p-5 shadow-sm">
+                    <p class="text-gray-500 font-semibold text-sm mb-2">Deskripsi</p>
+
+                    <p class="text-gray-800 leading-relaxed">
+                        {{ $program->deskripsi }}
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
+
+<script>
+    function openLightbox(imageUrl) {
+        const lightbox = document.getElementById('lightbox');
+        const img = document.getElementById('lightbox-img');
+        img.src = imageUrl;
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        document.body.style.overflow = 'hidden'; // biar ga bisa scroll pas buka
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Tutup dengan tombol ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+</script>

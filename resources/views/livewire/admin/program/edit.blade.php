@@ -24,7 +24,7 @@
 
                 {{-- Deskripsi --}}
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi Singkat</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi</label>
                     <textarea wire:model="deskripsi" rows="4"
                         class="w-full h-20 border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#FFC436] resize-none"
                         placeholder="Jelaskan program ini..."></textarea>
@@ -80,9 +80,13 @@
                         <select wire:model="tingkat"
                             class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#FFC436]">
                             <option value="">-- Pilih Tingkat --</option>
-                            <option value="nasional">Nasional</option>
-                            <option value="provinsi">Provinsi</option>
+                            <option value="sekolah">Sekolah</option>
+                            <option value="kecamatan">Kecamatan</option>
                             <option value="kota">Kota</option>
+                            <option value="provinsi">Provinsi</option>
+                            <option value="nasional">Nasional</option>
+                            <option value="regional">Regional</option>
+                            <option value="internasional">Internasional</option>
                         </select>
                         @error('tingkat') <p class="text-red-600 text-sm mt-1">{{ $message }}</p> @enderror
                     </div>
