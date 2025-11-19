@@ -1,15 +1,15 @@
 @php
-    use Carbon\Carbon;
+use Carbon\Carbon;
 
-    $tanggalMulai = Carbon::parse($program->tanggal_mulai)->translatedFormat('d F Y');
-    $tanggalSelesai = Carbon::parse($program->tanggal_selesai)->translatedFormat('d F Y');
+$tanggalMulai = Carbon::parse($program->tanggal_mulai)->translatedFormat('d F Y');
+$tanggalSelesai = Carbon::parse($program->tanggal_selesai)->translatedFormat('d F Y');
 
-    $statusColor = match ($program->status) {
-        'published' => 'bg-green-500',
-        'draft' => 'bg-yellow-400',
-        'archived' => 'bg-red-500',
-        default => 'bg-gray-400',
-    };
+$statusColor = match ($program->status) {
+'published' => 'bg-green-500',
+'draft' => 'bg-yellow-400',
+'archived' => 'bg-red-500',
+default => 'bg-gray-400',
+};
 @endphp
 
 <div class="flex min-h-screen">
@@ -45,8 +45,7 @@
                     <img
                         src="{{ asset('storage/' . $program->poster) }}"
                         alt="poster"
-                        class="rounded-lg w-full object-cover shadow-lg"
-                    >
+                        class="rounded-lg w-full object-cover shadow-lg">
                 </div>
 
                 {{-- Detail --}}
@@ -64,7 +63,7 @@
                     <div>
                         <p class="text-gray-500 font-semibold text-sm">Deskripsi Singkat</p>
                         <p class="text-gray-800 leading-relaxed">
-                            {{ $program->deskripsi_singkat }}
+                            {{ $program->deskripsi }}
                         </p>
                     </div>
 
@@ -84,7 +83,9 @@
                     {{-- Penyelenggara --}}
                     <div>
                         <p class="text-gray-500 font-semibold text-sm">Penyelenggara</p>
-                        <p>{{ $program->penyelenggara }}</p>
+                        @foreach (json_decode($program->penyelenggara, true) as $pg)
+                        <span>{{ $pg }}</span>
+                        @endforeach
                     </div>
 
                     {{-- Tingkat & Lomba --}}
@@ -96,22 +97,61 @@
 
                         <div>
                             <p class="text-gray-500 font-semibold text-sm">Mata Lomba</p>
-                            <p>{{ $program->mata_lomba }}</p>
+                            @foreach (json_decode($program->mata_lomba, true) as $ml)
+                            <span>{{ $ml }}</span>
+                            @endforeach
+                        </div>
+                        <div>
+                            <p class="text-gray-500 font-semibold text-sm">Pelaksanaan</p>
+                            <p>{{ $program->pelaksanaan }}</p>
+
                         </div>
                     </div>
 
+                    {{-- Link Pendaftaran --}}
+                    <div>
+                        <p class="text-gray-500 font-semibold text-sm mb-1">Link Pendaftaran</p>
+
+                        @if ($program->link_pendaftaran)
+                        <a href="{{ $program->link_pendaftaran }}" target="_blank"
+                            class="text-blue-600 underline">
+                            Buka Link Pendaftaran
+                        </a>
+                        @else
+                        <p class="text-gray-400 italic">Tidak ada link pendaftaran</p>
+                        @endif
+                    </div>
+
+
+                    <div>
+                        <p class="text-gray-500 font-semibold text-sm mb-1">Panduan Lomba</p>
+
+                        @if(Str::contains($program->panduan_lomba, '.pdf'))
+                        <a href="{{ asset('storage/' . $program->panduan_lomba) }}" target="_blank">
+                            Download Panduan PDF
+                        </a>
+                        @endif
+
+
+                        @if(Str::startsWith($program->panduan_lomba, 'http'))
+                        <a href="{{ $program->panduan_lomba }}" target="_blank">
+                            Lihat Panduan
+                        </a>
+                        @endif
+
+                    </div>
                 </div>
             </div>
 
             {{-- Tombol Aksi --}}
             <div class="px-6 py-5 border-t border-gray-200 flex justify-end gap-3 bg-gray-50">
                 <a href="{{ route('admin.program') }}"
-                   class="px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition">
+                    class="px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition">
                     Kembali
                 </a>
 
                 <a href="{{ route('edit-program', $program->id) }}"
-                   class="px-6 py-3 bg-[#FFC436] text-[#0C356A] font-bold rounded-lg hover:bg-yellow-400 transition">
+                    class="px-6 py-3 bg-[#FFC436] text-[#0C356A] font-bold rounded-lg hover:bg-yellow-400 transition">
                     Edit Program
                 </a>
             </div>

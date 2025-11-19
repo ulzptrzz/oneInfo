@@ -31,7 +31,7 @@
                             {{ \Carbon\Carbon::parse($item->tanggal_selesai)->translatedFormat('d F Y') }}
                         </p>
 
-                        <a href="{{ route('detail-program', $item->id) }}"
+                        <a href="{{ route('guest-detail-program', $item->id) }}"
                             class="inline-block mt-3 text-blue-600 font-semibold hover:underline">
                             Lihat Detail →
                         </a>

@@ -11,7 +11,7 @@ class Program extends Model
 
     protected $fillable = [
         'name',
-        'deskripsi_singkat',
+        'deskripsi',
         'tanggal_mulai',
         'tanggal_selesai',
         'status',
@@ -19,13 +19,16 @@ class Program extends Model
         'penyelenggara',
         'tingkat',
         'mata_lomba',
+        'pelaksanaan',
+        'link_pendaftaran',
+        'panduan_lomba',
         'user_id',
         'kategori_program_id'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
     public function kategoriProgram()
     {

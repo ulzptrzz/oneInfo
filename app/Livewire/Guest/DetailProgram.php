@@ -2,11 +2,15 @@
 
 namespace App\Livewire\Guest;
 
+use App\Mail\AdminNotifikasiPendaftaran;
 use Carbon\Carbon;
 use App\Models\Program;
 use Livewire\Component;
 use App\Models\Pendaftaran;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+
 
 class DetailProgram extends Component
 {
@@ -38,7 +42,8 @@ class DetailProgram extends Component
             return;
         }
 
-        $siswaId = Auth::user()->siswa->id;
+        $user = Auth::user();
+        $siswaId = $user->siswa->id;
 
         $existing = Pendaftaran::where('siswa_id', $siswaId)
                                ->where('program_id', $this->program->id)
@@ -55,6 +60,12 @@ class DetailProgram extends Component
             'siswa_id' => $siswaId,
             'program_id' => $this->program->id,
         ]);
+
+         $admin = User::where('role_id', 1)->get();
+
+        foreach ($admin as $akun) {
+            Mail::to($akun->email)->send(new AdminNotifikasiPendaftaran($user));
+        }
 
         $this->sudahDaftar = true;
         $this->statusPendaftaran = 'pending';

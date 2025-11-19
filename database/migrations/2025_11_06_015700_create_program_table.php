@@ -20,16 +20,20 @@ return new class extends Migration
 
         Schema::create('program', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->text('deskripsi_singkat');
+            $table->string('name');
+            $table->text('deskripsi');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->enum('status', ['draft', 'published', 'archived']);
             $table->string('poster');
-            $table->string('penyelenggara');
-            $table->enum('tingkat', ['nasional', 'provinsi', 'kota']);
-            $table->string('mata_lomba');
+            $table->json('penyelenggara');
+            $table->enum('tingkat', ['sekolah', 'kecamatan', 'kota', 'provinsi', 'nasional', 'regional', 'internasional'])->nullable();
+            $table->json('mata_lomba')->nullable();
+            $table->enum('pelaksanaan', ['online', 'offline']);
+            $table->string('link_pendaftaran')->nullable();
+            $table->string('panduan_lomba')->nullable();
 
+            
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('kategori_program_id');

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', Home::class)->name('home');
 Route::get('/program', Program::class)->name('list-program');
-Route::get('/program/detail/{id}', DetailProgram::class)->name('detail-program');
+Route::get('/program/detail/{id}', DetailProgram::class)->name('guest-detail-program');
 Route::get('/artikel', Artikel::class)->name('list-artikel');
 Route::get('/artikel/detail/{id}', DetailArtikel::class)->name('guest.artikel.detail');
 Route::get('/prestasi', Prestasi::class)->name('list-prestasi');

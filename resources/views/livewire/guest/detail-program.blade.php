@@ -13,7 +13,7 @@
         <p class="text-gray-500 mt-1">{{ $program->kategoriProgram?->nama_kategori ?? 'Tidak ada kategori' }}</p>
 
         <p class="text-gray-600 mt-3 leading-relaxed">
-            {{ $program->deskripsi_singkat }}
+            {{ $program->deskripsi }}
         </p>
 
         <div class="mt-4">
@@ -26,6 +26,8 @@
             <p><strong>Penyelenggara:</strong> {{ $program->penyelenggara }}</p>
             <p><strong>Tingkat:</strong> {{ $program->tingkat }}</p>
             <p><strong>Mata Lomba:</strong> {{ $program->mata_lomba }}</p>
+
+            
         </div>
         <div class="mt-10">
             @if (!$sudahDaftar)
