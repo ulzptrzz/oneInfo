@@ -2,10 +2,10 @@
     <div class="flex min-h-screen">
         <x-sidebar-superadmin />
 
-        <div>
+        <div class="flex-1 p-8 bg-gray-50">
             <h1 class="mb-5 text-2xl font-bold text-[#0C356A]">Tambah Admin</h1>
 
-            <form wire:submit.prevent="store" class="space-y-3">
+            <form wire:submit.prevent="store" class="space-y-5 bg-white p-6 rounded-lg shadow">
                 <div>
                     <label>Nama Admin</label>
                     <input type="text" wire:model="name" class="border p-2 w-full">

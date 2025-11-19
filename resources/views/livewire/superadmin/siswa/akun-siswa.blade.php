@@ -24,40 +24,45 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            No</th>
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Nama Siswa</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Email</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Nis</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Nisn</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Foto</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($sesions as $sesion)
                         <tr class="table-row">
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-4 py-4 whitespace-nowrap">
+                                <span class="text-sm font-medium text-gray-900">{{ $loop->iteration }}</span>
+                            </td>
+                            <td class="px-5 py-4 whitespace-nowrap">
                                 <span class="text-sm font-medium text-gray-900">{{ $sesion->name }}</span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-5 py-4 whitespace-nowrap">
                                 <span class="text-sm font-medium text-gray-900">{{ $sesion->user->email }}</span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-5 py-4 whitespace-nowrap">
                                 <span class="text-sm font-medium text-gray-900">{{ $sesion->nis }}</span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-5 py-4 whitespace-nowrap">
                                 <span class="text-sm font-medium text-gray-900">{{ $sesion->nisn }}</span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-5 py-4 whitespace-nowrap">
                                 <img src="{{ asset('storage/' . $sesion->foto) }}" alt="Foto Siswa"
                                     class="w-32 rounded">
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            <td class="px-5 py-4 whitespace-nowrap text-sm">
                                 <a href="{{ route('superadmin.siswa.edit-siswa', $sesion->id) }}"
                                     class="bg-blue-500 text-white px-3 py-1.5 rounded-lg hover:bg-blue-600 text-sm font-medium inline-flex items-center gap-1 transition">
                                     <i class='bx bx-edit'></i>

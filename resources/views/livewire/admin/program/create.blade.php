@@ -3,7 +3,7 @@
 
     <div class="w-full mx-10 mt-10 bg-white rounded-2xl shadow-md overflow-hidden">
         {{-- Header --}}
-        <div class="bg-gradient-to-right from-[#0C356A] to-[#1e40af] text-white p-6">
+        <div class="bg-gradient-to-r from-[#0C356A] to-[#1e40af] text-white p-6">
             <h1 class="text-2xl font-bold flex items-center gap-2">
                 Tambah Program
             </h1>

@@ -2,17 +2,28 @@
     <div class="flex min-h-screen">
         <x-sidebar-superadmin />
 
-        <div>
-            <div class="flex justify-end">
-                <a href="{{ route('superadmin.siswa.create-jurusan') }}"
-                    class="flex items-center gap-1 bg-[#0C356A] text-white px-3 py-2 rounded-md hover:bg-[#082d5b] transition">
-                    <i class='bx bx-plus'></i> Jurusan
-                </a>
+        <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
+            <div class="bg-[#0C356A] text-white p-7 flex justify-between items-center">
+                <h2 class="text-2xl font-bold flex items-center gap-2">
+                    Kelola Jurusan
+                </h2>
+                <div class="flex gap-3 justify-end">
+                    <a href="{{ route('superadmin.siswa.create-jurusan') }}"
+                        class="bg-[#FFC436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
+                        + Tambah Jurusan
+                    </a>
+                    <a href="{{ route('superadmin.siswa.kelas-siswa') }}"
+                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition">
+                        <i class="bx bx-arrow-back"></i> Kembali
+                    </a>
+                </div>
             </div>
 
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            No</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Nama Jurusan</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -24,6 +35,9 @@
                 <tbody>
                     @foreach ($sesions as $sesion)
                         <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="text-sm font-medium text-gray-900">{{ $loop->iteration }}</span>
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                 {{ $sesion->nama_jurusan }}
                             </td>
@@ -31,12 +45,15 @@
                                 {{ Str::limit($sesion->deskripsi, 40) }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <a href="{{ route('superadmin.siswa.edit-jurusan', $sesion->id) }}"
-                                    class="text-[#0C356A] hover:text-[#065fbd] font-medium">
+                                <a href="{{ route('superadmin.siswa.edit-kelas-siswa', $sesion->id) }}"
+                                    class="bg-blue-500 text-white px-3 py-1.5 rounded-lg hover:bg-blue-600 text-sm font-medium inline-flex items-center gap-1 transition">
+                                    <i class='bx bx-edit'></i>
                                     Edit
                                 </a>
                                 <button type="button" wire:click="confirmDelete({{ $sesion->id }})"
-                                    class="text-red-600 hover:text-red-900 font-medium">
+                                    wire:confirm="Apakah kamu yakin ingin menghapus program '{{ $sesion->name }}'?"
+                                    class="bg-red-500 text-white px-3 py-1.5 rounded-lg hover:bg-red-600 text-sm font-medium inline-flex items-center gap-1 transition">
+                                    <i class='bx bx-trash'></i>
                                     Hapus
                                 </button>
                             </td>

@@ -1,7 +1,7 @@
 <div>
     <div class="flex min-h-screen">
         <x-sidebar-superadmin />
-        <div class="p-8">
+        <div class="w-full mx-8 my-7 overflow-hidden">
             <div class="bg-gradient-to-r from-[#0C356A] to-[#1e40af] rounded-2xl shadow-xl p-8 text-white mb-5">
                 <div class="flex items-center justify-between">
                     <div>

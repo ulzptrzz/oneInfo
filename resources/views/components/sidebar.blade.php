@@ -18,16 +18,6 @@
                 <span>Program</span>
             </a>
 
-            <a href="{{ route('admin.perizinan') }}"
-                class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200
-                {{ request()->routeIs('admin.perizinan') ? 'bg-[#FFC436] text-[#0C356A]' : 'hover:bg-[#FFC436] hover:text-[#0C356A]' }} group">
-
-                <i class='bx bx-folder-open text-lg 
-                    {{ request()->routeIs('admin.perizinan') ? 'text-[#0C356A]' : 'text-white group-hover:text-[#0C356A]' }}'>
-                </i>
-                <span>Perizinan</span>
-            </a>
-
             <a href="{{ route('admin.dokumentasi') }}"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200
                 {{ request()->routeIs('admin.dokumentasi') ? 'bg-[#FFC436] text-[#0C356A]' : 'hover:bg-[#FFC436] hover:text-[#0C356A]' }} group">
