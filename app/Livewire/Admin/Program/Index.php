@@ -12,21 +12,31 @@ class Index extends Component
 {
     public $program;
 
-    public function mount(){
-        $user = Auth::user();
+    public $confirmDeleteId = null;
+    public $showDeleteModal = false;
 
+    public function mount()
+    {
         $this->program = Program::all();
     }
 
-    public function delete($id){
-        $program = Program::find($id);
+    public function confirmDelete($id)
+    {
+        $this->confirmDeleteId = $id;
+        $this->showDeleteModal = true;
+    }
 
-        if($program){
-            $program->delete();
-            session()->flash('message', 'Kategori berhasil dihapus.');
-
-            $this->program = Program::orderBy('id', 'desc')->get();
-        }
+    public function hapus()
+    {
+        Program::findOrFail($this->confirmDeleteId)->delete();
+        $this->showDeleteModal = false;
+        $this->confirmDeleteId = null;
+        $this->mount();
+    }
+    public function cancelDelete()
+    {
+        $this->showDeleteModal = false;
+        $this->confirmDeleteId = null;
     }
 
     public function render()

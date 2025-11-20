@@ -20,24 +20,26 @@
                 {{-- Poster dengan Lightbox TANPA Library Apapun --}}
                 <div class="md:col-span-1 relative">
                     <!-- Gambar thumbnail yang bisa diklik -->
-                    <img
-                        src="{{ asset('storage/' . $program->poster) }}"
-                        alt="Poster {{ $program->name }}"
+                    <img src="{{ asset('storage/' . $program->poster) }}" alt="Poster {{ $program->name }}"
                         class="rounded-lg w-full object-cover shadow-lg cursor-zoom-in transition-transform hover:scale-105"
                         onclick="openLightbox('{{ asset('storage/' . $program->poster) }}')">
 
-                    <!-- Lightbox (awalnya hidden) -->
-                    <div id="lightbox" class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-95 hidden" onclick="closeLightbox()">
+                    <!-- Lightbox -->
+                    <div id="lightbox"
+                        class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-95 hidden"
+                        onclick="closeLightbox()">
                         <div class="relative max-w-5xl max-h-full p-4">
-                            <img id="lightbox-img" src="" alt="Poster besar" class="max-w-full max-h-screen rounded-lg shadow-2xl">
+                            <img id="lightbox-img" src="" alt="Poster besar"
+                                class="max-w-full max-h-screen rounded-lg shadow-2xl">
 
-                            <!-- Tombol X besar X -->
-                            <button class="absolute top-4 right-4 text-white text-6xl font-thin hover:text-gray-400 focus:outline-none">
+                            <button
+                                class="absolute top-4 right-4 text-white text-6xl font-thin hover:text-gray-400 focus:outline-none">
                                 &times;
                             </button>
 
                             <!-- Petunjuk kecil -->
-                            <p class="text-center text-white text-sm mt-4 opacity-70">Klik di mana saja untuk menutup</p>
+                            <p class="text-center text-white text-sm mt-4 opacity-70">Klik di mana saja untuk menutup
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -80,59 +82,69 @@
                             <p class="text-gray-500 font-semibold text-sm">Penyelenggara</p>
                             <ul class="list-disc ml-5 space-y-1">
                                 @foreach (json_decode($program->penyelenggara, true) as $pg)
-                                <li>{{ $pg }}</li>
+                                    <li>{{ $pg }}</li>
                                 @endforeach
                             </ul>
                         </div>
-                        
+
                         <div>
                             <p class="text-gray-500 font-semibold text-sm">Mata Lomba</p>
 
                             <div class="flex flex-wrap gap-2">
                                 @foreach (json_decode($program->mata_lomba, true) as $ml)
-                                <span class="px-3 py-1 bg-yellow-100 text-yellow-500 rounded-full text-sm">
-                                    {{ $ml }}
-                                </span>
+                                    <span class="px-3 py-1 bg-yellow-100 text-yellow-500 rounded-full text-sm">
+                                        {{ $ml }}
+                                    </span>
                                 @endforeach
                             </div>
                         </div>
                     </div>
                     {{-- Link Pendaftaran --}}
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-
-                            <p class="text-gray-500 font-semibold text-sm mb-1">Link Pendaftaran</p>
+                    <div class="pt-8 border-t-2 border-dashed border-gray-200">
+                        <div class="flex flex-col sm:flex-row gap-6 items-stretch sm:items-center">
 
                             @if ($program->link_pendaftaran)
-                            <a href="{{ $program->link_pendaftaran }}" target="_blank"
-                                class="text-blue-600 underline">
-                                Buka Link Pendaftaran
-                            </a>
+                                <a href="{{ $program->link_pendaftaran }}" target="_blank"
+                                    onclick="document.getElementById('upload-bukti-btn').classList.remove('hidden'); this.innerHTML = 'Link Dibuka'; this.classList.add('opacity-70')"
+                                    class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#0C356A] hover:bg-[#0a2b56] text-white font-bold text-lg rounded-xl shadow-xl transition transform hover:-translate-y-1">
+                                    <i class='bx bx-link-external text-2xl'></i>
+                                    Buka Link Pendaftaran
+                                </a>
                             @else
-                            <p class="text-gray-400 italic">Tidak ada link pendaftaran</p>
+                                <p class="text-gray-500 italic">Link pendaftaran belum tersedia</p>
                             @endif
+
+                            <div id="upload-bukti-btn" class="hidden">
+                                <a href="{{ route('guest.bukti-pendaftaran', ['id' => $program->id]) }}"
+                                    class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#FFC436] hover:bg-[#e0b030] text-[#0C356A] font-bold text-lg rounded-xl shadow-xl transition transform hover:scale-105">
+                                    <i class='bx bx-upload text-3xl'></i>
+                                    Upload Bukti Pendaftaran
+                                </a>
+                            </div>
                         </div>
 
-                        <div>
-                            <p class="text-gray-500 font-semibold text-sm mb-1">Panduan Lomba</p>
-
-                            @if(Str::contains($program->panduan_lomba, '.pdf'))
-                            <a href="{{ asset('storage/' . $program->panduan_lomba) }}" target="_blank">
-                                <i class='bx bx-file text-lg'></i> Download Panduan PDF
-                            </a>
+                        <!-- Panduan Lomba -->
+                        <div class="mt-8">
+                            <p class="text-gray-500 font-medium mb-3">Panduan Lomba</p>
+                            @if ($program->panduan_lomba)
+                                @if (Str::contains($program->panduan_lomba, '.pdf'))
+                                    <a href="{{ asset('storage/' . $program->panduan_lomba) }}" target="_blank"
+                                        class="inline-flex items-center gap-3 text-[#0C356A] hover:text-[#FFC436] font-semibold">
+                                        <i class='bx bxs-file-pdf text-3xl'></i>
+                                        Download Panduan (PDF)
+                                    </a>
+                                @elseif(Str::startsWith($program->panduan_lomba, 'http'))
+                                    <a href="{{ $program->panduan_lomba }}" target="_blank"
+                                        class="inline-flex items-center gap-3 text-[#0C356A] hover:text-[#FFC436] font-semibold">
+                                        <i class='bx bx-link-external text-xl'></i>
+                                        Lihat Panduan Online
+                                    </a>
+                                @endif
+                            @else
+                                <p class="text-gray-400 italic text-sm">Panduan belum tersedia</p>
                             @endif
-
-
-                            @if(Str::startsWith($program->panduan_lomba, 'http'))
-                            <a href="{{ $program->panduan_lomba }}" target="_blank">
-                                Lihat Panduan
-                            </a>
-                            @endif
-
                         </div>
                     </div>
-
-
                 </div>
             </div>
 

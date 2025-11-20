@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Mail;
 
 class DetailProgram extends Component
 {
-   public $program;
+    public $program;
     public $sudahDaftar = false;
-    public $statusPendaftaran = null; 
+    public $statusPendaftaran = null;
     public $message = '';
+    public $pendaftaranId = null;  
 
     public function mount($id)
     {
@@ -25,12 +26,13 @@ class DetailProgram extends Component
 
         if (Auth::check() && Auth::user()->siswa) {
             $pendaftaran = Pendaftaran::where('siswa_id', Auth::user()->siswa->id)
-                                      ->where('program_id', $this->program->id)
-                                      ->first();
+                ->where('program_id', $this->program->id)
+                ->first();
 
             if ($pendaftaran) {
                 $this->sudahDaftar = true;
                 $this->statusPendaftaran = $pendaftaran->status;
+                $this->pendaftaranId = $pendaftaran->id;  
             }
         }
     }
@@ -46,8 +48,8 @@ class DetailProgram extends Component
         $siswaId = $user->siswa->id;
 
         $existing = Pendaftaran::where('siswa_id', $siswaId)
-                               ->where('program_id', $this->program->id)
-                               ->exists();
+            ->where('program_id', $this->program->id)
+            ->exists();
 
         if ($existing) {
             $this->message = 'error|Kamu sudah mendaftar program ini sebelumnya!';
@@ -61,7 +63,7 @@ class DetailProgram extends Component
             'program_id' => $this->program->id,
         ]);
 
-         $admin = User::where('role_id', 1)->get();
+        $admin = User::where('role_id', 1)->get();
 
         foreach ($admin as $akun) {
             Mail::to($akun->email)->send(new AdminNotifikasiPendaftaran($user));

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Siswa;
+use App\Models\Program;
 use Illuminate\Database\Eloquent\Model;
 
 class Pendaftaran extends Model
@@ -12,7 +14,9 @@ class Pendaftaran extends Model
         'tanggal_daftar',
         'status',
         'siswa_id',
-        'program_id'
+        'program_id',
+        'bukti_pendaftaran',
+        'syarat_pendaftaran'
     ];
 
     public function siswa(){

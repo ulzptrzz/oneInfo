@@ -4,7 +4,7 @@
     <x-sidebar/>
 
     <!-- Content -->
-    <main class="flex-1 p-8">
+    <div class="w-full mx-8 my-7">
       {{-- Welcome Section --}}
       <div class="mb-8">
         <div class="bg-gradient-to-r from-[#0C356A] to-[#1e40af] rounded-2xl shadow-xl p-8 text-white">

@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date('tanggal_daftar');
             $table->enum('status', ['pending', 'approved', 'rejected']);
+            $table->string('bukti_pendaftaran');
+            $table->string('syarat_pendaftran')->nullable();
 
             $table->unsignedBigInteger('siswa_id');
             $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');

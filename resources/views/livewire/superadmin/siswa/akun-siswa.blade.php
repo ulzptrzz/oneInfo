@@ -8,7 +8,7 @@
                 <div class="flex gap-3 justify-end">
                     <a href="{{ route('superadmin.siswa.kelas-siswa') }}"
                         class="bg-[#ffc436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
-                        + Tambah Admin
+                        + Tambah Kelas
                     </a>
                     <a href="{{ route('superadmin.siswa.create-siswa') }}"
                         class="bg-[#ffc436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
@@ -69,7 +69,6 @@
                                     Edit
                                 </a>
                                 <button type="button" wire:click="confirmDelete({{ $sesion->id }})"
-                                    wire:confirm="Apakah kamu yakin ingin menghapus program '{{ $sesion->name }}'?"
                                     class="bg-red-500 text-white px-3 py-1.5 rounded-lg hover:bg-red-600 text-sm font-medium inline-flex items-center gap-1 transition">
                                     <i class='bx bx-trash'></i>
                                     Hapus
@@ -83,18 +82,26 @@
             @if ($showDeleteModal)
                 <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                     <div class="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full">
-                        <h3 class="text-lg font-semibold text-[#0C356A]">Hapus Kelas?</h3>
-                        <p class="text-sm text-gray-600 mb-6">
-                            Apakah Anda yakin ingin menghapus kelas ini?
+                        <div class="flex justify-center mb-4">
+                            <svg width="90px" height="90px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10 10V13M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M10 21H9C7.34315 21 6 19.6569 6 18V6M18 6V9M14 10V10.5M17 15.5V17H18.5M21 17C21 19.2091 19.2091 21 17 21C14.7909 21 13 19.2091 13 17C13 14.7909 14.7909 13 17 13C19.2091 13 21 14.7909 21 17Z"
+                                    stroke="#0C356A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg text-center font-semibold mb-1 text-[#0C356A]">Hapus Siswa?</h3>
+                        <p class="text-sm text-center text-gray-600 mb-6">
+                            Apakah anda yakin ingin menghapus siswa ini?
                         </p>
 
                         <div class="flex justify-end gap-3">
                             <button wire:click="cancelDelete"
-                                class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">
+                                class="px-3 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">
                                 Batal
                             </button>
                             <button wire:click="hapus" wire:loading.attr="disabled"
-                                class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50">
+                                class="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50">
                                 <span wire:loading.remove>Hapus</span>
                                 <span wire:loading>Hapus...</span>
                             </button>
@@ -180,13 +187,5 @@
                 </div>
             @endif
         </div>
-        <script>
-            document.addEventListener('click', function(e) {
-                const modal = document.querySelector('.fixed.inset-0');
-                if (modal && e.target === modal) {
-                    @this.call('cancelDelete');
-                }
-            });
-        </script>
     </div>
 </div>
