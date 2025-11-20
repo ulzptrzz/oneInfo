@@ -162,10 +162,6 @@
                     class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-artikel') || request()->routeIs('artikel-detail') ? 'active' : '' }}">
                     Artikel
                 </a>
-                <a href="{{ route('list-dokumentasi') }}"
-                    class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-dukomentasi') ? 'active' : '' }}">
-                    Dokumentasi
-                </a>
 
                 @auth
                     @if (auth()->user()->role_id == 1)
@@ -226,10 +222,6 @@
                 <a href="{{ route('list-artikel') }}"
                     class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-artikel') || request()->routeIs('artikel-detail') ? 'active' : '' }}">
                     Artikel
-                </a>
-                <a href="{{ route('list-dokumentasi') }}"
-                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-dokumentasi') ? 'active' : '' }}">
-                    Dokumentasi
                 </a>
 
                 {{-- Mobile Login Button --}}

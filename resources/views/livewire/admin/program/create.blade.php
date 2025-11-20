@@ -1,13 +1,16 @@
-<div class="flex min-h-screen">
+<div class="flex min-h-screen bg-gray-50">
     <x-sidebar active="program" />
 
-    <div class="w-full mx-10 mt-10 bg-white rounded-2xl shadow-md overflow-hidden">
-        {{-- Header --}}
-        <div class="bg-gradient-to-right from-[#0C356A] to-[#1e40af] text-white p-6">
-            <h1 class="text-2xl font-bold flex items-center gap-2">
-                Tambah Program
-            </h1>
-        </div>
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 p-6 lg:p-10">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            {{-- Header Biru Gradient --}}
+            <div class="bg-gradient-to-r from-[#0C356A] to-[#1e40af] text-white p-8">
+                <h1 class="text-3xl font-bold flex items-center gap-3">
+                    Tambah Program
+                </h1>
+            </div>
+
 
         {{-- Form --}}
         <div class="p-8">
@@ -227,53 +230,68 @@
                 </div>
 
                 {{-- Penyelenggara & Mata Lomba --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    {{-- Penyelenggara --}}
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">
                             Penyelenggara
                         </label>
-                        <input type="text" wire:model="penyelenggaraInput"
-                            class="w-full border-2 border-gray-200 rounded-lg px-4 py-3">
-                        <button type="button"
-                            wire:click="addPenyelenggara"
-                            class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full">
-                            + Tambah
-                        </button>
-                    </div>
 
-                    <div class="mt-3 space-y-2">
-                        @foreach ($penyelenggara as $index => $item)
-                        <div class="flex justify-between items-center bg-blue-50 py-2 px-3 rounded-lg">
-                            <span>{{ $item }}</span>
-                            <button type="button" wire:click="removePenyelenggara({{ $index }})"
-                                class="text-red-500 hover:text-red-700 text-sm">Hapus</button>
+                        <div class="flex items-center gap-3">
+                            <input type="text" wire:model="penyelenggaraInput"
+                                class="flex-1 border-2 border-gray-200 rounded-lg px-4 py-3 focus:ring focus:ring-blue-200">
+                            <button type="button"
+                                wire:click="addPenyelenggara"
+                                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                                + Tambah
+                            </button>
                         </div>
-                        @endforeach
+
+                        <div class="mt-4 space-y-2">
+                            @foreach ($penyelenggara as $index => $item)
+                            <div class="flex justify-between items-center bg-blue-50 py-2 px-3 rounded-lg">
+                                <span>{{ $item }}</span>
+                                <button type="button" wire:click="removePenyelenggara({{ $index }})"
+                                    class="text-red-500 hover:text-red-700 text-sm">
+                                    Hapus
+                                </button>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
 
+                    {{-- Mata Lomba --}}
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">
                             Mata Lomba
                         </label>
-                        <input type="text" wire:model="mataLombaInput"
-                            class="w-full border-2 border-gray-200 rounded-lg px-4 py-3">
-                        <button type="button"
-                            wire:click="addMataLomba"
-                            class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full">
-                            + Tambah
-                        </button>
+
+                        <div class="flex items-center gap-3">
+                            <input type="text" wire:model="mataLombaInput"
+                                class="flex-1 border-2 border-gray-200 rounded-lg px-4 py-3 focus:ring focus:ring-blue-200">
+                            <button type="button"
+                                wire:click="addMataLomba"
+                                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                                + Tambah
+                            </button>
+                        </div>
+
+                        <div class="mt-4 space-y-2">
+                            @foreach ($mata_lomba as $index => $item)
+                            <div class="flex justify-between items-center bg-blue-50 py-2 px-3 rounded-lg">
+                                <span>{{ $item }}</span>
+                                <button type="button" wire:click="removeMataLomba({{ $index }})"
+                                    class="text-red-500 hover:text-red-700 text-sm">
+                                    Hapus
+                                </button>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
 
-                    <div class="mt-3 space-y-2">
-                        @foreach ($mata_lomba as $index => $item)
-                        <div class="flex justify-between items-center bg-blue-50 py-2 px-3 rounded-lg">
-                            <span>{{ $item }}</span>
-                            <button type="button" wire:click="removeMataLomba({{ $index }})"
-                                class="text-red-500 hover:text-red-700 text-sm">Hapus</button>
-                        </div>
-                        @endforeach
-                    </div>
                 </div>
+
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
                         Pelaksanaan

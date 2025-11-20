@@ -12,7 +12,7 @@
                 class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200
                 {{ request()->routeIs('admin.dashboard') ? 'bg-[#FFC436] text-[#0C356A]' : 'hover:bg-[#FFC436] hover:text-[#0C356A]' }} group">
 
-                <i class='bx bx-receipt text-lg 
+                <i class='bx bx-home text-lg 
                     {{ request()->routeIs('admin.dashboard') ? 'text-[#0C356A]' : 'text-white group-hover:text-[#0C356A]' }}'>
                 </i>
                 <span>Dashboard</span>
