@@ -7,10 +7,8 @@
             
             {{-- Back Button --}}
             <a href="{{ route('list-artikel') }}" 
-               class="inline-flex items-center gap-2 text-gray-600 hover:text-[#0C356A] mb-8 transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
+               class="inline-flex items-center gap-2 text-[#0C356A] hover:text-[#ffc436] font-medium mb-8 transition">
+                <i class='bx bx-arrow-back text-xl'></i>
                 Semua Artikel
             </a>
 

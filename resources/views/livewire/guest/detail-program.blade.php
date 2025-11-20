@@ -1,9 +1,10 @@
 <div class="max-w-4xl mx-auto p-6">
 
-    <div class="max-w-4xl mx-auto p-6">
-
-        <a href="{{ route('list-program') }}" class="text-blue-600 hover:underline mb-4 inline-block">
-            ← Kembali
+<div class="max-w-4xl mx-auto p-6">
+        <a href="{{ route('list-program') }}" 
+            class="inline-flex items-center gap-2 text-[#0C356A] hover:text-[#ffc436] font-medium mb-8 transition">
+            <i class='bx bx-arrow-back text-xl'></i>
+            Semua Program
         </a>
 
         <div class="bg-white shadow-lg rounded-xl p-6">

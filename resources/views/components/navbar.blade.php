@@ -163,7 +163,7 @@
                     Artikel
                 </a>
                 <a href="{{ route('list-dokumentasi') }}"
-                    class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-tentang') ? 'active' : '' }}">
+                    class="nav-link px-4 py-2 font-medium text-[#0C356A] {{ request()->routeIs('list-dukomentasi') ? 'active' : '' }}">
                     Dokumentasi
                 </a>
 
@@ -228,7 +228,7 @@
                     Artikel
                 </a>
                 <a href="{{ route('list-dokumentasi') }}"
-                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-tentang') ? 'active' : '' }}">
+                    class="mobile-nav-link block px-6 py-3 font-medium text-[#0C356A] border-l-4 border-transparent {{ request()->routeIs('list-dokumentasi') ? 'active' : '' }}">
                     Dokumentasi
                 </a>
 

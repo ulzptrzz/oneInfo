@@ -1,65 +1,72 @@
 <div>
-    <x-navbar />
+    {{-- Single Root Element Wrapper --}}
+    <div>
+        <x-navbar />
 
-    {{-- SECTION ARTICLE - Enhanced --}}
-    <section id="artikel" class="py-10 px-7 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-left mb-16">
-                <h3 class="text-4xl text-center font-bold text-[#0C356A] mb-4">
-                    Artikel <span class="text-[#ffc436]">Terbaru</span>
-                </h3>
-            </div>
+        {{-- SECTION ARTIKEL --}}
+        <div class="max-w-6xl mx-auto p-6">
+
+            {{-- Header --}}
+            <h2 class="text-4xl text-center md:text-5xl font-bold text-[#0C356A] mb-4">
+                Artikel <span class="text-[#ffc436]">Terbaru</span>
+            </h2>
+            <p class="text-lg text-center text-gray-600 mb-10">
+                Baca berbagai artikel dan informasi terkini seputar SMKN 1 Kota Bekasi
+            </p>
 
             {{-- Articles Grid --}}
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
                 @forelse ($artikels as $artikel)
-                    <div
-                        class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="bg-white relative shadow rounded-xl overflow-hidden hover:shadow-lg transition">
 
                         {{-- Image --}}
-                        <div class="h-48 overflow-hidden">
-                            @if ($artikel->thumbnail)
-                                <img src="{{ asset('storage/' . $artikel->thumbnail) }}" alt="{{ $artikel->judul }}"
-                                    class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
-                            @else
-                                <div
-                                    class="w-full h-full bg-gradient-to-br from-[#0C356A] to-[#1e40af] flex items-center justify-center">
-                                    <i class='bx bx-image text-white text-6xl opacity-50'></i>
-                                </div>
-                            @endif
-                        </div>
+                        @if ($artikel->thumbnail)
+                            <img src="{{ asset('storage/' . $artikel->thumbnail) }}" 
+                                 alt="{{ $artikel->judul }}"
+                                 class="w-full h-48 object-cover">
+                        @else
+                            <div class="w-full h-48 bg-gradient-to-br from-[#0C356A] to-[#1e40af] flex items-center justify-center">
+                                <i class='bx bx-image text-white text-6xl opacity-50'></i>
+                            </div>
+                        @endif
 
                         {{-- Content --}}
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
+                        <div class="p-4">
+                            
+                            {{-- Judul --}}
+                            <h2 class="text-xl font-semibold line-clamp-2 min-h-[3.5rem]">
                                 {{ $artikel->judul }}
-                            </h3>
+                            </h2>
 
-                            <p class="text-gray-500 text-sm mb-3 flex items-center gap-1">
-                                <i class='bx bx-calendar'></i>
-                                {{ \Carbon\Carbon::parse($artikel->tanggal)->format('d F Y') }}
+                            {{-- Tanggal --}}
+                            <p class="text-gray-500 text-sm mt-1">
+                                {{ \Carbon\Carbon::parse($artikel->tanggal)->translatedFormat('d F Y') }}
                             </p>
 
-                            <p class="text-gray-600 mb-4 leading-relaxed text-sm line-clamp-3">
-                                {{ $artikel->deskripsi ?? Str::limit(strip_tags($artikel->konten ?? ''), 100) }}
-                            </p>
+                            {{-- Deskripsi --}}
+                            @if($artikel->deskripsi)
+                                <p class="text-gray-600 text-sm mt-2 line-clamp-2">
+                                    {{ $artikel->deskripsi }}
+                                </p>
+                            @elseif($artikel->konten)
+                                <p class="text-gray-600 text-sm mt-2 line-clamp-2">
+                                    {{ Str::limit(strip_tags($artikel->konten), 100) }}
+                                </p>
+                            @endif
 
+                            {{-- Link Detail --}}
                             <a href="{{ route('guest.artikel.detail', $artikel->id) }}"
-                                class="text-[#0C356A] font-bold inline-flex items-center hover:text-[#ffc436] transition-colors group">
-                                Baca Selengkapnya
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 5l7 7-7 7" />
-                                </svg>
+                                class="inline-block mt-3 text-blue-600 font-semibold hover:underline">
+                                Baca Selengkapnya →
                             </a>
+
                         </div>
+
                     </div>
                 @empty
-                    <div class="col-span-1 md:col-span-2 lg:col-span-3">
-                        <div
-                            class="bg-[#D6EBFF] rounded-xl flex flex-col items-center justify-center py-8 px-4 text-center">
+                    <div class="col-span-1 md:col-span-3">
+                        <div class="bg-[#D6EBFF] rounded-xl flex flex-col items-center justify-center py-8 px-4 text-center">
                             <svg width="120px" height="120px" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg" class="mb-3">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -71,21 +78,18 @@
                     </div>
                 @endforelse
             </div>
-    </section>
-    <x-whatsapp />
-    <x-footer />
+        </div>
+
+        <x-whatsapp />
+        <x-footer />
+    </div>
+
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
 </div>
-
-<style>
-    .line-clamp-2 {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    .line-clamp-3 {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-</style>

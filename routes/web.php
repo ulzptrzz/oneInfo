@@ -7,6 +7,7 @@ use App\Livewire\Guest\Dokumentasi;
 use App\Livewire\Guest\DetailProgram;
 use App\Livewire\Guest\DetailArtikel;
 use App\Livewire\Guest\Prestasi;
+use App\Livewire\Guest\DetailPrestasi;
 use App\Livewire\Guest\Program;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +18,8 @@ Route::get('/program/detail/{id}', DetailProgram::class)->name('guest-detail-pro
 Route::get('/artikel', Artikel::class)->name('list-artikel');
 Route::get('/artikel/detail/{id}', DetailArtikel::class)->name('guest.artikel.detail');
 Route::get('/prestasi', Prestasi::class)->name('list-prestasi');
-Route::get('/dokumentasi', Dokumentasi::class)->name('list-dokumentasi');
+Route::get('/prestasi/detail/{id}', DetailPrestasi::class)->name('guest.prestasi.detail');
+Route::get('/dokumen', Dokumentasi::class)->name('list-dokumentasi');
 
 
 Route::prefix('auth')->group(function () {
