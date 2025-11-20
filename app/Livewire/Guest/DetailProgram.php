@@ -2,76 +2,85 @@
 
 namespace App\Livewire\Guest;
 
-use App\Mail\AdminNotifikasiPendaftaran;
-use Carbon\Carbon;
-use App\Models\Program;
-use Livewire\Component;
 use App\Models\Pendaftaran;
+use App\Models\Program;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use Illuminate\Support\Facades\Mail;
-
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class DetailProgram extends Component
 {
-    public $program;
-    public $sudahDaftar = false;
-    public $statusPendaftaran = null;
-    public $message = '';
-    public $pendaftaranId = null;  
+    use WithFileUploads;
+
+    public $program, $syarat_program, $user, $foto, $tanggal_pendaftaran, $pelaksanaan, $mata_lomba_terpilih;
+   
+    public $mata_lomba = [];
+
+    public $showFormModal = false;
 
     public function mount($id)
     {
         $this->program = Program::with('kategoriProgram')->findOrFail($id);
+        $this->user    = Auth::user();
 
-        if (Auth::check() && Auth::user()->siswa) {
-            $pendaftaran = Pendaftaran::where('siswa_id', Auth::user()->siswa->id)
-                ->where('program_id', $this->program->id)
-                ->first();
+        $this->mata_lomba = json_decode($this->program->mata_lomba, true) ?? [];
 
-            if ($pendaftaran) {
-                $this->sudahDaftar = true;
-                $this->statusPendaftaran = $pendaftaran->status;
-                $this->pendaftaranId = $pendaftaran->id;  
-            }
-        }
+        $this->tanggal_pendaftaran = now()->format('Y-m-d');
+        $this->pelaksanaan = $this->program->pelaksanaan ?? 'offline';
     }
 
-    public function daftar()
+    protected function rules()
     {
-        if (!Auth::check() || !Auth::user()->siswa) {
-            $this->message = 'error|Kamu harus login sebagai siswa!';
+        return [
+            'foto'                => 'required|image|mimes:jpg,jpeg,png,pdf|max:5048',
+            'tanggal_pendaftaran' => 'required|date',
+            'pelaksanaan'         => 'required|in:online,offline',
+            'mata_lomba_terpilih' => 'required|in:' . implode(',', $this->mata_lomba),
+            'syarat_program' => 'required|mimes:pdf|max:30000'
+        ];
+    }
+
+    public function simpanPendaftaran()
+    {
+        $this->validate();
+
+        $exists = Pendaftaran::where('siswa_id', $this->user->siswa->id)
+                             ->where('program_id', $this->program->id)
+                             ->exists();
+
+        if ($exists) {
+            session()->flash('error', 'Kamu sudah terdaftar di program ini!');
             return;
         }
 
-        $user = Auth::user();
-        $siswaId = $user->siswa->id;
 
-        $existing = Pendaftaran::where('siswa_id', $siswaId)
-            ->where('program_id', $this->program->id)
-            ->exists();
+        $path = $this->foto->store('bukti-pendaftaran', 'public');
 
-        if ($existing) {
-            $this->message = 'error|Kamu sudah mendaftar program ini sebelumnya!';
-            return;
+         if ($this->syarat_program) {
+            $pathSyarat = $this->syarat_program->store('panduan', 'public');
         }
 
         Pendaftaran::create([
-            'tanggal_daftar' => Carbon::today(),
-            'status' => 'pending',
-            'siswa_id' => $siswaId,
-            'program_id' => $this->program->id,
+            'tanggal_daftar'     => $this->tanggal_pendaftaran,
+            'status'             => 'pending',
+            'pelaksanaan'        => $this->pelaksanaan,
+            'mata_lomba'         => $this->mata_lomba_terpilih,
+            'bukti_pendaftaran'  => $path,
+            'syarat_pendaftaran' => $pathSyarat,
+            'siswa_id'           => $this->user->siswa->id,
+            'program_id'         => $this->program->id,
         ]);
 
-        $admin = User::where('role_id', 1)->get();
+        $this->reset(['foto', 'mata_lomba_terpilih']);
+        session()->flash('success', 'Pendaftaran berhasil! Menunggu verifikasi admin.');
+    }
 
-        foreach ($admin as $akun) {
-            Mail::to($akun->email)->send(new AdminNotifikasiPendaftaran($user));
-        }
+    public function confirmPendaftaran(){
+        $this->showFormModal = true;
+    }
 
-        $this->sudahDaftar = true;
-        $this->statusPendaftaran = 'pending';
-        $this->message = 'success|Pendaftaran berhasil! Menunggu persetujuan admin.';
+    public function cancelPendaftaran(){
+        $this->showFormModal = false;
     }
 
     public function render()
