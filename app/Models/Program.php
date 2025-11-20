@@ -34,6 +34,14 @@ class Program extends Model
     {
         return $this->belongsTo(KategoriProgram::class, 'kategori_program_id');
     }
+    public function pendaftaran()
+    {
+        return $this->hasMany(Pendaftaran::class, 'program_id'); 
+    }
+
+    public function siswa(){
+        return $this->belongsTo(Siswa::class, 'siswa_id');
+    }
 
     public function bookmarkedBy()
     {

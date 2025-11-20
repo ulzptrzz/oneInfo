@@ -9,22 +9,32 @@ class Index extends Component
 {
     public $artikelId;
 
-    public function confirmDelete($id)
-    {
-        $this->artikelId = $id;
+    public function mount(){
+
     }
 
-    public function delete()
+    public function confirmDelete($id)
     {
-        Artikel::find($this->artikelId)->delete();
-        session()->flash('message', 'Artikel berhasil dihapus!');
-        $this->artikelId = null;
+        $this->confirmDeleteId = $id;
+        $this->showDeleteModal = true;
+    }
+
+    public function hapus()
+    {
+        Artikel::findOrFail($this->confirmDeleteId)->delete();
+        $this->showDeleteModal = false;
+        $this->confirmDeleteId = null;
+        $this->mount();
+    }
+
+    public function cancelDelete()
+    {
+        $this->showDeleteModal = false;
+        $this->confirmDeleteId = null;
     }
 
     public function render()
     {
-        return view('livewire.admin.artikel.index', [
-            'data' => Artikel::latest()->get()
-        ]);
+        return view('livewire.admin.artikel.index');
     }
 }

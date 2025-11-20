@@ -9,22 +9,29 @@ use Livewire\Component;
 class Index extends Component
 {
     public $kategoriProgram;
+    public $confirmDeleteId = null;
+    public $showDeleteModal = false; 
 
     public function mount(){
-        $user = Auth::user();
-
         $this->kategoriProgram = KategoriProgram::all();
     }
 
-    public function delete($id){
-        $kategori = KategoriProgram::find($id);
+    public function confirmDelete($id){
+        $this->confirmDeleteId = $id;
+        $this->showDeleteModal = true;
+    }
 
-        if($kategori){
-            $kategori->delete();
-            session()->flash('message', 'Kategori berhasil dihapus.');
+    public function hapus()
+    {
+        KategoriProgram::findOrFail($this->confirmDeleteId)->delete();
+        $this->showDeleteModal = false;
+        $this->confirmDeleteId = null;
+        $this->mount();
+    }
 
-            $this->kategoriProgram = KategoriProgram::orderBy('id', 'desc')->get();
-        }
+    public function cancelDelete(){
+        $this->showDeleteModal = false;
+        $this->confirmDeleteId = null;
     }
 
     public function render()
