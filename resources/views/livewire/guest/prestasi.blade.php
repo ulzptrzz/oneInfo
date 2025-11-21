@@ -18,9 +18,9 @@
             <!-- Filter Jurusan -->
             <div class="w-full md:w-64">
                 <select wire:model.live="searchJurusan"
-                        class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ffc436] focus:border-transparent text-gray-700">
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ffc436] focus:border-transparent text-gray-700">
                     <option value="">Semua Jurusan</option>
-                    @foreach($jurusans as $jurusan)
+                    @foreach ($jurusans as $jurusan)
                         <option value="{{ $jurusan->id }}">{{ $jurusan->nama_jurusan }}</option>
                     @endforeach
                 </select>
@@ -31,23 +31,21 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($prestasis as $prestasi)
                 @php
-                    $siswa     = $prestasi->siswa;
-                    $jurusan   = $siswa?->kelas?->jurusan?->nama_jurusan ?? 'Tidak Ada Jurusan';
-                    $fotoSiswa = $siswa?->foto 
-                        ? asset('storage/' . $siswa->foto) 
-                        : asset('images/default-avatar.jpg');
+                    $siswa = $prestasi->siswa;
+                    $jurusan = $siswa?->kelas?->jurusan?->nama_jurusan ?? 'Tidak Ada Jurusan';
+                    $fotoSiswa = $siswa?->foto ? asset('storage/' . $siswa->foto) : asset('images/default-avatar.jpg');
                 @endphp
 
-                <div class="bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col h-full">
+                <div
+                    class="bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col h-full">
                     <!-- Foto Siswa -->
                     <div class="relative">
-                        <img src="{{ $fotoSiswa }}"
-                             alt="{{ $siswa?->name }}"
-                             class="w-full h-64 object-cover">
+                        <img src="{{ $fotoSiswa }}" alt="{{ $siswa?->name }}" class="w-full h-64 object-cover">
 
                         <!-- Badge Jurusan di dalam card (pindah dari luar) -->
                         <div class="absolute bottom-4 left-4">
-                            <span class="bg-[#ffc436] text-[#0C356A] px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                            <span
+                                class="bg-[#ffc436] text-[#0C356A] px-4 py-2 rounded-full text-sm font-bold shadow-lg">
                                 {{ $jurusan }}
                             </span>
                         </div>
@@ -63,23 +61,30 @@
                             {{ $prestasi->deskripsi }}
                         </p>
 
-                        @if($prestasi->program)
+                        @if ($prestasi->program)
                             <p class="text-sm text-gray-600 mt-2">
-                                <span class="font-medium">Penyelenggara:</span>
-                                {{ $prestasi->program->nama ?? $prestasi->program->name ?? '' }}
+                                <span class="font-medium">Program:</span>
+                                {{ $prestasi->program->nama ?? ($prestasi->program->name ?? '') }}
                             </p>
                         @endif
 
                         <!-- Tombol Detail -->
-                        <a href="{{ route('guest.prestasi.detail', $prestasi->id) }}"
-                            class="inline-block mt-3 text-blue-600 font-semibold hover:underline">
-                            Lihat Detail →
-                        </a>
+                        <div class="pt-3 mt-2">
+                            <a href="{{ route('guest.prestasi.detail', $prestasi->id) }}"
+                                class="inline-flex items-center gap-2 w-full justify-center px-6 py-3.5 bg-[#0C356A] text-white font-semibold rounded-xl hover:bg-[#0a2b55] transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
+                                <span>Lihat Detail</span>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
-                </div>            
+                </div>
             @empty
                 <div class="col-span-full">
-                    <div class="bg-[#D6EBFF] rounded-xl flex flex-col items-center justify-center py-8 px-4 text-center">
+                    <div
+                        class="bg-[#D6EBFF] rounded-xl flex flex-col items-center justify-center py-8 px-4 text-center">
                         <svg width="120px" height="120px" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg" class="mb-3">
                             <path fill-rule="evenodd" clip-rule="evenodd"

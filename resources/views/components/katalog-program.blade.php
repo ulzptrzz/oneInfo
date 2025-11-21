@@ -32,7 +32,7 @@
                     </p>
 
                     <!-- Tombol -->
-                    <div class="pt-3 mt-auto"> 
+                    <div class="pt-3 mt-auto">
                         <a href="{{ route('guest-detail-program', $item->id) }}"
                             class="inline-flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-[#0C356A] text-white font-semibold rounded-xl hover:bg-[#0a2b55] transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
                             <span>Lihat Detail</span>
@@ -51,9 +51,9 @@
             </div>
         @endforeach
     </div>
-    <div class="text-center mt-12">
+    <div class="text-center mt-16">
         <a href="{{ route('list-program') }}"
-            class="bg-[#0C356A] text-white px-10 py-5 rounded-lg text-lg font-semibold hover:bg-[#082954] transition">
+            class="bg-[#0C356A] text-white px-16 py-5 rounded-lg text-xl font-semibold hover:bg-[#082954] transition">
             Lihat Lebih Banyak </a>
     </div>
 </div>
