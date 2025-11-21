@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('perizinan', function (Blueprint $table) {
             $table->id();
-            $table->string('file');
-            $table->enum('status', ['pending', 'approved', 'rejected']);
-            $table->date('tanggal_konfirmasi');
-            $table->unsignedBigInteger('pendaftaran_id');
-            $table->foreign('pendaftaran_id')->references('id')->on('pendaftaran')->onDelete('cascade');
+            $table->unsignedBigInteger('pendaftaran_id')->unique();
+            $table->unsignedBigInteger('user_id')->nullable(); 
+            $table->string('file')->nullable(); 
+            $table->enum('status', ['pending','dikirim','diterima'])->default('pending');
+            $table->text('catatan')->nullable();
+            $table->timestamp('tanggal_dikirim')->nullable();
             $table->timestamps();
+
+            $table->foreign('pendaftaran_id')->references('id')->on('pendaftaran')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

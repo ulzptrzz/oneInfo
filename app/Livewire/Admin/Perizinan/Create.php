@@ -4,40 +4,72 @@ namespace App\Livewire\Admin\Perizinan;
 
 use App\Models\Perizinan;
 use Livewire\Component;
-use Symfony\Component\HttpFoundation\Request;
 use App\Models\Pendaftaran;
+use Livewire\WithFileUploads;
+use App\Mail\PerizinanMail;
+use Illuminate\Support\Facades\Mail;
+
+
 class Create extends Component
 {
-    public $file = '';
-    public $status = '';
-    public $tanggal_konfirmasi = '';
-    public $pendaftaran_id = '';
+    use WithFileUploads;
+
+    public $pendaftaranId;
+    public $pendaftaran;
+    public $catatan;
+    public $surat_file; // TemporaryUploadedFile
+    public $showForm = true;
 
     protected $rules = [
-        'file' => 'required|file',
-        'status' => 'required|in:pending,approved,rejected',
-        'tanggal_konfirmasi' => 'required:date',
-        'pendaftaran_id' => 'required|exists:',
+        'catatan' => 'nullable|string|max:2000',
+        'surat_file' => 'nullable|mimes:pdf|max:5120', // 5MB
     ];
 
-    public function kirimDispen(Request $request, $id)
+    public function mount($pendaftaranId)
     {
-        $request->validate([
-            'file' => 'required|mimes:pdf|max:4096'
+        $this->pendaftaranId = $pendaftaranId;
+        $this->pendaftaran = Pendaftaran::with('siswa.user', 'program')->findOrFail($pendaftaranId);
+
+        // guard: only if approved and offline
+        if ($this->pendaftaran->status !== 'approved' || $this->pendaftaran->program->pelaksanaan !== 'offline') {
+            abort(403, 'Tidak bisa mengirim perizinan untuk pendaftaran ini.');
+        }
+
+        // if perizinan already exists, load its data
+        $existing = Perizinan::where('pendaftaran_id', $pendaftaranId)->first();
+        if ($existing) {
+            $this->catatan = $existing->catatan;
+            $this->showForm = $existing->status === 'pending'; // if already sent hide form
+        }
+    }
+
+    public function send()
+    {
+        $this->validate();
+
+        $perizinan = Perizinan::firstOrNew(['pendaftaran_id' => $this->pendaftaranId]);
+
+        if ($this->surat_file) {
+            $path = $this->surat_file->store('perizinan', 'public');
+            $perizinan->file = $path;
+        }
+
+        $perizinan->catatan = $this->catatan;
+        $perizinan->user_id = auth()->id();
+        $perizinan->status = 'dikirim';
+        $perizinan->tanggal_dikirim = now();
+        $perizinan->save();
+        
+        $this->pendaftaran->update([
+            'status' => 'finished'
         ]);
 
-        $pendaftaran = Pendaftaran::findOrFail($id);
+        // send email to siswa (ke email user terkait siswa)
+        $siswaUser = $this->pendaftaran->siswa->user;
+        Mail::to($siswaUser->email)->send(new PerizinanMail($perizinan));
 
-        $file = $request->file->store('surat_dispen', 'public');
-
-        $perizinan = Perizinan::create([
-            'pendaftaran_id' => $pendaftaran->id,
-            'file_dispen' => $file
-        ]);
-
-        Mail::to($pendaftaran->user->email)->send(new NotifDispen($perizinan));
-
-        return back()->with('message', 'Surat dispen berhasil dikirim');
+        session()->flash('success', 'Perizinan berhasil dikirim dan email sudah dikirim ke siswa.');
+        return redirect()->route('admin.perizinan.list');
     }
     public function render()
     {

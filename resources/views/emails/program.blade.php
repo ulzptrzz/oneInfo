@@ -1,19 +1,27 @@
 @component('mail::message')
 
-# 🎉 Halo <strong>Satoernus</strong>!  
-Kami dengan senang hati mengumumkan bahwa program baru telah dipublikasikan dan siap kamu ikuti.
-Sebuah program baru telah ditambahkan ke <strong>Website <span style="color:#0C356A">One</span><span style="color:#FFC436">Info</span></strong>. 
-Segera kunjungi dan ikut berpartisipasi dalam program tersebut!. Semangat <strong>Satoernus</strong>!  
+# 🎉 Halo <strong>Satoernus</strong>!
+Kami dengan senang hati mengumumkan bahwa sebuah program baru telah ditambahkan ke <strong>Website <span style="color:#FFC436 font-bold">OneInfo</span></strong>.
+Segera kunjungi websitenya dan ikut berpartisipasi dalam program tersebut!. Semangat <strong>Satoernus</strong>!
 
 ---
 
-## 📝 **{{ $program->name }}**
+## ✨**{{ $program->name }}**✨
 <div style="margin-top:10px; padding: 15px; background:#f1f5f9; border-radius:10px;">
     <p style="margin: 0;">
-        <strong>Kategori:</strong> {{ $program->kategoriProgram->nama_kategori ?? '-' }}<br>
-        📆 <strong>Tanggal:</strong> {{ $program->tanggal_mulai }} - {{ $program->tanggal_selesai }}<br>
-        <strong>Status:</strong> <span style="color:#0ea5e9; font-weight:bold;">Terbuka</span>
+        📝<strong> Kategori:</strong> {{ $program->kategoriProgram->nama_kategori ?? '-' }}<br>
+        📆<strong> Tanggal:</strong>
+        {{ \Carbon\Carbon::parse($program->tanggal_mulai)->translatedFormat('d F Y') }}
+        -
+        {{ \Carbon\Carbon::parse($program->tanggal_selesai)->translatedFormat('d F Y') }}
+        <br>
     </p>
+    <img
+        src="{{ asset('storage/' . $program->poster) }}"
+        alt="Poster {{ $program->name }}"
+        class="rounded-lg w-full object-cover shadow-lg cursor-zoom-in transition-transform hover:scale-105"
+        onclick="openLightbox('{{ asset('storage/' . $program->poster) }}')">
+
 </div>
 
 ---
@@ -24,8 +32,8 @@ Segera kunjungi dan ikut berpartisipasi dalam program tersebut!. Semangat <stron
 
 ---
 
-Terima kasih,  
-<strong>OneInfo - SMKN 1 Kota Bekasi</strong>  
+Terima kasih,
+<strong>OneInfo - SMKN 1 Kota Bekasi</strong>
 <small>"Mewujudkan Siswa Hebat dan Berprestasi"</small>
 
 @endcomponent

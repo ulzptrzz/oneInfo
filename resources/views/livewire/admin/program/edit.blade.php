@@ -11,7 +11,6 @@
                 </h1>
             </div>
 
-
         {{-- Form --}}
         <div class="p-8">
             <form wire:submit="update" enctype="multipart/form-data" class="space-y-6">
