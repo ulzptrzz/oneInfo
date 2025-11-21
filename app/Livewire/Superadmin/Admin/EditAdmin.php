@@ -4,9 +4,13 @@ namespace App\Livewire\Superadmin\Admin;
 
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class EditAdmin extends Component
 {
+    use WithFileUploads;
+
     public $adminId, $name, $email, $foto, $oldFoto;
     public $password = '';
 
@@ -31,7 +35,6 @@ class EditAdmin extends Component
             'name' => 'required|string|min:3|max:50,' . $this->adminId,
             'email' => 'required|email',
             'password' => 'nullable|min:8',
-            'foto' => 'required|image|max:2048'
         ]);
 
         $admin = User::findOrFail($this->adminId);
@@ -39,15 +42,17 @@ class EditAdmin extends Component
         $data = [
             'name' => $this->name,
             'email' => $this->email,
-            'foto' => $this->foto
         ];
 
         if ($this->password) {
             $data['password'] = bcrypt($this->password);
         }
 
-        if ($this->foto){
-            
+        if ($this->foto) {
+            if ($this->oldFoto && Storage::disk('public')->exists($this->oldFoto)) {
+                Storage::disk('public')->delete($this->oldFoto);
+            }
+            $data['foto'] = $this->foto->store('photos/admin', 'public');
         }
 
         $admin->update($data);

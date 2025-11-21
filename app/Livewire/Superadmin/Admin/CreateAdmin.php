@@ -57,7 +57,7 @@ class CreateAdmin extends Component
             'email' => $this->email,
             'password' => bcrypt($this->password), 
             'role_id' => $this->roleId,
-            'phone' => '0123456789',
+            'phone' => '08123456789',
             'foto' => $photo
         ]);
 

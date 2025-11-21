@@ -118,6 +118,4 @@
             eyeIcon.classList.add('bx-hide');
         }
     }
-
-    
 </script>

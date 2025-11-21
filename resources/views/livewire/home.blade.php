@@ -1,6 +1,5 @@
 <div>
     <style>
-        /* Custom Styles for OneInfo Landing Page */
         .hero-gradient {
             background: linear-gradient(135deg, #0C356A 0%, #1e40af 50%, #3b82f6 100%);
         }
@@ -120,9 +119,8 @@
     <header class="text-white">
         <x-navbar />
 
-        {{-- HERO SECTION - Enhanced --}}
+        {{-- HERO SECTION --}}
         <div class="hero-gradient pt-28 pb-16 px-7 relative overflow-hidden">
-            {{-- Decorative Elements --}}
             <div class="absolute w-96 h-96 bg-[#ffc436] opacity-10 rounded-full -top-40 -right-20"></div>
             <div class="absolute w-80 h-80 bg-[#ffc436] opacity-5 rounded-full -bottom-40 -left-20"></div>
 
@@ -155,7 +153,7 @@
         </div>
     </header>
 
-    {{-- STATS SECTION - New Addition --}}
+    {{-- STATS SECTION --}}
     <section class="py-16 px-7 bg-white -mt-10 relative z-20">
         <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
             <div class="stat-card-hover bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl text-center">
@@ -177,14 +175,14 @@
         </div>
     </section>
 
-    <section class="py-20 px-7 bg-white">
-        {{-- KATALOG PROGRAM - Enhanced --}}
+    <section id="program" class="py-20 px-7 bg-white">
+        {{-- KATALOG PROGRAM --}}
         <x-katalog-program :program="$program" />
     </section>
 
-    {{-- SECTION PRESTASI - Enhanced --}}
+    {{-- SECTION PRESTASI --}}
     <section id="prestasi" class="py-20 px-7 bg-white">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-6xl mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-[#0C356A] mb-4">
                     Prestasi <span class="text-[#ffc436]">Siswa</span>
@@ -194,47 +192,86 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div
-                    class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
-                    <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
-                    <div class="p-6 text-center">
-                        <h3 class="text-lg font-bold text-[#0C356A] mb-2">Mathilda Anneke Waworuntu</h3>
-                        <p class="text-gray-700">Juara 2 Runner Up Harvard Essay Competition</p>
-                    </div>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @forelse($prestasis as $prestasi)
+                    @php
+                        $siswa = $prestasi->siswa;
+                        $jurusan = $siswa?->kelas?->jurusan?->nama_jurusan ?? 'Tidak Ada Jurusan';
+                        $fotoSiswa = $siswa?->foto
+                            ? asset('storage/' . $siswa->foto)
+                            : asset('images/default-avatar.jpg');
+                    @endphp
 
-                <div
-                    class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
-                    <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
-                    <div class="p-6 text-center">
-                        <h3 class="text-lg font-bold text-[#0C356A] mb-2">Tim Olimpiade Sains</h3>
-                        <p class="text-gray-700">Medali Emas OSN Tingkat Provinsi</p>
-                    </div>
-                </div>
+                    <div
+                        class="bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col h-full">
+                        <!-- Foto Siswa -->
+                        <div class="relative">
+                            <img src="{{ $fotoSiswa }}" alt="{{ $siswa?->name }}" class="w-full h-64 object-cover">
 
-                <div
-                    class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
-                    <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
-                    <div class="p-6 text-center">
-                        <h3 class="text-lg font-bold text-[#0C356A] mb-2">Tim Debat Bahasa Inggris</h3>
-                        <p class="text-gray-700">Juara 1 National English Debate</p>
-                    </div>
-                </div>
+                            <div class="absolute bottom-4 left-4">
+                                <span
+                                    class="bg-[#ffc436] text-[#0C356A] px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                                    {{ $jurusan }}
+                                </span>
+                            </div>
+                        </div>
 
-                <div
-                    class="achievement-card-hover bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl overflow-hidden shadow-lg scroll-animate">
-                    <img class="w-full h-48 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Achievement">
-                    <div class="p-6 text-center">
-                        <h3 class="text-lg font-bold text-[#0C356A] mb-2">Tim Innovation Challenge</h3>
-                        <p class="text-gray-700">Best Innovation Award 2025</p>
+                        <!-- Content -->
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-[#0C356A] line-clamp-2">
+                                {{ $siswa?->name ?? 'Nama Tidak Diketahui' }}
+                            </h3>
+
+                            <p class="text-lg font-semibold text-gray-800 mt-2 line-clamp-2">
+                                {{ $prestasi->deskripsi }}
+                            </p>
+
+                            @if ($prestasi->program)
+                                <p class="text-sm text-gray-600 mt-2">
+                                    <span class="font-medium">Program:</span>
+                                    {{ $prestasi->program->nama ?? ($prestasi->program->name ?? '') }}
+                                </p>
+                            @endif
+
+                            <!-- Tombol Detail -->
+                            <div class="pt-3 mt-2">
+                                <a href="{{ route('guest.prestasi.detail', $prestasi->id) }}"
+                                    class="inline-flex items-center gap-2 w-full justify-center px-6 py-3.5 bg-[#0C356A] text-white font-semibold rounded-xl hover:bg-[#0a2b55] transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
+                                    <span>Lihat Detail</span>
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                @empty
+                    <div class="col-span-full">
+                        <div
+                            class="bg-[#D6EBFF] rounded-xl flex flex-col items-center justify-center py-8 px-4 text-center">
+                            <svg width="120px" height="120px" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" class="mb-3">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9.29289 1.29289C9.48043 1.10536 9.73478 1 10 1H18C19.6569 1 21 2.34315 21 4V7C21 7.55228 20.5523 8 20 8C19.4477 8 19 7.55228 19 7V4C19 3.44772 18.5523 3 18 3H11V8C11 8.55228 10.5523 9 10 9H5V20C5 20.5523 5.44772 21 6 21H11C11.5523 21 12 21.4477 12 22C12 22.5523 11.5523 23 11 23H6C4.34315 23 3 21.6569 3 20V8C3 7.73478 3.10536 7.48043 3.29289 7.29289L9.29289 1.29289ZM6.41421 7H9V4.41421L6.41421 7ZM18.25 20.75C18.25 21.4404 17.6904 22 17 22C16.3096 22 15.75 21.4404 15.75 20.75C15.75 20.0596 16.3096 19.5 17 19.5C17.6904 19.5 18.25 20.0596 18.25 20.75ZM15.1353 12.9643C15.3999 12.4596 16.0831 12 17 12C18.283 12 19 12.8345 19 13.5C19 14.1655 18.283 15 17 15C16.4477 15 16 15.4477 16 16V17C16 17.5523 16.4477 18 17 18C17.5523 18 18 17.5523 18 17V16.8866C19.6316 16.5135 21 15.2471 21 13.5C21 11.404 19.0307 10 17 10C15.4566 10 14.0252 10.7745 13.364 12.0357C13.1075 12.5248 13.2962 13.1292 13.7853 13.3857C14.2744 13.6421 14.8788 13.4535 15.1353 12.9643Z"
+                                    fill="#0C356A" />
+                            </svg>
+                            <p class="text-[#0C356A] font-semibold text-[17px]">
+                                {{ $searchJurusan ? 'Tidak ada prestasi di jurusan ini' : 'Belum ada Prestasi' }}
+                            </p>
+                        </div>
+                    </div>
+                @endforelse
+            </div>
+            <div class="text-center mt-16">
+                <a href="{{ route('list-prestasi') }}"
+                    class="bg-[#0C356A] text-white px-16 py-5 rounded-lg text-xl font-semibold hover:bg-[#082954] transition">
+                    Lihat Lebih Banyak </a>
             </div>
         </div>
     </section>
 
-    {{-- SECTION ARTICLE - Enhanced --}}
+    {{-- SECTION ARTICLE  --}}
     <section id="artikel" class="py-20 px-7 bg-gradient-to-b from-gray-50 to-white">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
@@ -289,38 +326,8 @@
         </div>
     </section>
 
-    {{-- SECTION DOKUMENTASI - Enhanced --}}
     <section class="py-20 px-7 bg-white">
         <div class="max-w-6xl mx-auto">
-
-            {{-- TITLE --}}
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-[#0C356A] mb-4">
-                    Dokumentasi <span class="text-[#ffc436]">Kegiatan</span>
-                </h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                    Lihat dokumentasi berbagai kegiatan dan program di SMKN 1 Kota Bekasi
-                </p>
-            </div>
-
-            {{-- CARD --}}
-            <div class="bg-white shadow-xl rounded-2xl overflow-hidden scroll-animate">
-                <div class="shine-effect">
-
-                    {{-- GAMBAR --}}
-                    <img class="w-full h-64 object-cover" src="{{ asset('assets/TOEIC.png') }}" alt="Documentation">
-                </div>
-
-                <div class="p-8 bg-gradient-to-br from-blue-50 to-white">
-                    <h3 class="text-2xl font-bold text-[#0C356A] mb-3">
-                        TOEIC 2025 Refresher Webinar
-                    </h3>
-                    <p class="text-gray-700 leading-relaxed">
-                        Program pelatihan intensif untuk meningkatkan kemampuan bahasa Inggris siswa
-                        dalam menghadapi tes TOEIC standar internasional.
-                    </p>
-                </div>
-            </div>
 
             {{-- Q&A SECTION --}}
             <div class="mt-16">

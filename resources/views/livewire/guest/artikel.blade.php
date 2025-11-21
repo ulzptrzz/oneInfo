@@ -1,5 +1,4 @@
 <div>
-    {{-- Single Root Element Wrapper --}}
     <div>
         <x-navbar />
 
@@ -8,7 +7,7 @@
 
             {{-- Header --}}
             <h2 class="text-4xl text-center md:text-5xl font-bold text-[#0C356A] mb-4">
-                Artikel <span class="text-[#ffc436]">Terbaru</span>
+                Artikel <span class="text-[#ffc436]">& Blog</span>
             </h2>
             <p class="text-lg text-center text-gray-600 mb-10">
                 Baca berbagai artikel dan informasi terkini seputar SMKN 1 Kota Bekasi
@@ -22,20 +21,20 @@
 
                         {{-- Image --}}
                         @if ($artikel->thumbnail)
-                            <img src="{{ asset('storage/' . $artikel->thumbnail) }}" 
-                                 alt="{{ $artikel->judul }}"
-                                 class="w-full h-48 object-cover">
+                            <img src="{{ asset('storage/' . $artikel->thumbnail) }}" alt="{{ $artikel->judul }}"
+                                class="w-full h-48 object-cover">
                         @else
-                            <div class="w-full h-48 bg-gradient-to-br from-[#0C356A] to-[#1e40af] flex items-center justify-center">
+                            <div
+                                class="w-full h-48 bg-gradient-to-br from-[#0C356A] to-[#1e40af] flex items-center justify-center">
                                 <i class='bx bx-image text-white text-6xl opacity-50'></i>
                             </div>
                         @endif
 
                         {{-- Content --}}
                         <div class="p-4">
-                            
+
                             {{-- Judul --}}
-                            <h2 class="text-xl font-semibold line-clamp-2 min-h-[3.5rem]">
+                            <h2 class="text-xl font-semibold line-clamp-2">
                                 {{ $artikel->judul }}
                             </h2>
 
@@ -45,7 +44,7 @@
                             </p>
 
                             {{-- Deskripsi --}}
-                            @if($artikel->deskripsi)
+                            @if ($artikel->deskripsi)
                                 <p class="text-gray-600 text-sm mt-2 line-clamp-2">
                                     {{ $artikel->deskripsi }}
                                 </p>
@@ -55,18 +54,23 @@
                                 </p>
                             @endif
 
-                            {{-- Link Detail --}}
-                            <a href="{{ route('guest.artikel.detail', $artikel->id) }}"
-                                class="inline-block mt-3 text-blue-600 font-semibold hover:underline">
-                                Baca Selengkapnya →
-                            </a>
-
+                            {{-- Tombol Detail --}}
+                            <div class="pt-3 mt-2">
+                                <a href="{{ route('guest.artikel.detail', $artikel->id) }}"
+                                    class="inline-flex items-center gap-2 w-full justify-center px-6 py-3.5 bg-[#0C356A] text-white font-semibold rounded-xl hover:bg-[#0a2b55] transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
+                                    <span>Lihat Detail</span>
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-
                     </div>
                 @empty
                     <div class="col-span-1 md:col-span-3">
-                        <div class="bg-[#D6EBFF] rounded-xl flex flex-col items-center justify-center py-8 px-4 text-center">
+                        <div
+                            class="bg-[#D6EBFF] rounded-xl flex flex-col items-center justify-center py-8 px-4 text-center">
                             <svg width="120px" height="120px" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg" class="mb-3">
                                 <path fill-rule="evenodd" clip-rule="evenodd"

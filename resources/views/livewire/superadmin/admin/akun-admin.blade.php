@@ -49,6 +49,10 @@
                                 <span class="text-sm font-medium text-gray-900">{{ $admin->email }}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
+                                <img src="{{ asset('storage/' . $admin->foto) }}" alt="Foto Admin"
+                                    class="w-32 rounded">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
                                 <span
                                     class="text-sm font-medium text-gray-900">{{ $admin->phone ?? '08123456789' }}</span>
                             </td>

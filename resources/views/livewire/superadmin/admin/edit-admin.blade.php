@@ -28,6 +28,15 @@
                     @enderror
                 </div>
 
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">Foto</label>
+                    <input type="file" wire:model="foto" accept="image/*" class="border p-2 w-full rounded">
+
+                    @error('foto')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
                 <div class="flex gap-4">
                     <a href="{{ route('superadmin.admin.akun-admin') }}"
                         class="px-4 py-2 bg-gray-300 text-gray-700 rounded ">Batal</a>

@@ -8,15 +8,14 @@ use App\Models\Jurusan;
 class Prestasi extends Component
 {
     public $prestasis;
-    public $searchJurusan = ''; // untuk filter jurusan
-    public $jurusans; // list semua jurusan untuk dropdown
+    public $searchJurusan = ''; 
+    public $jurusans; 
 
     public function mount()
     {
         $this->jurusans = Jurusan::orderBy('nama_jurusan')->get();
         $this->loadPrestasi();
     }
-    // Dipanggil otomatis setiap kali $searchJurusan berubah
     public function updatedSearchJurusan()
     {
         $this->loadPrestasi();

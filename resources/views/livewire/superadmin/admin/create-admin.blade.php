@@ -6,6 +6,7 @@
             <h1 class="mb-5 text-2xl font-bold text-[#0C356A]">Tambah Admin</h1>
 
             <form wire:submit.prevent="store" class="space-y-5 bg-white p-6 rounded-lg shadow">
+                <!-- Nama -->
                 <div>
                     <label>Nama Admin</label>
                     <input type="text" wire:model="name" class="border p-2 w-full">
@@ -13,6 +14,8 @@
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <!-- Email -->
                 <div>
                     <label>Email</label>
                     <input type="email" wire:model="email" class="border p-2 w-full">
@@ -20,6 +23,8 @@
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <!-- Password -->
                 <div>
                     <label>Password</label>
                     <input type="password" wire:model="password" class="border p-2 w-full">
@@ -27,6 +32,17 @@
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
+
+                <!-- Foto -->
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">Foto</label>
+                    <input type="file" wire:model="foto" accept="image/*" class="border p-2 w-full rounded">
+
+                    @error('foto')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
 
                 <div class="flex gap-4">
                     <a href="{{ route('superadmin.admin.akun-admin') }}"
