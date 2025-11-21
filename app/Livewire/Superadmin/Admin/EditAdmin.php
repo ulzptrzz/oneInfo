@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class EditAdmin extends Component
 {
-    public $adminId, $name, $email;
+    public $adminId, $name, $email, $foto, $oldFoto;
     public $password = '';
 
     public function mount($id)
@@ -22,6 +22,7 @@ class EditAdmin extends Component
 
         $this->name = $admin->name;
         $this->email = $admin->email;
+        $this->oldFoto = $admin->foto;
     }
 
     public function update()
@@ -29,7 +30,8 @@ class EditAdmin extends Component
         $this->validate([
             'name' => 'required|string|min:3|max:50,' . $this->adminId,
             'email' => 'required|email',
-            'password' => 'nullable|min:8'
+            'password' => 'nullable|min:8',
+            'foto' => 'required|image|max:2048'
         ]);
 
         $admin = User::findOrFail($this->adminId);
@@ -37,10 +39,15 @@ class EditAdmin extends Component
         $data = [
             'name' => $this->name,
             'email' => $this->email,
+            'foto' => $this->foto
         ];
 
         if ($this->password) {
             $data['password'] = bcrypt($this->password);
+        }
+
+        if ($this->foto){
+            
         }
 
         $admin->update($data);

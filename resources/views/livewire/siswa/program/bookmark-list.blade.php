@@ -1,7 +1,7 @@
 <div>
     <div class="flex min-h-screen">
         <x-sidebar-siswa />
-        <div class="max-w-6xl mx-auto p-6">
+        <div class="max-w-7xl mx-auto p-6">
             <div class="mb-8">
                 <h1 class="text-3xl font-bold text-gray-800">Program favorit saya</h1>
             </div>

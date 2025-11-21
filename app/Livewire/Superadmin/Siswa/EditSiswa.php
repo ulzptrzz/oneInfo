@@ -15,9 +15,7 @@ class EditSiswa extends Component
 {
     use WithFileUploads;
 
-    public $siswa_id, $name, $nis, $nisn, $foto, $kelas_id, $kelas_siswa;
-
-    public $oldFoto;
+    public $siswa_id, $name, $nis, $nisn, $foto, $kelas_id, $kelas_siswa, $oldFoto;
 
     public function mount($id)
     {
@@ -64,8 +62,8 @@ class EditSiswa extends Component
         $siswa = Siswa::findOrFail($this->siswa_id);
 
         if ($this->foto) {
-            if ($siswa->foto && Storage::disk('public')->exists($siswa->foto)) {
-                Storage::disk('public')->delete($siswa->foto);
+            if ($siswa->oldFoto && Storage::disk('public')->exists($siswa->oldFoto)) {
+                Storage::disk('public')->delete($siswa->oldFoto);
             }
 
             $photoPath = $this->foto->store('siswa', 'public');
@@ -80,6 +78,7 @@ class EditSiswa extends Component
             'name' => $this->name,
             'email' => $emailUnique,
             'password' => Hash::make($this->nisn),
+            'foto' => $photoPath
         ]);
 
 

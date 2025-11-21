@@ -37,7 +37,7 @@
                                 class="w-full h-48 object-cover">
 
                             <div class="p-5">
-                                <div class="flex justify-between items-start mb-3">
+                                <div class="flex justify-between items-start gap-4 mb-3">
                                     <h3 class="text-lg font-bold text-gray-800 line-clamp-2">
                                         {{ $program->name }}
                                     </h3>
@@ -58,28 +58,44 @@
                                     - {{ \Carbon\Carbon::parse($program->tanggal_selesai)->translatedFormat('d M Y') }}
                                 </p>
 
-                                <p class="text-sm text-gray-600 mb-2">
-                                    <i class="bx bx-building"></i> {{ $program->penyelenggara }}
-                                </p>
+                                @if ($program->mata_lomba)
+                                    <div class="mb-4">
+                                        <p class="text-sm font-semibold text-gray-700 mb-2">Mata Lomba</p>
+                                        <div class="flex flex-wrap gap-1">
+                                            @foreach (json_decode($program->mata_lomba, true) as $ml)
+                                                <span
+                                                    class="inline-block px-3 py-1.5 text-xs font-medium text-amber-700 bg-amber-100 rounded-full border border-amber-200 whitespace-nowrap">
+                                                    {{ Str::limit($ml, 30) }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
 
-                                <div class="flex items-center gap-2 text-xs text-gray-500 mb-4">
-                                    <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded">
-                                        {{ $program->kategoriProgram?->nama_kategori ?? 'Uncategorized' }}
+                                <p class="text-sm font-semibold text-gray-700 mb-2">Kategori Program</p>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span
+                                        class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-bold  text-indigo-700 bg-indigo-100 rounded-lg border border-indigo-200 min-w-[82px]">
+                                        {{ $program->kategoriProgram?->nama_kategori ?? 'Umum' }}
                                     </span>
-                                    <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded">
+                                    <span
+                                        class="inline-flex items-center justify-center px-3 py-1.5 text-xs font-bold text-purple-700 bg-purple-100 rounded-lg border border-purple-200 min-w-[82px]">
                                         {{ $program->tingkat }}
                                     </span>
                                 </div>
 
-                                <div class="flex justify-between items-center">
-                                    <small class="text-gray-500">
-                                        Daftar:
-                                        {{ \Carbon\Carbon::parse($p->tanggal_daftar)->translatedFormat('d F Y') }}
-                                    </small>
-
+                                <small class="text-gray-500">
+                                    Daftar:
+                                    {{ \Carbon\Carbon::parse($p->tanggal_daftar)->translatedFormat('d F Y') }}
+                                </small>
+                                <div class="pt-3 mt-auto">
                                     <a href="{{ route('detail-program', $program->id) }}"
-                                        class="text-[#0C356A] hover:underline text-sm font-medium">
-                                        Lihat Detail →
+                                        class="inline-flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-[#0C356A] text-white font-semibold rounded-xl hover:bg-[#0a2b55] transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
+                                        <span>Lihat Detail</span>
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7" />
+                                        </svg>
                                     </a>
                                 </div>
                             </div>

@@ -10,22 +10,29 @@ class Index extends Component
 {
     public $dokumentasi;
 
+    public $confirmDeleteId = null;
+    public $showDeleteModal = false;
+
     public function mount()
     {
         $this->dokumentasi = Dokumentasi::all();
     }
 
-    public function delete($id)
-    {
-        $data = Dokumentasi::find($id);
-        if ($data) {
-            if ($data->foto && file_exists(storage_path('app/public/' . $data->foto))) {
-                unlink(storage_path('app/public/' . $data->foto));
-            }
-            $data->delete();
-            session()->flash('message', 'Dokumentasi berhasil dihapus.');
-            $this->dokumentasi = Dokumentasi::all();
-        }
+    public function confirmDelete($id){
+        $this->confirmDeleteId = $id;
+        $this->showDeleteModal = true;
+    }
+
+    public function hapus(){
+        Dokumentasi::findOrFail($this->confirmDeleteId)->delete();
+        $this->showDeleteModal = false;
+        $this->confirmDeleteId = null;
+        $this->mount();
+    }
+
+    public function cancelDelete(){
+        $this->showDeleteModal = false;
+        $this->confirmDeleteId = null;
     }
 
     public function render()

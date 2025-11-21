@@ -30,35 +30,46 @@
         @endif
 
         {{-- Empty State --}}
-        @if($data->isEmpty())
+        @if ($artikel->isEmpty())
             <div class="text-center py-16 px-6">
                 <i class='bx bx-news text-6xl text-gray-300 mb-4'></i>
                 <h3 class="text-xl font-semibold text-gray-700 mb-2">Belum Ada Artikel</h3>
                 <p class="text-gray-500 mb-6">Mulai tambahkan artikel terbaru untuk sekolah</p>
                 <a href="{{ route('create-artikel') }}"
-                   class="inline-flex items-center gap-2 bg-[#FFC436] text-[#0C356A] font-semibold px-6 py-2.5 rounded-lg hover:bg-yellow-400">
+                    class="inline-flex items-center gap-2 bg-[#FFC436] text-[#0C356A] font-semibold px-6 py-2.5 rounded-lg hover:bg-yellow-400">
                     <i class='bx bx-plus text-xl'></i>
                     Tambah Artikel
                 </a>
             </div>
-
         @else
             {{-- Table --}}
             <div class="overflow-x-auto">
                 <table class="min-w-full">
                     <thead class="bg-gray-100 border-b-2 border-gray-200">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">No</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Judul</th>
-                            <th class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Deskripsi</th>
-                            <th class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Thumbnail</th>
-                            <th class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Aksi</th>
+                            <th
+                                class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                No</th>
+                            <th
+                                class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Judul</th>
+                            <th
+                                class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Status</th>
+                            <th
+                                class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Deskripsi</th>
+                            <th
+                                class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Thumbnail</th>
+                            <th
+                                class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                Aksi</th>
                         </tr>
                     </thead>
 
                     <tbody class="divide-y divide-gray-200">
-                        @foreach ($data as $item)
+                        @foreach ($artikel as $item)
                             <tr class="table-row">
 
                                 <td class="px-6 py-4">
@@ -70,14 +81,15 @@
                                 </td>
 
                                 <td class="px-6 py-4 text-center">
-                                    <span class="text-sm capitalize font-medium 
+                                    <span
+                                        class="text-sm capitalize font-medium 
                                         {{ $item->status === 'publish' ? 'text-green-600' : 'text-gray-500' }}">
                                         {{ $item->status }}
                                     </span>
                                 </td>
 
                                 <td class="px-6 py-4 text-center">
-                                    <span class="text-sm text-gray-800">{{ $item->deskripsi }}</span>
+                                    <span class="text-sm text-gray-800">{{ Str::words($item->deskripsi, 15, '') }}</span>
                                 </td>
 
                                 <td class="px-6 py-4 text-center">
@@ -85,7 +97,7 @@
                                         <div class="flex justify-center">
                                             <a href="{{ asset('storage/' . $item->thumbnail) }}" target="_blank">
                                                 <img src="{{ asset('storage/' . $item->thumbnail) }}"
-                                                     class="h-16 w-24 object-cover rounded-lg border-2 border-gray-200 hover:border-[#FFC436] transition cursor-pointer">
+                                                    class="h-16 w-24 object-cover rounded-lg border-2 border-gray-200 hover:border-[#FFC436] transition cursor-pointer">
                                             </a>
                                         </div>
                                     @else
@@ -96,17 +108,16 @@
                                 <td class="px-6 py-4 text-center">
                                     <div class="flex items-center justify-center gap-2">
                                         <a href="{{ route('detail-artikel', $item->id) }}"
-                                           class="bg-yellow-500 text-white px-3 py-1.5 rounded-lg hover:bg-yellow-600 text-sm font-medium inline-flex items-center gap-1 transition">
+                                            class="bg-yellow-500 text-white px-3 py-1.5 rounded-lg hover:bg-yellow-600 text-sm font-medium inline-flex items-center gap-1 transition">
                                             <i class='bx bx-eye'></i>
                                             Detail
                                         </a>
                                         <a href="{{ route('edit-artikel', $item->id) }}"
-                                           class="bg-blue-500 text-white px-3 py-1.5 rounded-lg hover:bg-blue-600 text-sm font-medium inline-flex items-center gap-1">
+                                            class="bg-blue-500 text-white px-3 py-1.5 rounded-lg hover:bg-blue-600 text-sm font-medium inline-flex items-center gap-1">
                                             <i class='bx bx-edit'></i>
                                             Edit
                                         </a>
-                                        <button 
-                                            wire:click="confirmDelete({{ $item->id }})"
+                                        <button wire:click="confirmDelete({{ $item->id }})"
                                             class="bg-red-500 text-white px-3 py-1.5 rounded-lg hover:bg-red-600 text-sm font-medium inline-flex items-center gap-1">
                                             <i class='bx bx-trash'></i>
                                             Hapus
@@ -122,27 +133,35 @@
             </div>
         @endif
 
-        {{-- Modal Confirm Delete --}}
-        @if ($artikelId)
-            <div class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                <div class="bg-white p-6 rounded-lg shadow-lg w-80">
-                    <h2 class="text-lg font-semibold mb-4">Hapus Artikel?</h2>
-                    <p class="mb-4 text-sm">Apakah kamu yakin ingin menghapus artikel ini?</p>
+        @if ($showDeleteModal)
+            <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                <div class="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full">
+                    <div class="flex justify-center mb-4">
+                        <svg width="90px" height="90px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 10V13M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M10 21H9C7.34315 21 6 19.6569 6 18V6M18 6V9M14 10V10.5M17 15.5V17H18.5M21 17C21 19.2091 19.2091 21 17 21C14.7909 21 13 19.2091 13 17C13 14.7909 14.7909 13 17 13C19.2091 13 21 14.7909 21 17Z"
+                                stroke="#0C356A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg text-center font-semibold mb-1 text-[#0C356A]">Hapus Artikel?</h3>
+                    <p class="text-sm text-center text-gray-600 mb-6">
+                        Apakah anda yakin ingin menghapus artikel ini?
+                    </p>
 
-                    <div class="flex justify-end gap-2">
-                        <button wire:click="$set('artikelId', null)"
-                                class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+                    <div class="flex justify-end gap-3">
+                        <button wire:click="cancelDelete"
+                            class="px-3 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">
                             Batal
                         </button>
-
-                        <button wire:click="delete"
-                                class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
-                            Hapus
+                        <button wire:click="hapus" wire:loading.attr="disabled"
+                            class="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50">
+                            <span wire:loading.remove>Hapus</span>
+                            <span wire:loading>Hapus...</span>
                         </button>
                     </div>
                 </div>
             </div>
         @endif
-
     </div>
 </div>

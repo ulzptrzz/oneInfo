@@ -12,7 +12,7 @@
 
 <div class="flex min-h-screen">
 
-    <div class="w-full mx-10 mt-10 bg-white rounded-2xl shadow-md overflow-hidden">
+    <div class="w-full mx-8 my-9 bg-white rounded-2xl shadow-md overflow-hidden">
 
         {{-- Header --}}
         <div class="bg-[#0C356A] text-white px-6 py-5">
@@ -23,12 +23,8 @@
             </span>
         </div>
 
-        {{-- Konten Utama --}}
         <div class="p-8">
-
-            {{-- Grid Detail --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
                 {{-- Thumbnail --}}
                 <div>
                     <p class="text-sm font-semibold text-gray-600 mb-2">Thumbnail</p>
@@ -61,14 +57,6 @@
                         <p class="text-gray-800 mt-1 leading-relaxed">
                             {{ $artikel->deskripsi ?? '-' }}
                         </p>
-                    </div>
-
-                    {{-- Konten --}}
-                    <div>
-                        <p class="text-sm font-semibold text-gray-600">Konten Artikel</p>
-                        <div class="text-gray-800 leading-relaxed mt-2">
-                            {!! nl2br(e($artikel->konten)) !!}
-                        </div>
                     </div>
 
                 </div>

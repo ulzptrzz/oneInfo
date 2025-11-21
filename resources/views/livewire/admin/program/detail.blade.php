@@ -13,7 +13,7 @@ default => 'bg-gray-400',
 @endphp
 
 <div class="flex min-h-screen">
-    <div class="w-full mx-10 mt-10">
+    <div class="w-full mx-8 my-9">
 
         {{-- Breadcrumb --}}
         <div class="text-sm text-gray-500 mb-4 flex items-center gap-2">

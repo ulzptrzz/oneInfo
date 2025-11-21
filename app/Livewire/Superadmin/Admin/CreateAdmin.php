@@ -5,13 +5,15 @@ namespace App\Livewire\Superadmin\Admin;
 use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class CreateAdmin extends Component
 {
+    use WithFileUploads;
     public $name = '';
     public $email = '';
     public $password = '';
-    public $roleId;
+    public $roleId, $foto;
 
     public function mount()
     {
@@ -24,7 +26,8 @@ class CreateAdmin extends Component
         return [
             'name' => 'required|string|min:3|max:50',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8'
+            'password' => 'required|min:8',
+            'foto' => 'required|image|max:2048'
         ];
     }
 
@@ -37,7 +40,9 @@ class CreateAdmin extends Component
             'email.email' => 'Format email tidak sesuai',
             'email.unique' => 'Email sudah digunakan',
             'password.required' => 'Password wajib diisi',
-            'password.min' => 'Password tidak boleh kurang dari 8 karakter'
+            'password.min' => 'Password tidak boleh kurang dari 8 karakter',
+            'foto.required' => 'Foto wajib diunggah',
+            'foto.max' => 'Ukuran foto tidak boleh lebih dari 2 mb'
         ];
     }
 
@@ -45,15 +50,18 @@ class CreateAdmin extends Component
     {
         $this->validate();
 
+        $photo = $this->foto->store('photo/admin', 'public');
+
         User::create([
             'name' => $this->name,
             'email' => $this->email,
             'password' => bcrypt($this->password), 
             'role_id' => $this->roleId,
             'phone' => '0123456789',
+            'foto' => $photo
         ]);
 
-        $this->reset(['name', 'email', 'password']);
+        $this->reset();
         return redirect()->route('superadmin.admin.akun-admin');
     }
 

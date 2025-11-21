@@ -1,7 +1,7 @@
 <div class="flex min-h-screen">
     <x-sidebar active="prestasi" />
 
-    <div class="w-full mx-10 mt-10 bg-white rounded-2xl shadow-md overflow-hidden">
+    <div class="w-full mx-8 my-9 bg-white rounded-2xl shadow-md overflow-hidden">
 
         {{-- HEADER --}}
         <div class="bg-gradient-to-r from-[#0C356A] to-[#1e40af] text-white p-6">

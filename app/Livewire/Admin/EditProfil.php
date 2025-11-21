@@ -63,7 +63,6 @@ class EditProfil extends Component
         ];
 
         if ($this->foto) {
-            // Hapus foto lama
             if ($this->old_foto && Storage::disk('public')->exists($this->old_foto)) {
                 Storage::disk('public')->delete($this->old_foto);
             }

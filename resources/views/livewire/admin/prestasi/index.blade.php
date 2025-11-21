@@ -7,7 +7,7 @@
 
     <x-sidebar />
 
-    <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
+    <div class="w-full mx-8 my-9 bg-white rounded-2xl shadow-md overflow-hidden">
 
         {{-- Header --}}
         <div class="bg-[#0C356A] text-white p-7 flex justify-between items-center">

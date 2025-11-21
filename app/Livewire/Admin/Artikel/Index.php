@@ -7,10 +7,12 @@ use App\Models\Artikel;
 
 class Index extends Component
 {
-    public $artikelId;
+    public $artikel;
+    public $confirmDeleteId = null;
+    public $showDeleteModal = false;
 
     public function mount(){
-
+        $this->artikel = Artikel::all();
     }
 
     public function confirmDelete($id)
