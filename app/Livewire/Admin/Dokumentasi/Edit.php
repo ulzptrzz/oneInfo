@@ -45,7 +45,7 @@ class Edit extends Component
 
             // upload baru
             $path = $this->foto->store('dokumentasi', 'public');
-        }   
+        }
 
         $data->update([
             'judul' => $this->judul,
@@ -56,6 +56,13 @@ class Edit extends Component
         session()->flash('message', 'Dokumentasi berhasil diperbarui.');
         return redirect()->route('admin.dokumentasi');
     }
+
+    protected $messages = [
+        'judul.required' => 'Judul wajib diisi.',
+        'foto.image' => 'File foto harus berupa gambar.',
+        'foto.max' => 'Ukuran foto maksimal 3MB.',
+        'video.url' => 'Format URL video tidak benar.',
+    ];
 
     public function render()
     {

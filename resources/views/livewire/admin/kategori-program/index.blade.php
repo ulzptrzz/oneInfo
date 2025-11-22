@@ -10,12 +10,27 @@
     <div class="w-full mx-8 my-9 bg-white rounded-2xl shadow-md overflow-hidden">
         {{-- Header --}}
         <div class="bg-[#0C356A] text-white p-7 flex justify-between items-center">
-            <h2 class="text-2xl font-bold flex items-center gap-2">Daftar Kategori Program</h2>
-            <a href="{{ route('create-kategori') }}"
-                class="bg-[#ffc436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
-                + Tambah Kategori
-            </a>
+
+            <h2 class="text-2xl font-bold flex items-center gap-2">
+                Daftar Kategori Program
+            </h2>
+
+            <div class="flex items-center gap-3">
+                {{-- Tombol Kembali --}}
+                <a href="{{ route('admin.program') }}" 
+                class="bg-white text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-gray-100 transition flex items-center gap-2">
+                    <i class='bx bx-arrow-back text-xl'></i>
+                    Kembali
+                </a>
+
+                {{-- Tombol Tambah --}}
+                <a href="{{ route('create-kategori') }}"
+                    class="bg-[#ffc436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
+                    + Tambah Kategori
+                </a>
+            </div>
         </div>
+
 
         {{-- Success Message --}}
         @if (session()->has('message'))

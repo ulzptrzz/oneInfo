@@ -14,15 +14,15 @@ class Create extends Component
 
     protected $rules = [
         'judul' => 'required|string|max:255',
-        'foto' => 'nullable|image|max:3048', // maksimal 3MB
+        'foto' => 'required|image|max:3048', // maksimal 3MB
         'video' => 'nullable ', // maksimal 30MB
     ];
 
     public function save()
     {
-        $this->validate();
+        $this->validate(); // Foto wajib di sini
 
-        $path = $this->foto ? $this->foto->store('dokumentasi', 'public') : null;
+        $path = $this->foto->store('dokumentasi', 'public');
 
         Dokumentasi::create([
             'judul' => $this->judul,
@@ -30,9 +30,17 @@ class Create extends Component
             'video' => $this->video,
         ]);
 
-    return redirect()->route('admin.dokumentasi')->with('message', 'Dokumentasi berhasil ditambahkan.');
-
+        return redirect()->route('admin.dokumentasi')
+            ->with('message', 'Dokumentasi berhasil ditambahkan.');
     }
+    protected $messages = [
+        'judul.required' => 'Judul wajib diisi.',
+        'foto.required' => 'Foto dokumentasi wajib diisi.',
+        'foto.image' => 'File foto harus berupa gambar.',
+        'foto.max' => 'Ukuran foto maksimal 3MB.',
+        'video.url' => 'Format URL video tidak valid.',
+    ];
+
 
     public function render()
     {

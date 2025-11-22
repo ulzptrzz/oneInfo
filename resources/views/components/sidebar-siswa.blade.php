@@ -42,6 +42,17 @@
                 <span>Program</span>
             </a>
             
+             <!-- Prestasi Saya -->
+            <a href="{{ route('siswa.prestasi') }}"
+                class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200
+                {{ request()->routeIs('siswa.prestasi') ? 'bg-[#FFC436] text-[#0C356A]' : 'hover:bg-[#FFC436] hover:text-[#0C356A]' }} group">
+                
+                <i class='bx bx-medal text-lg 
+                    {{ request()->routeIs('siswa.prestasi') ? 'text-[#0C356A]' : 'text-white group-hover:text-[#0C356A]' }}'>
+                </i>
+                <span>Prestasi Saya</span>
+            </a>
+
             <!-- Profil -->
             <a href="{{ route('siswa.profile') }}"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200

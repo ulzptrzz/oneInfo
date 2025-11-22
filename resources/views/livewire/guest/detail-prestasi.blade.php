@@ -1,5 +1,4 @@
 <div>
-    <x-navbar />
 
     <!-- DETAIL PRESTASI -->
     <div class="max-w-5xl mx-auto p-6 mt-10">
@@ -99,16 +98,6 @@
                                 </div>
                             </div>
                         @endif
-                    </div>
-                </div>
-
-                <!-- Tombol Share / Kembali (bawah) -->
-                <div class="flex justify-between items-center pt-8 border-t border-gray-200">
-                    <div class="flex gap-3">
-                        <button onclick="navigator.clipboard.writeText(window.location.href)"
-                                class="px-5 py-3 bg-[#0C356A] text-white rounded-lg hover:bg-[#0a2b55] transition flex items-center gap-2">
-                            <i class='bx bx-share-alt'></i> Bagikan
-                        </button>
                     </div>
                 </div>
             </div>
