@@ -21,6 +21,8 @@ Route::get('/artikel', Artikel::class)->name('list-artikel');
 Route::get('/artikel/detail/{id}', DetailArtikel::class)->name('guest.artikel.detail');
 Route::get('/prestasi', Prestasi::class)->name('list-prestasi');
 Route::get('/prestasi/detail/{id}', DetailPrestasi::class)->name('guest.prestasi.detail');
+Route::get('/dokumetasi', Prestasi::class)->name('guest.list.dokumentasi');
+Route::get('/prestasi/detail/', DetailPrestasi::class)->name('guest.dokumentasi.detail');
 
 Route::prefix('auth')->group(function () {
     Route::get('/login', Login::class)->name('login');
