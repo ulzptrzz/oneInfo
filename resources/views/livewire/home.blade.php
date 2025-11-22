@@ -258,7 +258,7 @@
                             </svg>
 
                             <p class="text-[#0C356A] font-semibold text-[17px]">
-                            {{-- {{ $searchJurusan ? 'Tidak ada prestasi di jurusan ini' : 'Belum ada Prestasi' }} --}}    
+                                Belum ada prestasi
                             </p>
                         </div>
                     </div>
