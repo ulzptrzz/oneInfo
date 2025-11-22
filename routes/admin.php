@@ -23,8 +23,9 @@ use App\Livewire\Admin\Artikel\Create as ArtikelCreate;
 use App\Livewire\Admin\Artikel\Edit as ArtikelEdit;
 use App\Livewire\Admin\Artikel\Detail as ArtikelDetail;
 use App\Livewire\Admin\ListPendaftaran;
+use App\Livewire\Admin\Pendaftaran\Detail as DetailPendaftaran;
 use App\Livewire\Admin\ProfilAdmin;
-use App\Livewire\Admin\EditProfil as ProfilAdminEdit; 
+use App\Livewire\Admin\EditProfil as ProfilAdminEdit;
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('admin.dashboard');
@@ -38,11 +39,11 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/program/edit/{id}', ProgramEdit::class)->name('edit-program');
     Route::get('/program/detail/{id}', ProgramDetail::class)->name('detail-program');
     Route::get('/program/list-pendaftran-siswa', ListPendaftaran::class)->name('list-pendaftaran-program');
+    Route::get('/pendaftaran/detail/{id}', DetailPendaftaran::class)->name('detail-pendaftaran');
 
     Route::get('/perizinan', PerizinanIndex::class)->name('admin.perizinan');
-    Route::get('/perizinan/create', PerizinanCreate::class)->name('create-perizinan');
+    Route::get('/perizinan/create/{pendaftaranId}', PerizinanCreate::class)->name('create-perizinan');
     Route::get('/perizinan/edit/{id}', PerizinanEdit::class)->name('edit-perizinan');
-    Route::get('/perizinan/edit', ProgramEdit::class)->name('edit-perizinan');
 
     Route::get('/dokumentasi', DokumentasiIndex::class)->name('admin.dokumentasi');
     Route::get('/dokumentasi/create', DokumentasiCreate::class)->name('create-dokumentasi');
@@ -51,7 +52,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/prestasi', PrestasiIndex::class)->name('admin.prestasi');
     Route::get('/prestasi/create', PrestasiCreate::class)->name('create-prestasi');
     Route::get('/prestasi/edit/{id}', PrestasiEdit::class)->name('edit-prestasi');
-    
+
     Route::get('/artikel', ArtikelIndex::class)->name('admin.artikel');
     Route::get('/artikel/create', ArtikelCreate::class)->name('create-artikel');
     Route::get('/Artikel/edit/{id}', ArtikelEdit::class)->name('edit-artikel');
@@ -59,5 +60,4 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/profil-admin', ProfilAdmin::class)->name('admin.profil');
     Route::get('/profil-admin/edit', ProfilAdminEdit::class)->name('admin.edit-profil');
-
 });

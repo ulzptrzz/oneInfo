@@ -9,27 +9,16 @@ use Livewire\WithPagination;
 
 class Index extends Component
 {
-    public $perizinan;
+    use WithPagination;
 
-    public function mount(){
-        $user = Auth::user();
-
-        $this->perizinan = Perizinan::all();
-    }
-
-    public function delete($id){
-        $perizinan = Perizinan::find($id)?->delete();
-
-        if($perizinan){
-            $perizinan->delete();
-            session()->flash('message', 'Kategori berhasil dihapus.');
-
-            $this->perizinan = Perizinan::orderBy('id', 'desc')->get();
-        }
-    }
+    public $search = '';
 
     public function render()
     {
-        return view('livewire.admin.perizinan.index', ['perizinan' => $this->perizinan,]);
+        $query = Perizinan::with(['pendaftaran.siswa.user','pendaftaran.program','admin'])
+            ->when($this->search, fn($q) => $q->whereHas('pendaftaran.siswa.user', fn($sq)=>$sq->where('name','like',"%{$this->search}%")))
+            ->latest()
+            ->paginate(10);
+        return view('livewire.admin.perizinan.index', ['perizinan' => $query,]);
     }
 }

@@ -19,11 +19,18 @@ class Pendaftaran extends Model
         'syarat_pendaftaran'
     ];
 
-    public function siswa(){
+    public function siswa()
+    {
         return $this->belongsTo(Siswa::class);
     }
 
-    public function program(){
+    public function program()
+    {
         return $this->belongsTo(Program::class);
+    }
+
+    public function perizinan()
+    {
+        return $this->hasOne(\App\Models\Perizinan::class, 'pendaftaran_id');
     }
 }

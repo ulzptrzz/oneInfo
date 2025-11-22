@@ -15,7 +15,7 @@ class Edit extends Component
     public $poster, $oldPoster;
     public $penyelenggara = [];
     public $penyelenggaraInput = '';
-public $mataLombaInput = '';
+    public $mataLombaInput = '';
 
     public $tingkat, $mata_lomba = [], $pelaksanaan;
     public $link_pendaftaran;

@@ -1,6 +1,7 @@
 <div class="flex min-h-screen bg-gray-50">
     <x-sidebar active="program" />
 
+<<<<<<< Updated upstream
     <!-- MAIN CONTENT -->
     <div class="flex-1 p-6 lg:p-10">
         <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -10,7 +11,15 @@
                     Edit Program
                 </h1>
             </div>
-
+=======
+    <div class="w-full mx-10 mt-10 bg-white rounded-2xl shadow-md overflow-hidden">
+        {{-- Header --}}
+        <div class="bg-gradient-to-r from-[#0C356A] to-[#1e40af] text-white p-6">
+            <h1 class="text-2xl font-bold flex items-center gap-2">
+                Edit Program
+            </h1>
+        </div>
+>>>>>>> Stashed changes
 
         {{-- Form --}}
         <div class="p-8">

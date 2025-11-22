@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pendaftaran', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal_daftar');
-            $table->enum('status', ['pending', 'approved', 'rejected']);
+            $table->enum('status', ['pending', 'approved', 'rejected','finished'])->default('pending');
             $table->enum('pelaksanaan', ['online', 'offline']);
             $table->string('bukti_pendaftaran');
             $table->string('mata_lomba')->nullable();

@@ -9,14 +9,21 @@ class Perizinan extends Model
     protected $table = 'perizinan';
     protected $primaryKey = 'id';
     protected $fillable = [
+        'pendaftaran_id',
+        'user_id',
         'file',
         'status',
-        'tanggal_konfirmasi',
-        'pendaftaran_id'
+        'catatan',
+        'tanggal_dikirim',
     ];
 
     public function pendaftaran()
     {
-        return $this->belongsTo(Pendaftaran::class, 'pendaftaran_id', 'pendaftaran_id');
+        return $this->belongsTo(Pendaftaran::class, 'pendaftaran_id');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id');
     }
 }
