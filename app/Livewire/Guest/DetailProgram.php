@@ -7,13 +7,15 @@ use App\Models\Program;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AdminNotifikasiPendaftaran;
 
 class DetailProgram extends Component
 {
     use WithFileUploads;
 
     public $program, $syarat_program, $user, $foto, $tanggal_pendaftaran, $pelaksanaan, $mata_lomba_terpilih;
-   
+
     public $mata_lomba = [];
 
     public $showFormModal = false;
@@ -45,8 +47,8 @@ class DetailProgram extends Component
         $this->validate();
 
         $exists = Pendaftaran::where('siswa_id', $this->user->siswa->id)
-                             ->where('program_id', $this->program->id)
-                             ->exists();
+            ->where('program_id', $this->program->id)
+            ->exists();
 
         if ($exists) {
             session()->flash('error', 'Kamu sudah terdaftar di program ini!');
@@ -56,7 +58,7 @@ class DetailProgram extends Component
 
         $path = $this->foto->store('bukti-pendaftaran', 'public');
 
-         if ($this->syarat_program) {
+        if ($this->syarat_program) {
             $pathSyarat = $this->syarat_program->store('panduan', 'public');
         }
 
@@ -71,15 +73,19 @@ class DetailProgram extends Component
             'program_id'         => $this->program->id,
         ]);
 
+        Mail::to('mathildaanneke10@gmail.com')->send(new AdminNotifikasiPendaftaran($this->user));
+
         $this->reset(['foto', 'mata_lomba_terpilih']);
         session()->flash('success', 'Pendaftaran berhasil! Menunggu verifikasi admin.');
     }
 
-    public function confirmPendaftaran(){
+    public function confirmPendaftaran()
+    {
         $this->showFormModal = true;
     }
 
-    public function cancelPendaftaran(){
+    public function cancelPendaftaran()
+    {
         $this->showFormModal = false;
     }
 

@@ -19,6 +19,7 @@ class ListPendaftaran extends Component
     public function updateStatus($id, $action)
     {
         $pendaftaran = Pendaftaran::findOrFail($id);
+        $siswaEmail = $pendaftaran->siswa->user->email;
 
         if ($pendaftaran->status !== 'pending') {
             session()->flash('error', 'Pendaftaran sudah diproses sebelumnya.');
@@ -26,17 +27,28 @@ class ListPendaftaran extends Component
         }
 
         if ($action === 'approve') {
+
             $pendaftaran->update(['status' => 'approved']);
+
             Mail::to($siswaEmail)->send(new PendaftaranDisetujuiMail($pendaftaran));
 
-            session()->flash('success', "Pendaftaran {$pendaftaran->siswa->user->name} untuk program {$pendaftaran->program->name} telah disetujui.");
+            session()->flash(
+                'success',
+                "Pendaftaran {$pendaftaran->siswa->user->name} telah disetujui."
+            );
         } elseif ($action === 'reject') {
+
             $pendaftaran->update(['status' => 'rejected']);
+
             Mail::to($siswaEmail)->send(new PendaftaranDitolakMail($pendaftaran));
 
-            session()->flash('error', "Pendaftaran {$pendaftaran->siswa->user->name} untuk program {$pendaftaran->program->name} telah ditolak.");
+            session()->flash(
+                'error',
+                "Pendaftaran {$pendaftaran->siswa->user->name} telah ditolak."
+            );
         }
     }
+
 
     public function render()
     {

@@ -109,7 +109,7 @@
                                         </a>
                                         @else
                                         {{-- Program online → langsung tampil Detail --}}
-                                        <a href="{{ route('admin.pendaftaran.detail', $p->id) }}"
+                                        <a href="{{ route('detail-pendaftaran', $p->id) }}"
                                             class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded text-sm">
                                             Detail
                                         </a>
@@ -120,7 +120,7 @@
                                     {{-- STATUS REJECTED / FINISHED --}}
                                     @else
                                     <div class="flex justify-center">
-                                        <a href="{{ route('admin.pendaftaran.detail', $p->id) }}"
+                                        <a href="{{ route('detail-pendaftaran', $p->id) }}"
                                             class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded text-sm">
                                             Detail
                                         </a>

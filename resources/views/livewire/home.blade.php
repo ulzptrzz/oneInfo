@@ -257,7 +257,7 @@
                                     fill="#0C356A" />
                             </svg>
                             <p class="text-[#0C356A] font-semibold text-[17px]">
-                                {{ $searchJurusan ? 'Tidak ada prestasi di jurusan ini' : 'Belum ada Prestasi' }}
+                            {{-- {{ $searchJurusan ? 'Tidak ada prestasi di jurusan ini' : 'Belum ada Prestasi' }} --}}    
                             </p>
                         </div>
                     </div>

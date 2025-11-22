@@ -23,6 +23,7 @@ use App\Livewire\Admin\Artikel\Create as ArtikelCreate;
 use App\Livewire\Admin\Artikel\Edit as ArtikelEdit;
 use App\Livewire\Admin\Artikel\Detail as ArtikelDetail;
 use App\Livewire\Admin\ListPendaftaran;
+use App\Livewire\Admin\Pendaftaran\Detail as DetailPendaftaran;
 use App\Livewire\Admin\ProfilAdmin;
 use App\Livewire\Admin\EditProfil as ProfilAdminEdit;
 
@@ -38,6 +39,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/program/edit/{id}', ProgramEdit::class)->name('edit-program');
     Route::get('/program/detail/{id}', ProgramDetail::class)->name('detail-program');
     Route::get('/program/list-pendaftran-siswa', ListPendaftaran::class)->name('list-pendaftaran-program');
+    Route::get('/pendaftaran/detail/{id}', DetailPendaftaran::class)->name('detail-pendaftaran');
 
     Route::get('/perizinan', PerizinanIndex::class)->name('admin.perizinan');
     Route::get('/perizinan/create/{pendaftaranId}', PerizinanCreate::class)->name('create-perizinan');
