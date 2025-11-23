@@ -142,7 +142,6 @@
         </div>
       </div>
     </main>
-    <x-whatsapp />
   </div>
   @livewireScripts
 </div>

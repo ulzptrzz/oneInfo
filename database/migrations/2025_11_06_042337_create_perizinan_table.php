@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pendaftaran_id')->unique();
             $table->unsignedBigInteger('user_id')->nullable(); 
-            $table->string('file')->nullable(); 
+            $table->string('file'); 
             $table->enum('status', ['pending','dikirim','diterima'])->default('pending');
             $table->text('catatan')->nullable();
             $table->timestamp('tanggal_dikirim')->nullable();

@@ -37,10 +37,10 @@ class Create extends Component
         'tanggal_mulai' => 'required|date',
         'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
         'status' => 'required|in:draft,published,archived',
-        'poster' => 'nullable|image|max:2048',
-        'penyelenggara' => 'array|min:1',
+        'poster' => 'required|image|max:2048',
+        'penyelenggara' => 'required|array|min:1',
         'tingkat' => 'nullable|string|max:255',
-        'mata_lomba' => 'array|min:1',
+        'mata_lomba' => 'nullable|array|min:1',
         'pelaksanaan' => 'required|in:online,offline',
         'link_pendaftaran' => 'nullable|url',
         'panduan_file' => 'nullable|mimes:pdf|max:20000',
@@ -117,6 +117,13 @@ class Create extends Component
         $this->mata_lomba = array_values($this->mata_lomba);
     }
 
+    protected $messages = [
+        'poster.image' => 'Poster harus berupa gambar dengan format JPG, PNG, JPEG, atau WEBP.',
+        'poster.max' => 'Ukuran poster maksimal 2MB.',
+
+        'panduan_file.mimes' => 'Panduan file harus berformat PDF.',
+        'panduan_file.max' => 'Ukuran file panduan maksimal 20MB.',
+    ];
 
     public function render()
     {

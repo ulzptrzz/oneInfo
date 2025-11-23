@@ -126,7 +126,7 @@
                     </label>
                     <div class="relative">
                         <input 
-                            type="url" 
+                            type="text" 
                             wire:model="video" 
                             placeholder="https://youtube.com/watch?v=..."
                             class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 pl-10 focus:border-[#FFC436] focus:outline-none transition" />

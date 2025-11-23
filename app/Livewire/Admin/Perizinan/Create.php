@@ -22,7 +22,7 @@ class Create extends Component
 
     protected $rules = [
         'catatan' => 'nullable|string|max:2000',
-        'surat_file' => 'nullable|mimes:pdf|max:5120', // 5MB
+        'surat_file' => 'required|mimes:pdf|max:20000', 
     ];
 
     public function mount($pendaftaranId)
@@ -71,6 +71,12 @@ class Create extends Component
         session()->flash('success', 'Perizinan berhasil dikirim dan email sudah dikirim ke siswa.');
         return redirect()->route('admin.perizinan.index');
     }
+
+    protected $messages = [
+        'surat_file.mimes' => 'File surat perizinan harus berformat PDF.',
+        'surat_file.max' => 'Ukuran file surat perizinan maksimal 20MB.',
+    ];
+
     public function render()
     {
         return view('livewire.admin.perizinan.create');

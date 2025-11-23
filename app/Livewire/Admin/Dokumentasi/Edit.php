@@ -61,8 +61,9 @@ class Edit extends Component
         'judul.required' => 'Judul wajib diisi.',
         'foto.image' => 'File foto harus berupa gambar.',
         'foto.max' => 'Ukuran foto maksimal 3MB.',
-        'video.url' => 'Format URL video tidak benar.',
+        'video.url' => 'Format URL video tidak valid.',
     ];
+    
 
     public function render()
     {

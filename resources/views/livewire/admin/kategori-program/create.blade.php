@@ -18,10 +18,7 @@
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
                         Nama Kategori
                     </label>
-                    <input 
-                        type="text" 
-                        wire:model="nama_kategori" 
-                        placeholder="Contoh: Lomba"
+                    <input type="text" wire:model="nama_kategori" placeholder="Contoh: Lomba"
                         class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#FFC436] focus:outline-none transition" />
                     @error('nama_kategori') 
                         <p class="text-red-600 text-sm mt-1 flex items-center gap-1">

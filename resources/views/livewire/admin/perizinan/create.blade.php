@@ -13,7 +13,7 @@
     @if($showForm)
         <form wire:submit.prevent="send" class="space-y-4">
             <div>
-                <label class="block text-sm font-medium">Upload Surat (PDF) — Opsional</label>
+                <label class="block text-sm font-medium">Upload Surat (PDF)</label>
                 <input type="file" wire:model="surat_file" accept="application/pdf" />
                 @error('surat_file') <div class="text-red-600 text-sm">{{ $message }}</div> @enderror
 

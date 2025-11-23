@@ -15,7 +15,7 @@ class Create extends Component
     protected $rules = [
         'judul' => 'required|string|max:255',
         'foto' => 'required|image|max:3048', // maksimal 3MB
-        'video' => 'nullable ', // maksimal 30MB
+        'video' => 'nullable|url',
     ];
 
     public function save()
@@ -44,6 +44,6 @@ class Create extends Component
 
     public function render()
     {
-         return view('livewire.admin.dokumentasi.create');
+        return view('livewire.admin.dokumentasi.create');
     }
 }

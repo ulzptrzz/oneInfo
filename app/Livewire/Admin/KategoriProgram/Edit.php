@@ -20,6 +20,8 @@ class Edit extends Component
     }
 
     public function update(){
+        $this->validate();
+        
         $kategori = KategoriProgram::findOrFail($this->kategori_program_id);
         $kategori->update([
             'nama_kategori' => $this->nama_kategori,
