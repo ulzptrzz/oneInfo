@@ -68,7 +68,7 @@ class BuktiPendaftaran extends Component
         Mail::to('mathildaanneke10@gmail.com')->send(new AdminNotifikasiPendaftaran($this->user));
 
         // Reset form
-        $this->reset();
+        $this->reset(['foto', 'tanggal_pendaftaran', 'pelaksanaan']);
         $this->tanggal_pendaftaran = now()->format('Y-m-d');
 
         session()->flash('success', 'Pendaftaran berhasil dikirim! Silakan tunggu konfirmasi.');

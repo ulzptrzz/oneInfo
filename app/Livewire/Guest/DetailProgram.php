@@ -15,9 +15,9 @@ class DetailProgram extends Component
     use WithFileUploads;
 
     public $program, $syarat_program, $user, $foto, $tanggal_pendaftaran, $pelaksanaan, $mata_lomba_terpilih;
-
     public $mata_lomba = [];
 
+    public $sudahTerdaftar = false;
     public $showFormModal = false;
 
     public function mount($id)
@@ -29,6 +29,12 @@ class DetailProgram extends Component
 
         $this->tanggal_pendaftaran = now()->format('Y-m-d');
         $this->pelaksanaan = $this->program->pelaksanaan ?? 'offline';
+
+        if (Auth::check() && $this->user?->siswa) {
+            $this->sudahTerdaftar = Pendaftaran::where('siswa_id', $this->user->siswa->id)
+                ->where('program_id', $this->program->id)
+                ->exists();
+        }
     }
 
     protected function rules()
@@ -82,6 +88,7 @@ class DetailProgram extends Component
     public function confirmPendaftaran()
     {
         $this->showFormModal = true;
+        $this->sudahTerdaftar = true;
     }
 
     public function cancelPendaftaran()

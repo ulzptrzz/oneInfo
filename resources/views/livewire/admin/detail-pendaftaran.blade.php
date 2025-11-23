@@ -4,14 +4,11 @@
     <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
         <div class="p-6">
 
-            
             <!-- Judul Halaman -->
             <h2 class="text-3xl font-bold text-[#0C356A] mb-8">Detail Pendaftaran</h2>
-
-            <!-- Informasi Siswa & Program (2 kolom) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
 
-                <!-- Kolom Kiri: Siswa & Bukti Pendaftaran -->
+                <!-- Siswa & Bukti Pendaftaran -->
                 <div class="space-y-5">
 
                     <div>
@@ -59,7 +56,7 @@
 
                 </div>
 
-                <!-- Kolom Kanan: Detail Program -->
+                <!-- Detail Program -->
                 <div class="space-y-5">
 
                     <div>
