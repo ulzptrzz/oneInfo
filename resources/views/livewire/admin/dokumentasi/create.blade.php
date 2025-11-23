@@ -75,8 +75,10 @@
 
                         @error('prestasi_id')
                             <p class="text-red-600 text-sm mt-1 flex items-center gap-1">
-                                <{{ $message }} </p>
-                                @enderror
+                                <i class='bx bx-error-circle'></i> {{ $message }}
+                            </p>
+                        @enderror
+
                     </div>
 
                     {{-- Judul --}}
