@@ -6,8 +6,8 @@
         <div class="max-w-3xl mx-auto">
             
             {{-- Back Button --}}
-            <a href="{{ route('list-artikel') }}" 
-               class="inline-flex items-center gap-2 text-[#0C356A] hover:text-[#ffc436] font-medium mb-8 transition">
+            <a href="{{ route('list-artikel') }}"
+                class="inline-flex items-center mb-8 gap-2 px-6 mt-5 py-3.5 bg-[#0C356A] text-white font-semibold rounded-xl hover:bg-[#0a2b55] transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
                 <i class='bx bx-arrow-back text-xl'></i>
                 Semua Artikel
             </a>

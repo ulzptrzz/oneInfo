@@ -5,7 +5,7 @@
 
         <!-- Back Button -->
         <a href="{{ route('list-prestasi') }}"
-           class="inline-flex items-center gap-2 text-[#0C356A] hover:text-[#ffc436] font-medium mb-8 transition">
+            class="inline-flex items-center mb-8 gap-2 px-6 mt-5 py-3.5 bg-[#0C356A] text-white font-semibold rounded-xl hover:bg-[#0a2b55] transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
             <i class='bx bx-arrow-back text-xl'></i>
             Semua Prestasi
         </a>
@@ -84,11 +84,14 @@
 
                     <!-- Kanan: Foto Dokumentasi (jika ada) -->
                     <div>
-                        @if($prestasi->dokumentasi && $prestasi->dokumentasi->foto)
-                            <div class="bg-gray-100 rounded-xl overflow-hidden shadow-inner">
-                                <img src="{{ asset('storage/' . $prestasi->dokumentasi->foto) }}"
-                                    alt="Dokumentasi Prestasi"
-                                    class="w-full h-80 object-cover hover:scale-105 transition duration-500">
+                        @if($prestasi->dokumentasi->count() > 0)
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                @foreach($prestasi->dokumentasi as $dok)
+                                    <div class="bg-gray-100 rounded-xl overflow-hidden shadow-inner">
+                                        <img src="{{ asset('storage/' . $dok->foto) }}"
+                                            class="w-full h-80 object-cover hover:scale-105 transition duration-500">
+                                    </div>
+                                @endforeach
                             </div>
                         @else
                             <div class="bg-gray-100 rounded-xl h-80 flex items-center justify-center border-2 border-dashed border-gray-300">
@@ -98,6 +101,7 @@
                                 </div>
                             </div>
                         @endif
+
                     </div>
                 </div>
             </div>
