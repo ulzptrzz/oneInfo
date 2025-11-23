@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('dokumentasi', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('prestasi_id');
+            $table->foreign('prestasi_id')->references('id')->on('prestasi')->onDelete('cascade');
             $table->string('judul');
-            $table->string('foto');
+            $table->json('foto')->nullable();
             $table->string('video')->nullable();
             $table->timestamps();
         });

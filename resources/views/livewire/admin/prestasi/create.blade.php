@@ -85,25 +85,6 @@
                     @enderror
                 </div>
 
-                {{-- Dokumentasi --}}
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Dokumentasi</label>
-                    <select 
-                        wire:model="dokumentasi_id"
-                        class="w-full border-2 border-gray-200 rounded-lg px-4 py-3
-                               focus:border-[#FFC436] focus:outline-none transition">
-                        <option value="">-- Pilih Dokumentasi --</option>
-                        @foreach ($dokumentasi as $d)
-                            <option value="{{ $d->id }}">{{ $d->judul }}</option>
-                        @endforeach
-                    </select>
-                    @error('dokumentasi_id')
-                        <p class="text-red-600 text-sm mt-1 flex items-center gap-1">
-                            <i class='bx bx-error-circle'></i> {{ $message }}
-                        </p>
-                    @enderror
-                </div>
-
                 {{-- BUTTONS --}}
                 <div class="flex flex-col sm:flex-row justify-end gap-3 pt-6 border-t border-gray-200">
                     <a href="{{ route('admin.prestasi') }}"

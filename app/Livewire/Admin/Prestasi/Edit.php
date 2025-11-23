@@ -35,15 +35,13 @@ class Edit extends Component
             'deskripsi' => 'required|string|max:255',
             'siswa_id' => 'required|exists:siswa,id',
             'program_id' => 'required|exists:program,id',
-            'dokumentasi_id' => 'required|exists:dokumentasi,id',
-        ]);
+       ]);
 
         Prestasi::findOrFail($this->prestasiId)->update([
             'tanggal' => $this->tanggal,
             'deskripsi' => $this->deskripsi,
             'siswa_id' => $this->siswa_id,
             'program_id' => $this->program_id,
-            'dokumentasi_id' => $this->dokumentasi_id,
         ]);
 
         session()->flash('message', 'Prestasi berhasil diperbarui.');

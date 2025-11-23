@@ -89,7 +89,7 @@ class Edit extends Component
         } elseif (!empty($this->panduan_link)) {
             $pathPanduan = $this->panduan_link;
         } else {
-            $pathPanduan = $this->panduan_lomba; // tetap gunakan yang lama
+            $pathPanduan = $this->panduan_lomba;
         }
 
         $program->update([

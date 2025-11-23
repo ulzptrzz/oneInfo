@@ -1,6 +1,6 @@
 <div class="max-w-4xl mx-auto p-6">
     <a href="{{ route('list-program') }}"
-        class="inline-flex items-center gap-2 text-[#0C356A] hover:text-[#ffc436] font-medium mb-8 transition">
+        class="inline-flex items-center mb-8 gap-2 px-6 mt-5 py-3.5 bg-[#0C356A] text-white font-semibold rounded-xl hover:bg-[#0a2b55] transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
         <i class='bx bx-arrow-back text-xl'></i>
         Semua Program
     </a>
@@ -98,30 +98,42 @@
                 </div>
                 {{-- Link Pendaftaran --}}
                 <div class="pt-8 border-t-2 border-dashed border-gray-200">
-                    <div class="flex flex-col sm:flex-row gap-6 items-stretch sm:items-center">
-                        @if ($program->link_pendaftaran)
-                            <a href="{{ $program->link_pendaftaran }}" target="_blank"
-                                onclick="document.getElementById('upload-bukti-btn').classList.remove('hidden'); this.innerHTML = 'Link Dibuka'; this.classList.add('opacity-70')"
-                                class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#0C356A] hover:bg-[#0a2b56] text-white font-bold text-lg rounded-xl shadow-xl transition transform hover:-translate-y-1">
-                                <i class='bx bx-link-external text-2xl'></i>
-                                Buka Link Pendaftaran
-                            </a>
-                        @else
-                            <button wire:click="confirmPendaftaran()"
-                                class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#0C356A] hover:bg-[#0a2b56] text-white font-bold text-lg rounded-xl shadow-xl transition transform hover:-translate-y-1">
-                                <i class='bx bx-link-external text-2xl'></i>
-                                Buka Link Pendaftaran
-                            </button>
-                        @endif
-
-                        <div id="upload-bukti-btn" class="hidden">
-                            <a href="{{ route('guest.bukti-pendaftaran', ['id' => $program->id]) }}"
-                                class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#FFC436] hover:bg-[#e0b030] text-[#0C356A] font-bold text-lg rounded-xl shadow-xl transition transform hover:scale-105">
-                                <i class='bx bx-upload text-3xl'></i>
-                                Upload Bukti Pendaftaran
-                            </a>
+                    @if ($sudahTerdaftar)
+                        <div class="bg-green-50 rounded-2xl py-4 text-center shadow-lg">
+                            <div class="flex flex-col items-center gap-4">
+                                <i class="bx bx-check-circle text-5xl text-green-600"></i>
+                                <div>
+                                    <p class="text-xl font-bold text-green-800">Anda sudah mengikuti</p>
+                                    <p class="text-lg font-medium text-green-700">program ini</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="flex flex-col sm:flex-row gap-6 items-stretch sm:items-center">
+                            @if ($program->link_pendaftaran)
+                                <a href="{{ $program->link_pendaftaran }}" target="_blank"
+                                    onclick="document.getElementById('upload-bukti-btn').classList.remove('hidden'); this.innerHTML = 'Link Dibuka'; this.classList.add('opacity-70')"
+                                    class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#0C356A] hover:bg-[#0a2b56] text-white font-bold text-lg rounded-xl shadow-xl transition transform hover:-translate-y-1">
+                                    <i class='bx bx-link-external text-2xl'></i>
+                                    Buka Link Pendaftaran
+                                </a>
+                            @else
+                                <button wire:click="confirmPendaftaran()"
+                                    class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#0C356A] hover:bg-[#0a2b56] text-white font-bold text-lg rounded-xl shadow-xl transition transform hover:-translate-y-1">
+                                    <i class='bx bx-link-external text-2xl'></i>
+                                    Buka Link Pendaftaran
+                                </button>
+                            @endif
+
+                            <div id="upload-bukti-btn" class="hidden">
+                                <a href="{{ route('guest.bukti-pendaftaran', ['id' => $program->id]) }}"
+                                    class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#FFC436] hover:bg-[#e0b030] text-[#0C356A] font-bold text-lg rounded-xl shadow-xl transition transform hover:scale-105">
+                                    <i class='bx bx-upload text-3xl'></i>
+                                    Upload Bukti Pendaftaran
+                                </a>
+                            </div>
+                        </div>
+                    @endif
 
                     <!-- Panduan Lomba -->
                     <div class="mt-8">
@@ -159,8 +171,7 @@
         </div>
         @if ($showFormModal)
             <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4">
-                <div
-                    class="bg-white shadow-2xl max-w-2xl w-full max-h-screen overflow-y-auto">
+                <div class="bg-white shadow-2xl max-w-2xl w-full max-h-screen overflow-y-auto">
 
                     <h3 class="text-2xl text-center pt-5 font-bold">Formulir Pendaftaran</h3>
 

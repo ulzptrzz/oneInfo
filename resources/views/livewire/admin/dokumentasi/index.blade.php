@@ -66,6 +66,10 @@
                             </th>
                             <th
                                 class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                                prestasi
+                            </th>
+                            <th
+                                class="px-6 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
                                 Aksi
                             </th>
                         </tr>
@@ -101,6 +105,11 @@
                                     @else
                                         <span class="text-sm text-gray-400">-</span>
                                     @endif
+                                </td>
+                                <td class="px-6 py-4 text-center">
+                                    <span class="text-sm font-medium text-gray-900">
+                                        {{ $item->prestasi->id ?? '-' }}
+                                    </span>
                                 </td>
                                 <td class="px-6 py-4 text-center">
                                     <div class="flex items-center justify-center gap-2">

@@ -7,6 +7,7 @@ use App\Livewire\Guest\BuktiPendaftaran;
 use App\Livewire\Guest\Dokumentasi;
 use App\Livewire\Guest\DetailProgram;
 use App\Livewire\Guest\DetailArtikel;
+use App\Livewire\Guest\DetailDokumentasi;
 use App\Livewire\Guest\Prestasi;
 use App\Livewire\Guest\DetailPrestasi;
 use App\Livewire\Guest\Program;
@@ -21,6 +22,8 @@ Route::get('/artikel', Artikel::class)->name('list-artikel');
 Route::get('/artikel/detail/{id}', DetailArtikel::class)->name('guest.artikel.detail');
 Route::get('/prestasi', Prestasi::class)->name('list-prestasi');
 Route::get('/prestasi/detail/{id}', DetailPrestasi::class)->name('guest.prestasi.detail');
+Route::get('/dokumetasi',Dokumentasi::class)->name('guest.list.dokumentasi');
+Route::get('/prestasi/detail/', DetailDokumentasi::class)->name('guest.dokumentasi.detail');
 
 Route::prefix('auth')->group(function () {
     Route::get('/login', Login::class)->name('login');

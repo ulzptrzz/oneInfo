@@ -89,7 +89,7 @@ class UserSeeder extends Seeder
             ],
              [
                 'name' => 'Mathilda Anneke',
-                'nis' => '232410274',
+                'nis' => '232410321',
                 'nisn' => '0087318110',
                 'kelas_id' => $kelasXI->id,
                 'email' => 'mathilda.waworuntu@smkn1kotabekasi.sch.id'
