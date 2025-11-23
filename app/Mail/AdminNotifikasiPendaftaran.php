@@ -9,20 +9,23 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
+
 class AdminNotifikasiPendaftaran extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $siswa;
-    public function __construct(User $siswa)
+    public $pendaftaran;
+
+    public function __construct($pendaftaran)
     {
-        $this->siswa = $siswa;
+        $this->pendaftaran = $pendaftaran;
     }
+
 
     public function build()
     {
         return $this->subject('Pendaftaran Siswa Baru')
-                    ->markdown('emails.admin.pendaftaran');
+            ->markdown('emails.admin.pendaftaran');
     }
 
     public function envelope(): Envelope

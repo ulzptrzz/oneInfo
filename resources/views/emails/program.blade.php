@@ -10,18 +10,12 @@ Segera kunjungi websitenya dan ikut berpartisipasi dalam program tersebut!. Sema
 <div style="margin-top:10px; padding: 15px; background:#f1f5f9; border-radius:10px;">
     <p style="margin: 0;">
         📝<strong> Kategori:</strong> {{ $program->kategoriProgram->nama_kategori ?? '-' }}<br>
-        📆<strong> Tanggal:</strong>
+        📆<strong> Tanggal Pendaftaran :</strong>
         {{ \Carbon\Carbon::parse($program->tanggal_mulai)->translatedFormat('d F Y') }}
         -
         {{ \Carbon\Carbon::parse($program->tanggal_selesai)->translatedFormat('d F Y') }}
         <br>
     </p>
-    <img
-        src="{{ asset('storage/' . $program->poster) }}"
-        alt="Poster {{ $program->name }}"
-        class="rounded-lg w-full object-cover shadow-lg cursor-zoom-in transition-transform hover:scale-105"
-        onclick="openLightbox('{{ asset('storage/' . $program->poster) }}')">
-
 </div>
 
 ---

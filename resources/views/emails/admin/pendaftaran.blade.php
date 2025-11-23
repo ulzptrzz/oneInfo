@@ -1,16 +1,33 @@
 @component('mail::message')
-# Pendaftaran Siswa Baru
+# 📝 Pendaftaran Siswa Baru
 
-Seorang siswa baru baru saja mendaftar.
+Ada seorang siswa baru yang baru saja mendaftar ke sebuah program.
 
-**Nama:** {{ $siswa->name }}  
-**Email:** {{ $siswa->email }}  
-**Waktu Daftar:** {{ $siswa->created_at->format('d M Y H:i') }}
+---
 
-@component('mail::button', ['url' => route('admin.dashboard')])
-Lihat Dashboard Admin
+## 👤 Data Siswa
+**Nama:** {{ $pendaftaran->siswa->user->name }}  
+**Email:** {{ $pendaftaran->siswa->user->email }}  
+**Kelas:** {{ $pendaftaran->siswa->kelas->nama_kelas ?? '-' }}
+
+---
+
+## 🎓 Program yang Didaftarkan
+**Program:** {{ $pendaftaran->program->name }}  
+**Kategori:** {{ $pendaftaran->program->kategori_program->nama_kategori ?? '-' }}  
+**Pelaksanaan:** {{ ucfirst($pendaftaran->program->pelaksanaan) }}
+
+---
+
+## ⏳ Waktu Pendaftaran
+{{ $pendaftaran->created_at->format('d M Y H:i') }}
+
+---
+
+@component('mail::button', ['url' => route('list-pendaftaran-program')])
+Kelola Pendaftaran
 @endcomponent
 
 Terima kasih,<br>
-{{ config('app.name') }}
+**{{ config('app.name') }}**
 @endcomponent

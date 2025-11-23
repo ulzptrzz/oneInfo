@@ -1,12 +1,38 @@
-<x-mail::message>
-# Introduction
+@component('mail::message')
+# ❌ Pendaftaran Kamu Ditolak
 
-The body of your message.
+Halo **{{ $pendaftaran->siswa->user->name }}**,  
 
-<x-mail::button :url="''">
-Button Text
-</x-mail::button>
+Kami sudah melakukan review terhadap pendaftaran kamu pada program berikut:
 
-Thanks,<br>
-{{ config('app.name') }}
-</x-mail::message>
+---
+
+## 📌 Detail Pendaftaran
+**Nama Program:** {{ $pendaftaran->program->name }}  
+**Kategori:** {{ $pendaftaran->program->kategoriProgram->nama_kategori ?? '-' }}  
+**Tingkat:** {{ $pendaftaran->program->tingkat ?? '-' }}  
+**Pelaksanaan:** {{ ucfirst($pendaftaran->pelaksanaan) }}  
+
+**Tanggal Pendaftaran:** {{ $pendaftaran->tanggal_daftar }}  
+**Mata Lomba:** {{ $pendaftaran->mata_lomba ?? '-' }}
+
+---
+
+## 📝 Alasan Penolakan
+@if($pendaftaran->catatan_admin)
+> "{{ $pendaftaran->catatan_admin }}"
+@else
+Tidak ada catatan tambahan dari admin.
+@endif
+
+---
+
+Jika kamu merasa ada kesalahan atau ingin mengajukan ulang, silakan hubungi pihak sekolah.
+
+@component('mail::button', ['url' => url('/pendaftaran')])
+Lihat Semua Pendaftaran
+@endcomponent
+
+Terima kasih,  
+**{{ config('app.name') }}**
+@endcomponent

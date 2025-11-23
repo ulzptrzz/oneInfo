@@ -55,7 +55,7 @@ class BuktiPendaftaran extends Component
         // Simpan file
         $path = $this->foto->store('bukti-pendaftaran', 'public');
 
-        Pendaftaran::create([
+        $pendaftaran = Pendaftaran::create([
             'tanggal_daftar'     => $this->tanggal_pendaftaran,
             'status'             => 'pending',
             'pelaksanaan'        => $this->pelaksanaan,
@@ -65,7 +65,7 @@ class BuktiPendaftaran extends Component
             'program_id'         => $this->bukti->id,
         ]);
 
-        Mail::to('mathildaanneke10@gmail.com')->send(new AdminNotifikasiPendaftaran($this->user));
+        Mail::to('mathildaanneke10@gmail.com')->send(new AdminNotifikasiPendaftaran($pendaftaran));
 
         // Reset form
         $this->reset(['foto', 'tanggal_pendaftaran', 'pelaksanaan']);
