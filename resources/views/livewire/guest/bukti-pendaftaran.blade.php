@@ -66,7 +66,7 @@
                             <p class="text-xs text-gray-500">{{ number_format($foto->getSize() / 1024, 2) }} KB</p>
                         </div>
                     </div>
-                    <button type="button" wire:click="$set('poster', null)" class="text-red-500 hover:text-red-700">
+                    <button type="button" wire:click="$set('foto', null)" class="text-red-500 hover:text-red-700">
                         <i class='bx bx-trash text-xl'></i>
                     </button>
                 </div>

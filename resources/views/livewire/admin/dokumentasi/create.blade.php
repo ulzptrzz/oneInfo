@@ -34,7 +34,7 @@
     </style>
 
     <aside class="fixed overflow-y-auto">
-        <x-sidebar active="program" />
+        <x-sidebar />
     </aside>
 
     {{-- KONTEN UTAMA --}}
