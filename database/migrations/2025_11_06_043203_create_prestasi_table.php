@@ -19,8 +19,6 @@ return new class extends Migration
             $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
             $table->unsignedBigInteger('program_id');
             $table->foreign('program_id')->references('id')->on('program')->onDelete('cascade');
-            $table->unsignedBigInteger('dokumentasi_id');
-            $table->foreign('dokumentasi_id')->references('id')->on('dokumentasi')->onDelete('cascade');
             $table->timestamps();
         });
     }

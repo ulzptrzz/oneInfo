@@ -14,5 +14,11 @@ class Dokumentasi extends Model
         'judul',
         'foto',
         'video',
+        'prestasi_id',
     ];
+    public function prestasi()
+    {
+        return $this->belongsTo(Prestasi::class, 'prestasi_id');
+    }
+
 }

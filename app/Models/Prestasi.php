@@ -12,8 +12,7 @@ class Prestasi extends Model
         'deskripsi',
         'siswa_id',
         'program_id',
-        'dokumentasi_id',
-    ];
+   ];
 
     public function siswa()
     {
@@ -25,6 +24,7 @@ class Prestasi extends Model
     }
     public function dokumentasi()
     {
-        return $this->belongsTo(Dokumentasi::class);
+        return $this->hasMany(Dokumentasi::class, 'prestasi_id');
     }
+
 }

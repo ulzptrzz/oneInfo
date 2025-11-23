@@ -30,6 +30,17 @@
                 <span>Program</span>
             </a>
 
+             <!-- Prestasi -->
+            <a href="{{ route('admin.prestasi') }}"
+                class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200
+                {{ request()->routeIs('admin.prestasi*') ? 'bg-[#FFC436] text-[#0C356A]' : 'hover:bg-[#FFC436] hover:text-[#0C356A]' }} group">
+
+                <i class='bx bx-medal text-lg 
+                    {{ request()->routeIs('admin.prestasi*') ? 'text-[#0C356A]' : 'text-white group-hover:text-[#0C356A]' }}'>
+                </i>
+                <span>Prestasi</span>
+            </a>
+            
             <!-- Dokumentasi -->
             <a href="{{ route('admin.dokumentasi') }}"
                 class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200
@@ -39,17 +50,6 @@
                     {{ request()->routeIs('admin.dokumentasi*') ? 'text-[#0C356A]' : 'text-white group-hover:text-[#0C356A]' }}'>
                 </i>
                 <span>Dokumentasi</span>
-            </a>
-
-            <!-- Prestasi -->
-            <a href="{{ route('admin.prestasi') }}"
-                class="flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition duration-200
-                {{ request()->routeIs('admin.prestasi*') ? 'bg-[#FFC436] text-[#0C356A]' : 'hover:bg-[#FFC436] hover:text-[#0C356A]' }} group">
-
-                <i class='bx bx-medal text-lg 
-                    {{ request()->routeIs('admin.prestasi*') ? 'text-[#0C356A]' : 'text-white group-hover:text-[#0C356A]' }}'>
-                </i>
-                <span>Prestasi</span>
             </a>
 
             <!-- Artikel -->
