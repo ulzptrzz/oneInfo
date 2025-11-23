@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('prestasi_id');
             $table->foreign('prestasi_id')->references('id')->on('prestasi')->onDelete('cascade');
             $table->string('judul');
-            $table->json('foto')->nullable();
+            $table->string('foto')->nullable();
             $table->string('video')->nullable();
             $table->timestamps();
         });

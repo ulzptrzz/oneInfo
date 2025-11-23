@@ -169,8 +169,8 @@
                 <div class="text-gray-600 font-medium">Prestasi Diraih</div>
             </div>
             <div class="stat-card-hover bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl text-center">
-                <div class="text-5xl font-bold text-[#0C356A] mb-2">25+</div>
-                <div class="text-gray-600 font-medium">Lomba Aktif</div>
+                <div class="text-5xl font-bold text-[#0C356A] mb-2">{{ $totalArtikel ?? '0' }}</div>
+                <div class="text-gray-600 font-medium">Artikel Menarik</div>
             </div>
         </div>
     </section>

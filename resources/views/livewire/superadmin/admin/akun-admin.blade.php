@@ -1,7 +1,13 @@
-<div>
-    <div class="flex min-h-screen">
+<div class="flex min-h-screen">
+
+    <aside class="fixed overflow-y-auto">
         <x-sidebar-superadmin />
+    </aside>
+
+    {{-- KONTEN UTAMA --}}
+    <div class="flex-1 ml-64 mr-20 min-h-screen">
         <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
+
             <div class="bg-[#0C356A] text-white p-7 flex justify-between items-center">
                 <h2 class="text-2xl font-bold flex items-center gap-2">
                     List Akun Admin
@@ -49,8 +55,7 @@
                                 <span class="text-sm font-medium text-gray-900">{{ $admin->email }}</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <img src="{{ asset('storage/' . $admin->foto) }}" alt="Foto Admin"
-                                    class="w-32 rounded">
+                                <img src="{{ asset('storage/' . $admin->foto) }}" alt="Foto Admin" class="w-32 rounded">
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span

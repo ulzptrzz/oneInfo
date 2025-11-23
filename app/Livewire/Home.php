@@ -10,16 +10,11 @@ use Livewire\Component;
 
 class Home extends Component
 {
-    public $prestasis;
-    public $program;
-    public $artikel;
-    public $totalProgram;
-    public $totalSiswa;
-    public $totalPrestasi;
+    public $prestasis, $program, $artikel, $totalProgram, $totalSiswa, $totalPrestasi, $totalArtikel;
 
     public function mount()
     {
-        // Prestasi terbaru (max 6)
+        // Prestasi terbaru 
         $this->prestasis = Prestasi::with(['siswa.kelas.jurusan', 'program', 'dokumentasi'])
             ->latest('tanggal')
             ->take(6)
@@ -28,13 +23,14 @@ class Home extends Component
         // Semua program untuk katalog
         $this->program = Program::latest()->get();
 
-        // Artikel terbaru (hanya 1 untuk hero)
+        // Artikel terbaru 
         $this->artikel = Artikel::latest('tanggal')->first();
 
         // Statistik
         $this->totalProgram  = Program::count();
         $this->totalSiswa    = Siswa::count();
         $this->totalPrestasi = Prestasi::count();
+        $this->totalArtikel = Artikel::count();
     }
 
     public function render()

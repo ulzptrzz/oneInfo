@@ -1,8 +1,12 @@
-<div>
-    <div class="flex min-h-screen bg-gray-50">
-        <x-sidebar-siswa />
+<div class="flex min-h-screen">
 
-        <main class="flex-1 w-full p-4 md:p-8 pt-20 lg:pt-8">
+    <aside class="fixed overflow-y-auto">
+        <x-sidebar-siswa />
+    </aside>
+
+    {{-- KONTEN UTAMA --}}
+    <div class="flex-1 ml-64 mr-20 min-h-screen">
+        <div class="w-full mx-8 my-7">
             <div class="max-w-5xl mx-auto">
                 <div class="bg-gradient-to-r from-[#0C356A] to-[#1e40af] h-48 md:h-64 rounded-t-2xl relative">
                     <div class="absolute inset-0 bg-black/10"></div>
@@ -153,6 +157,7 @@
                     </div>
                 </div>
             </div>
-        </main>
+            </main>
+        </div>
     </div>
 </div>

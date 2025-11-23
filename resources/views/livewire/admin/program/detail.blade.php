@@ -1,38 +1,34 @@
 @php
-use Carbon\Carbon;
+    use Carbon\Carbon;
 
-$tanggalMulai = Carbon::parse($program->tanggal_mulai)->translatedFormat('d F Y');
-$tanggalSelesai = Carbon::parse($program->tanggal_selesai)->translatedFormat('d F Y');
+    $tanggalMulai = Carbon::parse($program->tanggal_mulai)->translatedFormat('d F Y');
+    $tanggalSelesai = Carbon::parse($program->tanggal_selesai)->translatedFormat('d F Y');
 
-$statusColor = match ($program->status) {
-'published' => 'bg-green-500',
-'draft' => 'bg-yellow-400',
-'archived' => 'bg-red-500',
-default => 'bg-gray-400',
-};
+    $statusColor = match ($program->status) {
+        'published' => 'bg-green-500',
+        'draft' => 'bg-yellow-400',
+        'archived' => 'bg-red-500',
+        default => 'bg-gray-400',
+    };
 @endphp
 
 <div class="flex min-h-screen">
-    <div class="w-full mx-8 my-9">
 
-        {{-- Breadcrumb --}}
-        <div class="text-sm text-gray-500 mb-4 flex items-center gap-2">
-            <a href="{{ route('admin.dashboard') }}" class="hover:underline">Dashboard</a>
-            <span>/</span>
-            <a href="{{ route('admin.program') }}" class="hover:underline">Program</a>
-            <span>/</span>
-            <span class="font-semibold text-gray-700">Detail Program</span>
-        </div>
+    <aside class="fixed overflow-y-auto">
+        <x-sidebar active="program" />
+    </aside>
 
-        {{-- Card Utama --}}
-        <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200">
+    {{-- KONTEN UTAMA --}}
+    <div class="flex-1 ml-64 mr-20 min-h-screen">
+        <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
+            {{-- Header Biru Gradient --}}
+            <div class="bg-[#0C356A] text-white p-8">
 
-            {{-- Header --}}
-            <div class="bg-[#0C356A] text-white px-6 py-5 flex justify-between items-center">
                 <div>
                     <h2 class="text-2xl font-semibold">{{ $program->name }}</h2>
 
-                    <span class="inline-block mt-2 px-3 py-1 text-xs font-semibold text-white rounded-full {{ $statusColor }}">
+                    <span
+                        class="inline-block mt-2 px-3 py-1 text-xs font-semibold text-white rounded-full {{ $statusColor }}">
                         {{ ucfirst($program->status) }}
                     </span>
                 </div>
@@ -43,24 +39,27 @@ default => 'bg-gray-400',
                 {{-- Poster dengan Lightbox TANPA Library Apapun --}}
                 <div class="md:col-span-1 relative">
                     <!-- Gambar thumbnail yang bisa diklik -->
-                    <img
-                        src="{{ asset('storage/' . $program->poster) }}"
-                        alt="Poster {{ $program->name }}"
+                    <img src="{{ asset('storage/' . $program->poster) }}" alt="Poster {{ $program->name }}"
                         class="rounded-lg w-full object-cover shadow-lg cursor-zoom-in transition-transform hover:scale-105"
                         onclick="openLightbox('{{ asset('storage/' . $program->poster) }}')">
 
                     <!-- Lightbox (awalnya hidden) -->
-                    <div id="lightbox" class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-95 hidden" onclick="closeLightbox()">
+                    <div id="lightbox"
+                        class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-95 hidden"
+                        onclick="closeLightbox()">
                         <div class="relative max-w-5xl max-h-full p-4">
-                            <img id="lightbox-img" src="" alt="Poster besar" class="max-w-full max-h-screen rounded-lg shadow-2xl">
+                            <img id="lightbox-img" src="" alt="Poster besar"
+                                class="max-w-full max-h-screen rounded-lg shadow-2xl">
 
                             <!-- Tombol X besar X -->
-                            <button class="absolute top-4 right-4 text-white text-6xl font-thin hover:text-gray-400 focus:outline-none">
+                            <button
+                                class="absolute top-4 right-4 text-white text-6xl font-thin hover:text-gray-400 focus:outline-none">
                                 &times;
                             </button>
 
                             <!-- Petunjuk kecil -->
-                            <p class="text-center text-white text-sm mt-4 opacity-70">Klik di mana saja untuk menutup</p>
+                            <p class="text-center text-white text-sm mt-4 opacity-70">Klik di mana saja untuk menutup
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -103,7 +102,7 @@ default => 'bg-gray-400',
                             <p class="text-gray-500 font-semibold text-sm">Penyelenggara</p>
                             <ul class="list-disc ml-5 space-y-1">
                                 @foreach (json_decode($program->penyelenggara, true) as $pg)
-                                <li>{{ $pg }}</li>
+                                    <li>{{ $pg }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -113,9 +112,9 @@ default => 'bg-gray-400',
 
                             <div class="flex flex-wrap gap-2">
                                 @foreach (json_decode($program->mata_lomba, true) as $ml)
-                                <span class="px-3 py-1 bg-yellow-100 text-yellow-500 rounded-full text-sm">
-                                    {{ $ml }}
-                                </span>
+                                    <span class="px-3 py-1 bg-yellow-100 text-yellow-500 rounded-full text-sm">
+                                        {{ $ml }}
+                                    </span>
                                 @endforeach
                             </div>
                         </div>
@@ -127,29 +126,29 @@ default => 'bg-gray-400',
                             <p class="text-gray-500 font-semibold text-sm mb-1">Link Pendaftaran</p>
 
                             @if ($program->link_pendaftaran)
-                            <a href="{{ $program->link_pendaftaran }}" target="_blank"
-                                class="text-blue-600 underline">
-                                Buka Link Pendaftaran
-                            </a>
+                                <a href="{{ $program->link_pendaftaran }}" target="_blank"
+                                    class="text-blue-600 underline">
+                                    Buka Link Pendaftaran
+                                </a>
                             @else
-                            <p class="text-gray-400 italic">Tidak ada link pendaftaran</p>
+                                <p class="text-gray-400 italic">Tidak ada link pendaftaran</p>
                             @endif
                         </div>
 
                         <div>
                             <p class="text-gray-500 font-semibold text-sm mb-1">Panduan Lomba</p>
 
-                            @if(Str::contains($program->panduan_lomba, '.pdf'))
-                            <a href="{{ asset('storage/' . $program->panduan_lomba) }}" target="_blank">
-                                <i class='bx bx-file text-lg'></i> Download Panduan PDF
-                            </a>
+                            @if (Str::contains($program->panduan_lomba, '.pdf'))
+                                <a href="{{ asset('storage/' . $program->panduan_lomba) }}" target="_blank">
+                                    <i class='bx bx-file text-lg'></i> Download Panduan PDF
+                                </a>
                             @endif
 
 
-                            @if(Str::startsWith($program->panduan_lomba, 'http'))
-                            <a href="{{ $program->panduan_lomba }}" target="_blank">
-                                Lihat Panduan
-                            </a>
+                            @if (Str::startsWith($program->panduan_lomba, 'http'))
+                                <a href="{{ $program->panduan_lomba }}" target="_blank">
+                                    Lihat Panduan
+                                </a>
                             @endif
 
                         </div>
@@ -167,25 +166,22 @@ default => 'bg-gray-400',
                     </p>
                 </div>
             </div>
+            {{-- Tombol Aksi --}}
+            <div class="px-6 py-5 border-t border-gray-200 flex justify-end gap-3 bg-gray-50">
+                <a href="{{ route('admin.program') }}"
+                    class="px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition">
+                    Kembali
+                </a>
+    
+                <a href="{{ route('edit-program', $program->id) }}"
+                    class="px-6 py-3 bg-[#FFC436] text-[#0C356A] font-bold rounded-lg hover:bg-yellow-400 transition">
+                    Edit Program
+                </a>
+            </div>
         </div>
 
-
-        {{-- Tombol Aksi --}}
-        <div class="px-6 py-5 border-t border-gray-200 flex justify-end gap-3 bg-gray-50">
-            <a href="{{ route('admin.program') }}"
-                class="px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition">
-                Kembali
-            </a>
-
-            <a href="{{ route('edit-program', $program->id) }}"
-                class="px-6 py-3 bg-[#FFC436] text-[#0C356A] font-bold rounded-lg hover:bg-yellow-400 transition">
-                Edit Program
-            </a>
-        </div>
 
     </div>
-
-</div>
 </div>
 
 <script>

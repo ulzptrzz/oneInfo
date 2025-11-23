@@ -1,9 +1,18 @@
-<div>
-    <div class="flex min-h-screen">
-        <x-sidebar-superadmin />
+<div class="flex min-h-screen">
 
-        <div class="flex-1 p-8 bg-gray-50">
-            <h1 class="mb-5 text-2xl font-bold text-[#0C356A]">Tambah Kelas</h1>
+    <aside class="fixed overflow-y-auto">
+        <x-sidebar-superadmin />
+    </aside>
+
+    {{-- KONTEN UTAMA --}}
+    <div class="flex-1 ml-64 mr-20 min-h-screen">
+        <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
+
+            <div class="bg-[#0C356A] text-white p-8">
+                <h1 class="text-3xl font-bold flex items-center gap-3">
+                    Tambah Kelas
+                </h1>
+            </div>
 
             <form wire:submit.prevent="store" class="space-y-5 bg-white p-6 rounded-lg shadow">
                 <!-- Nama Kelas -->

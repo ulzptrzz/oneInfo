@@ -1,13 +1,12 @@
 <div class="flex min-h-screen">
-    <style>
-        .table-row:hover {
-            background-color: #f8fafc;
-        }
-    </style>
 
-    <x-sidebar />
+    <aside class="fixed overflow-y-auto">
+        <x-sidebar active="program" />
+    </aside>
 
-    <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
+    {{-- KONTEN UTAMA --}}
+    <div class="flex-1 ml-64 mr-20 min-h-screen">
+        <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
 
         {{-- Header --}}
         <div class="bg-[#0C356A] text-white p-7 flex justify-between items-center">
@@ -70,7 +69,7 @@
 
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($artikel as $item)
-                            <tr class="table-row">
+                            <tr>
 
                                 <td class="px-6 py-4">
                                     <span class="text-sm font-medium text-gray-900">{{ $loop->iteration }}</span>
@@ -165,3 +164,4 @@
         @endif
     </div>
 </div>
+</

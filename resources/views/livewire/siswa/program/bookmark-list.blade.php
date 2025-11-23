@@ -1,7 +1,12 @@
-<div>
-    <div class="flex min-h-screen">
+<div class="flex min-h-screen">
+
+    <aside class="fixed overflow-y-auto">
         <x-sidebar-siswa />
-        <div class="max-w-7xl mx-auto p-6">
+    </aside>
+
+    {{-- KONTEN UTAMA --}}
+    <div class="flex-1 ml-64 mr-20 min-h-screen">
+        <div class="w-full mx-8 my-7">
             <div class="mb-8">
                 <h1 class="text-3xl font-bold text-gray-800">Program favorit saya</h1>
             </div>

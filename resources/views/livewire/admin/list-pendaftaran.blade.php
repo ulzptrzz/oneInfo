@@ -1,7 +1,13 @@
-<div>
-    <div class="flex min-h-screen">
+<div class="flex min-h-screen">
+
+    <aside class="fixed overflow-y-auto">
         <x-sidebar />
+    </aside>
+
+    {{-- KONTEN UTAMA --}}
+    <div class="flex-1 ml-64 mr-20 min-h-screen">
         <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
+
             <div class="p-6">
                 <h1 class="text-3xl font-bold text-gray-800 mb-8">Pendaftaran Program</h1>
 

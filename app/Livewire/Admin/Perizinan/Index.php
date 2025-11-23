@@ -15,10 +15,17 @@ class Index extends Component
 
     public function render()
     {
-        $query = Perizinan::with(['pendaftaran.siswa.user','pendaftaran.program','admin'])
-            ->when($this->search, fn($q) => $q->whereHas('pendaftaran.siswa.user', fn($sq)=>$sq->where('name','like',"%{$this->search}%")))
+        $perizinans = Perizinan::with(['pendaftaran.siswa.user', 'pendaftaran.program', 'admin'])
+            ->when($this->search, function ($q) {
+                $q->whereHas('pendaftaran.siswa.user', function ($sq) {
+                    $sq->where('name', 'like', "%{$this->search}%");
+                });
+            })
             ->latest()
             ->paginate(10);
-        return view('livewire.admin.perizinan.index', ['perizinan' => $query,]);
+
+        return view('livewire.admin.perizinan.index', [
+            'perizinans' => $perizinans  
+        ]);
     }
 }

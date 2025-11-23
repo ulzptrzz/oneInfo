@@ -12,71 +12,77 @@
 
 <div class="flex min-h-screen">
 
-    <div class="w-full mx-8 my-9 bg-white rounded-2xl shadow-md overflow-hidden">
+    <aside class="fixed overflow-y-auto">
+        <x-sidebar active="program" />
+    </aside>
 
-        {{-- Header --}}
-        <div class="bg-[#0C356A] text-white px-6 py-5">
-            <h2 class="text-2xl font-semibold">{{ $artikel->judul }}</h2>
+    {{-- KONTEN UTAMA --}}
+    <div class="flex-1 ml-64 mr-20 min-h-screen">
+        <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
 
-            <span class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-white rounded-full {{ $statusColor }}">
-                {{ ucfirst($artikel->status) }}
-            </span>
-        </div>
+            {{-- Header --}}
+            <div class="bg-[#0C356A] text-white px-6 py-5">
+                <h2 class="text-2xl font-semibold">{{ $artikel->judul }}</h2>
 
-        <div class="p-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {{-- Thumbnail --}}
-                <div>
-                    <p class="text-sm font-semibold text-gray-600 mb-2">Thumbnail</p>
+                <span
+                    class="inline-block mt-3 px-3 py-1 text-xs font-semibold text-white rounded-full {{ $statusColor }}">
+                    {{ ucfirst($artikel->status) }}
+                </span>
+            </div>
 
-                    @if ($artikel->thumbnail)
-                        <img
-                            src="{{ asset('storage/' . $artikel->thumbnail) }}"
-                            alt="thumbnail"
-                            class="rounded-lg w-full object-cover shadow-md"
-                        >
-                    @else
-                        <div class="h-48 w-full flex items-center justify-center bg-gray-100 rounded-lg text-gray-500">
-                            Tidak ada thumbnail
+            <div class="p-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {{-- Thumbnail --}}
+                    <div>
+                        <p class="text-sm font-semibold text-gray-600 mb-2">Thumbnail</p>
+
+                        @if ($artikel->thumbnail)
+                            <img src="{{ asset('storage/' . $artikel->thumbnail) }}" alt="thumbnail"
+                                class="rounded-lg w-full object-cover shadow-md">
+                        @else
+                            <div
+                                class="h-48 w-full flex items-center justify-center bg-gray-100 rounded-lg text-gray-500">
+                                Tidak ada thumbnail
+                            </div>
+                        @endif
+                    </div>
+
+                    {{-- Detail --}}
+                    <div class="md:col-span-2 space-y-6">
+
+                        {{-- Tanggal --}}
+                        <div>
+                            <p class="text-sm font-semibold text-gray-600">Tanggal Artikel</p>
+                            <p class="text-gray-800 font-medium mt-1">{{ $tanggalArtikel }}</p>
                         </div>
-                    @endif
+
+                        {{-- Deskripsi --}}
+                        <div>
+                            <p class="text-sm font-semibold text-gray-600">Deskripsi</p>
+                            <p class="text-gray-800 mt-1 leading-relaxed">
+                                {{ $artikel->deskripsi ?? '-' }}
+                            </p>
+                        </div>
+
+                    </div>
                 </div>
 
-                {{-- Detail --}}
-                <div class="md:col-span-2 space-y-6">
+                {{-- Tombol Aksi --}}
+                <div class="flex justify-end gap-3 pt-6 border-t border-gray-200 mt-8">
 
-                    {{-- Tanggal --}}
-                    <div>
-                        <p class="text-sm font-semibold text-gray-600">Tanggal Artikel</p>
-                        <p class="text-gray-800 font-medium mt-1">{{ $tanggalArtikel }}</p>
-                    </div>
+                    <a href="{{ route('admin.artikel') }}"
+                        class="px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition">
+                        Kembali
+                    </a>
 
-                    {{-- Deskripsi --}}
-                    <div>
-                        <p class="text-sm font-semibold text-gray-600">Deskripsi</p>
-                        <p class="text-gray-800 mt-1 leading-relaxed">
-                            {{ $artikel->deskripsi ?? '-' }}
-                        </p>
-                    </div>
+                    <a href="{{ route('edit-artikel', $artikel->id) }}"
+                        class="px-6 py-3 bg-[#FFC436] text-[#0C356A] font-bold rounded-lg hover:bg-yellow-400 transition">
+                        Edit Artikel
+                    </a>
 
                 </div>
-            </div>
-
-            {{-- Tombol Aksi --}}
-            <div class="flex justify-end gap-3 pt-6 border-t border-gray-200 mt-8">
-
-                <a href="{{ route('admin.artikel') }}"
-                    class="px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition">
-                    Kembali
-                </a>
-
-                <a href="{{ route('edit-artikel', $artikel->id) }}"
-                    class="px-6 py-3 bg-[#FFC436] text-[#0C356A] font-bold rounded-lg hover:bg-yellow-400 transition">
-                    Edit Artikel
-                </a>
 
             </div>
-
         </div>
     </div>
 </div>

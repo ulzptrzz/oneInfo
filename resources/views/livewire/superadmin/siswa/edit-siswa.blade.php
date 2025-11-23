@@ -1,80 +1,131 @@
 <div class="flex min-h-screen">
-    <!-- Sidebar -->
-    <x-sidebar-superadmin />
 
-    <!-- Konten Utama -->
-    <div class="flex-1 p-8 bg-gray-50">
-        <h1 class="mb-6 text-2xl font-bold text-[#0C356A]">Edit Siswa</h1>
+    <aside class="fixed overflow-y-auto">
+        <x-sidebar-superadmin />
+    </aside>
 
-        <form wire:submit.prevent="update" class="space-y-5 bg-white p-6 rounded-lg shadow">
-            <!-- Nama Siswa -->
-            <div>
-                <label class="block font-semibold text-gray-700 mb-1">Nama Siswa</label>
-                <input type="text" wire:model="name" class="border p-2 w-full rounded">
-                @error('name')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
+    {{-- KONTEN UTAMA --}}
+    <div class="flex-1 ml-64 mr-20 min-h-screen">
+        <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
 
-            <!-- NIS -->
-            <div>
-                <label class="block font-semibold text-gray-700 mb-1">NIS</label>
-                <input type="text" wire:model="nis" class="border p-2 w-full rounded">
-                @error('nis')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- NISN -->
-            <div>
-                <label class="block font-semibold text-gray-700 mb-1">NISN</label>
-                <input type="text" wire:model="nisn" class="border p-2 w-full rounded">
-                @error('nisn')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- Foto -->
-            <div>
-                <label class="block font-semibold text-gray-700 mb-1">Foto</label>
-                <input type="file" wire:model="foto" class="border p-2 w-full rounded">
-
-                @if ($foto)
-                    <div class="mt-3">
-                        <img src="{{ $foto->temporaryUrl() }}" class="w-40 rounded shadow" alt="preview foto">
-                    </div>
-                @endif
-
-                @error('foto')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- Kelas -->
-            <div>
-                <label class="block font-semibold text-gray-700 mb-1">Kelas</label>
-                <select wire:model="kelas_id" class="border p-2 w-full rounded">
-                    <option value="">-- Pilih Kelas --</option>
-                    @foreach ($kelas_siswa as $kelas)
-                        <option value="{{ $kelas->id }}">{{ $kelas->nama_kelas }}</option>
-                    @endforeach
-                </select>
-                @error('kelas_id')
-                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                @enderror
-            </div>
-
-            <!-- Tombol Aksi -->
-            <div class="flex gap-4 pt-4">
-                <a href="{{ route('superadmin.siswa.akun-siswa') }}"
-                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition">
-                    Batal
-                </a>
-                <button type="submit"
-                    class="bg-[#0C356A] text-white px-4 py-2 rounded hover:bg-[#092a52] transition">
+            <div class="bg-[#0C356A] text-white p-8">
+                <h1 class="text-3xl font-bold flex items-center gap-3">
                     Edit Siswa
-                </button>
+                </h1>
             </div>
-        </form>
+
+            <form wire:submit.prevent="update" class="space-y-5 bg-white p-6 rounded-lg shadow">
+                <!-- Nama Siswa -->
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">Nama Siswa</label>
+                    <input type="text" wire:model="name" class="border p-2 w-full rounded">
+                    @error('name')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- NIS -->
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">NIS</label>
+                    <input type="text" wire:model="nis" class="border p-2 w-full rounded">
+                    @error('nis')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- NISN -->
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">NISN</label>
+                    <input type="text" wire:model="nisn" class="border p-2 w-full rounded">
+                    @error('nisn')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Foto -->
+               <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Foto</label>
+
+                    {{-- Foto lama --}}
+                    @if ($oldFoto && !$foto)
+                        <div class="mb-4 bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
+                            <p class="text-sm font-medium text-gray-700 mb-3">Foto Saat Ini:</p>
+                            <div class="flex items-center gap-4">
+                                <img src="{{ asset('storage/' . $oldFoto) }}" class="w-32 h-40 object-cover rounded-lg">
+                                <div class="text-sm text-gray-600">
+                                    <p class="font-medium">Foto saat ini</p>
+                                    <p class="text-xs text-gray-500">Upload baru untuk mengganti</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- Upload foto baru --}}
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ $oldFoto ? 'Ganti Foto' : 'Upload Poster' }}
+                    </label>
+
+                    <div class="flex items-center gap-4">
+                        <input type="file" accept="image/*" wire:model="foto" id="fotoInput" class="hidden">
+
+                        <button type="button" onclick="document.getElementById('fotoInput').click()"
+                            class="bg-[#FFC436] text-[#0C356A] px-6 py-3 rounded-lg font-semibold">
+                            Choose File
+                        </button>
+
+                        @if (!$foto)
+                            <span class="text-gray-500 text-sm">No file chosen</span>
+                        @endif
+
+                        @if ($foto)
+                            <div
+                                class="flex-1 flex items-center justify-between bg-green-50 border-2 border-green-200 rounded-lg px-4 py-2">
+                                <div class="flex items-center gap-3">
+                                    <i class='bx bx-image text-green-600 text-xl'></i>
+                                    <div>
+                                        <p class="text-sm font-semibold">{{ $foto->getClientOriginalName() }}</p>
+                                        <p class="text-xs">{{ number_format($foto->getSize() / 1024, 2) }} KB</p>
+                                    </div>
+                                </div>
+                                <button type="button" wire:click="$set('foto', null)"
+                                    class="text-red-500 hover:text-red-700">
+                                    <i class='bx bx-trash text-xl'></i>
+                                </button>
+                            </div>
+                        @endif
+                    </div>
+
+                    @error('foto')
+                        <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Kelas -->
+                <div>
+                    <label class="block font-semibold text-gray-700 mb-1">Kelas</label>
+                    <select wire:model="kelas_id" class="border p-2 w-full rounded">
+                        <option value="">-- Pilih Kelas --</option>
+                        @foreach ($kelas_siswa as $kelas)
+                            <option value="{{ $kelas->id }}">{{ $kelas->tingkat }} {{ $kelas->jurusan->nama_jurusan }} {{ $kelas->nama_kelas }} </option>
+                        @endforeach
+                    </select>
+                    @error('kelas_id')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <!-- Tombol Aksi -->
+                <div class="flex gap-4 pt-4">
+                    <a href="{{ route('superadmin.siswa.akun-siswa') }}"
+                        class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition">
+                        Batal
+                    </a>
+                    <button type="submit"
+                        class="bg-[#0C356A] text-white px-4 py-2 rounded hover:bg-[#092a52] transition">
+                        Edit Siswa
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

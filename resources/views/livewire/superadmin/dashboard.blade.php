@@ -1,8 +1,14 @@
-<div>
-    <div class="flex min-h-screen">
+<div class="flex min-h-screen">
+
+    <aside class="fixed overflow-y-auto">
         <x-sidebar-superadmin />
+    </aside>
+
+    {{-- KONTEN UTAMA --}}
+    <div class="flex-1 ml-64 mr-20 min-h-screen">
         <div class="w-full mx-8 my-7 overflow-hidden">
-            <div class="bg-gradient-to-r from-[#0C356A] to-[#1e40af] rounded-2xl shadow-xl p-8 text-white mb-5">
+
+            <div class="bg-[#0C356A] rounded-2xl shadow-xl p-8 text-white mb-5">
                 <div class="flex items-center justify-between">
                     <div>
                         <h1 class="text-4xl font-bold mb-2">Selamat Datang, Superadmin!</h1>
