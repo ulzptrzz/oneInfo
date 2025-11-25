@@ -100,7 +100,26 @@
                 <div class="pt-8 border-t-2 border-dashed border-gray-200">
                     @if ($sudahTerdaftar)
                         <!-- Sudah terdaftar -->
-                        <div class="bg-green-50 rounded-2xl py-4 text-center shadow-lg">
+                        <div class="flex gap-4">
+                            <p>Status Pendaftaran : </p>
+                            @if ($pendaftaran)
+                                <span
+                                    class="text-xs font-medium px-2 py-1 rounded-full
+                                    {{ $pendaftaran->status === 'pending'
+                                        ? 'bg-yellow-100 text-yellow-800'
+                                        : ($pendaftaran->status === 'approved'
+                                            ? 'bg-green-100 text-green-800'
+                                            : 'bg-red-100 text-red-800') }}">
+                                    {{ $pendaftaran->status === 'pending'
+                                        ? 'Menunggu'
+                                        : ($pendaftaran->status === 'approved'
+                                            ? 'Disetujui'
+                                            : 'Ditolak') }}
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="bg-green-50 rounded-2xl py-4 text-center shadow-lg mt-5">
                             <div class="flex flex-col items-center gap-4">
                                 <i class="bx bx-check-circle text-5xl text-green-600"></i>
                                 <div>
@@ -142,6 +161,10 @@
                         <div class="bg-gray-100 rounded-2xl py-6 text-center">
                             <p class="text-gray-600 font-medium">
                                 @if (Auth::check())
+                                    Silakan <a href="{{ route('login') }}"
+                                        class="text-[#0C356A] underline font-bold">login</a> sebagai siswa untuk
+                                    mendaftar program ini.
+                                @else
                                     Silakan <a href="{{ route('login') }}"
                                         class="text-[#0C356A] underline font-bold">login</a> sebagai siswa untuk
                                     mendaftar program ini.
@@ -211,8 +234,6 @@
                                 {{ $user->siswa->kelas->jurusan->nama_jurusan }}
                                 {{ $user->siswa->kelas->nama_kelas }}</p>
                         </div>
-
-
 
                         <!-- Form -->
                         <form wire:submit.prevent="simpanPendaftaran" class="space-y-6">
