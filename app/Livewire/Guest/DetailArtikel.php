@@ -7,22 +7,24 @@ use App\Models\Artikel;
 
 class DetailArtikel extends Component
 {
-    public $artikel;
+    public $artikel; // Menampung artikel utama yang ditampilkan
 
     public function mount($id)
     {
+        // Cari artikel berdasarkan ID, jika tidak ada error 404
         $this->artikel = Artikel::findOrFail($id);
     }
 
     public function render()
     {
-        // Related articles
+        // Ambil artikel lain yang berstatus 'publish' sebagai artikel terkait
         $relatedArtikels = Artikel::where('status', 'publish')
-            ->where('id', '!=', $this->artikel->id)
+            ->where('id', '!=', $this->artikel->id)     // Jangan tampilkan artikel yang sama
             ->orderBy('tanggal', 'desc')
-            ->take(3)
+            ->take(3)                                   // Ambil hanya 3 artikel
             ->get();
 
+        // Kirim data artikel terkait ke view
         return view('livewire.guest.detail-artikel', [
             'relatedArtikels' => $relatedArtikels,
         ]);
