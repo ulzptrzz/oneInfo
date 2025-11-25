@@ -29,12 +29,12 @@ class Edit extends Component
         'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
         'status' => 'required|in:draft,published,archived',
         'poster' => 'nullable|image|max:2048',
-        'penyelenggara' => 'array|min:1',
+        'penyelenggara' => 'required|array|min:1',
         'tingkat' => 'nullable|string|max:255',
-        'mata_lomba' => 'array|min:1',
+        'mata_lomba' => 'nullable|array',
         'pelaksanaan' => 'required|in:online,offline',
         'link_pendaftaran' => 'nullable|url',
-        'panduan_file' => 'nullable|mimes:pdf|max:4096',
+        'panduan_file' => 'nullable|mimes:pdf|max:20000',
         'panduan_link' => 'nullable|url',
         'kategori_program_id' => 'required|exists:kategori_program,id',
     ];
@@ -67,6 +67,8 @@ class Edit extends Component
         $this->validate();
 
         $program = Program::findOrFail($this->program_id);
+        
+        $this->tingkat = $this->tingkat ?: null;
 
         // POSTER
         if ($this->poster instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile) {

@@ -40,7 +40,7 @@ class Create extends Component
         'poster' => 'required|image|max:2048',
         'penyelenggara' => 'required|array|min:1',
         'tingkat' => 'nullable|string|max:255',
-        'mata_lomba' => 'nullable|array|min:1',
+        'mata_lomba' => 'nullable|array',
         'pelaksanaan' => 'required|in:online,offline',
         'link_pendaftaran' => 'nullable|url',
         'panduan_file' => 'nullable|mimes:pdf|max:20000',
@@ -61,6 +61,8 @@ class Create extends Component
         } else {
             $pathPanduan = null;
         }
+
+        $this->tingkat = $this->tingkat === "" ? null : $this->tingkat;
 
         $program = Program::create([
             'name' => $this->name,
