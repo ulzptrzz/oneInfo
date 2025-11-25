@@ -9,7 +9,7 @@
         <div class="w-full mx-8 my-7">
 
             {{-- Header Section --}}
-            <div class="bg-gradient-to-r from-[#0C356A] to-[#1e40af] rounded-2xl shadow-lg p-8 mb-8">
+            <div class="bg-[#0C356A] rounded-2xl shadow-lg p-8 mb-8">
                 <div class="flex items-center justify-between">
                     <div>
                         <h1 class="text-3xl font-bold text-white mb-2">

@@ -93,7 +93,7 @@
                                 {{ \Carbon\Carbon::parse($p->tanggal_daftar)->translatedFormat('d F Y') }}
                             </small>
                             <div class="pt-3 mt-auto">
-                                <a href="{{ route('guest-detail-program', $p->id) }}"
+                                <a href="{{ route('guest-detail-program', $p->program_id) }}"
                                     class="inline-flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-[#0C356A] text-white font-semibold rounded-xl hover:bg-[#0a2b55] transform hover:scale-105 transition-all duration-300 shadow-md hover:shadow-xl">
                                     <span>Lihat Detail</span>
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
