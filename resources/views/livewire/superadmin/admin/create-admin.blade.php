@@ -14,7 +14,7 @@
                 </h1>
             </div>
 
-            <form wire:submit.prevent="store" class="space-y-5 bg-white p-6 rounded-lg shadow">
+            <form wire:submit.prevent="store" class="space-y-5 bg-white p-6 rounded-lg shadow" novalidate>
                 <!-- Nama -->
                 <div>
                     <label>Nama Admin</label>

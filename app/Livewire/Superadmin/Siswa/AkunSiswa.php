@@ -20,6 +20,23 @@ class AkunSiswa extends Component
 
     protected $listeners = ['cancelDelete'];
 
+    protected function rules()
+    {
+        return [
+            'fileExcel' => 'required|file|mimes:xlsx,xls|max:10240', // max 10MB
+        ];
+    }
+
+    protected function messages()
+    {
+        return [
+            'fileExcel.required'          => 'File Excel wajib diupload.',
+            'fileExcel.file'              => 'File yang dipilih tidak valid.',
+            'fileExcel.mimes'             => 'File harus berupa Excel dengan ekstensi .xlsx atau .xls saja.',
+            'fileExcel.max'               => 'Ukuran file maksimal 10MB.',
+        ];
+    }
+
     public function openExcelModal()
     {
         $this->showExcelModal = true;
@@ -36,9 +53,7 @@ class AkunSiswa extends Component
 
     public function importExcel()
     {
-        $this->validate([
-            'fileExcel' => 'required|mimes:xlsx,xls',
-        ]);
+        $this->validate();
 
         try {
             Excel::import(new ImportSiswa, $this->fileExcel);

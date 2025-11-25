@@ -19,6 +19,7 @@ class DetailProgram extends Component
 
     public $sudahTerdaftar = false;
     public $showFormModal = false;
+    public $bolehDaftar = false;
 
     public function mount($id)
     {
@@ -30,10 +31,15 @@ class DetailProgram extends Component
         $this->tanggal_pendaftaran = now()->format('Y-m-d');
         $this->pelaksanaan = $this->program->pelaksanaan ?? 'offline';
 
-        if (Auth::check() && $this->user?->siswa) {
+        if (Auth::check() && $this->user->siswa) {
             $this->sudahTerdaftar = Pendaftaran::where('siswa_id', $this->user->siswa->id)
                 ->where('program_id', $this->program->id)
                 ->exists();
+
+            $this->bolehDaftar = ! $this->sudahTerdaftar;
+        } else {
+            $this->sudahTerdaftar = false;
+            $this->bolehDaftar    = false;
         }
     }
 

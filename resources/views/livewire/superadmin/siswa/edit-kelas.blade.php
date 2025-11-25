@@ -33,7 +33,7 @@
                             <option value="{{ $jurusan->id }}">{{ $jurusan->nama_jurusan }}</option>
                         @endforeach
                     </select>
-                    @error('jurusan')
+                    @error('jurusan_id')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>

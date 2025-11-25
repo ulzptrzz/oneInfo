@@ -99,6 +99,7 @@
                 {{-- Link Pendaftaran --}}
                 <div class="pt-8 border-t-2 border-dashed border-gray-200">
                     @if ($sudahTerdaftar)
+                        <!-- Sudah terdaftar -->
                         <div class="bg-green-50 rounded-2xl py-4 text-center shadow-lg">
                             <div class="flex flex-col items-center gap-4">
                                 <i class="bx bx-check-circle text-5xl text-green-600"></i>
@@ -108,11 +109,14 @@
                                 </div>
                             </div>
                         </div>
-                    @else
+                    @elseif($bolehDaftar)
+                        <!-- Hanya siswa yang login & belum daftar yang bisa lihat tombol ini -->
                         <div class="flex flex-col sm:flex-row gap-6 items-stretch sm:items-center">
                             @if ($program->link_pendaftaran)
                                 <a href="{{ $program->link_pendaftaran }}" target="_blank"
-                                    onclick="document.getElementById('upload-bukti-btn').classList.remove('hidden'); this.innerHTML = 'Link Dibuka'; this.classList.add('opacity-70')"
+                                    onclick="document.getElementById('upload-bukti-btn').classList.remove('hidden');
+                             this.innerHTML = 'Link Dibuka';
+                             this.classList.add('opacity-70', 'pointer-events-none')"
                                     class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#0C356A] hover:bg-[#0a2b56] text-white font-bold text-lg rounded-xl shadow-xl transition transform hover:-translate-y-1">
                                     <i class='bx bx-link-external text-2xl'></i>
                                     Buka Link Pendaftaran
@@ -121,10 +125,11 @@
                                 <button wire:click="confirmPendaftaran()"
                                     class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#0C356A] hover:bg-[#0a2b56] text-white font-bold text-lg rounded-xl shadow-xl transition transform hover:-translate-y-1">
                                     <i class='bx bx-link-external text-2xl'></i>
-                                    Buka Link Pendaftaran
+                                    Daftar Sekarang
                                 </button>
                             @endif
 
+                            <!-- Tombol upload bukti -->
                             <div id="upload-bukti-btn" class="hidden">
                                 <a href="{{ route('guest.bukti-pendaftaran', ['id' => $program->id]) }}"
                                     class="inline-flex items-center justify-center gap-3 px-8 py-5 bg-[#FFC436] hover:bg-[#e0b030] text-[#0C356A] font-bold text-lg rounded-xl shadow-xl transition transform hover:scale-105">
@@ -133,9 +138,19 @@
                                 </a>
                             </div>
                         </div>
+                    @else
+                        <div class="bg-gray-100 rounded-2xl py-6 text-center">
+                            <p class="text-gray-600 font-medium">
+                                @if (Auth::check())
+                                    Silakan <a href="{{ route('login') }}"
+                                        class="text-[#0C356A] underline font-bold">login</a> sebagai siswa untuk
+                                    mendaftar program ini.
+                                @endif
+                            </p>
+                        </div>
                     @endif
 
-                    <!-- Panduan Lomba -->
+                    <!-- Panduan Lomba (tetap sama) -->
                     <div class="mt-8">
                         <p class="text-gray-500 font-medium mb-3">Panduan Lomba</p>
                         @if ($program->panduan_lomba)
@@ -145,7 +160,7 @@
                                     <i class='bx bxs-file-pdf text-3xl'></i>
                                     Download Panduan (PDF)
                                 </a>
-                            @elseif(Str::startsWith($program->panduan_lomba, 'http'))
+                            @elseif(Str::startsWith($program->panduan_lomba, ['http://', 'https://']))
                                 <a href="{{ $program->panduan_lomba }}" target="_blank"
                                     class="inline-flex items-center gap-3 text-[#0C356A] hover:text-[#FFC436] font-semibold">
                                     <i class='bx bx-link-external text-xl'></i>
