@@ -20,7 +20,7 @@ Segera kunjungi websitenya dan ikut berpartisipasi dalam program tersebut!. Sema
 
 ---
 
-@component('mail::button', ['url' => route('detail-program', $program->id), 'color' => 'primary'])
+@component('mail::button', ['url' => route('guest-detail-program', $program->id), 'color' => 'primary'])
 ✨ Lihat Detail Program
 @endcomponent
 
