@@ -27,14 +27,33 @@ class EditKelas extends Component
         $this->tahun_ajaran = $kelas->tahun_ajaran;
     }
 
+    public function rules()
+    {
+        return [
+            'nama_kelas' => 'required|string|max:50',
+            'jurusan_id' => 'required|exists:jurusan,id',
+            'tingkat' => 'required',
+            'tahun_ajaran' => 'required|integer|min:1901|max:2155'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'nama_kelas.required' => 'Nama kelas wajib diisi',
+            'nama_kelas.max' => 'Nama kelas tidak boleh melebihi 50 karakter',
+            'jurusan_id.required' => 'jurusan wajib diisi',
+            'tingkat.required' => 'Tingkat wajib diisi',
+            'tahun_ajaran.required' => 'Tahun ajaran wajib diisi',
+            'tahun_ajaran.integer' => 'Tahun ajaran harus angka',
+            'tahun_ajaran.min' => 'Tahun ajaran minimal 1901',
+            'tahun_ajaran.max' => 'Tahun ajaran maksimal 2155'
+        ];
+    }
+
     public function update()
     {
-        $this->validate([
-            'nama_kelas' => 'required|string|max:50,' . $this->kelasId,
-            'jurusan_id' => 'required|exists:kelas,id',
-            'tingkat' => 'required',
-            'tahun_ajaran' => 'required|integer|min:1901|max:2155',
-        ]);
+        $this->validate();
 
         $kelas = Kelas::findOrFail($this->kelasId);
         $kelas->update([
