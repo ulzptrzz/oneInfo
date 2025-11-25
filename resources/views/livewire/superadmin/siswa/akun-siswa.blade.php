@@ -181,11 +181,6 @@
                                     <td>1</td>
                                 </tr>
                             </table>
-                            <p class="mt-2">Download template:
-                                <a href="{{ asset('template_siswa.xlsx') }}" class="text-blue-600 underline">
-                                    template_siswa.xlsx
-                                </a>
-                            </p>
                         </div>
                     </div>
                 </div>

@@ -34,7 +34,7 @@
             </label>
             <div
                 class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-indigo-400 transition-colors">
-                <input type="file" wire:model="foto" accept="image/*,application/pdf" class="hidden"
+                <input type="file" wire:model="foto" accept="image/*\" class="hidden"
                     id="file-upload">
                 <label for="file-upload" class="cursor-pointer">
                     <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none"
@@ -47,7 +47,7 @@
                         <span class="text-indigo-600 font-medium hover:underline">Klik untuk upload</span> atau drag and
                         drop
                     </p>
-                    <p class="text-xs text-gray-500 mt-1">PNG, JPG, PDF (maks. 2MB)</p>
+                    <p class="text-xs text-gray-500 mt-1">PNG, JPG, (maks. 2MB)</p>
                 </label>
             </div>
             @error('foto')

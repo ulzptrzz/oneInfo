@@ -14,7 +14,7 @@
                 </h1>
             </div>
 
-            <form wire:submit.prevent="update" class="space-y-5 bg-white p-6 rounded-lg shadow">
+            <form wire:submit.prevent="update" class="space-y-5 bg-white p-6 rounded-lg shadow" novalidate>
                 <div>
                     <label>Nama Admin</label>
                     <input type="text" wire:model="name" class="border p-2 w-full">
