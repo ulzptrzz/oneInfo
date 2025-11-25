@@ -69,7 +69,6 @@ class Create extends Component
         Mail::to($siswaUser->email)->send(new PerizinanMail($perizinan));
 
         session()->flash('success', 'Perizinan berhasil dikirim dan email sudah dikirim ke siswa.');
-
         return redirect()->route('list-pendaftaran-program');
     }
 
