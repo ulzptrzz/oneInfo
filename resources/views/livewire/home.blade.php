@@ -120,33 +120,35 @@
         <x-navbar />
 
         {{-- HERO SECTION --}}
-        <div class="hero-gradient pt-28 pb-16 px-7 relative overflow-hidden">
+        <div class="hero-gradient pt-28 px-7 relative overflow-hidden">
             <div class="absolute w-96 h-96 bg-[#ffc436] opacity-10 rounded-full -top-40 -right-20"></div>
             <div class="absolute w-80 h-80 bg-[#ffc436] opacity-5 rounded-full -bottom-40 -left-20"></div>
 
-            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center relative z-10">
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 -bottom-6 gap-10 items-center relative z-10">
                 <div class="py-10 md:py-20">
-                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-                        Jelajahi berbagai program dan lomba menarik di <span class="text-[#ffc436]">OneInfo</span>!
-                    </h1>
-                    <p class="mt-4 text-lg md:text-xl opacity-90 mb-8">
-                        Website pusat informasi SMKN 1 Kota Bekasi mengenai berbagai program, lomba, dan kursus untuk
-                        pelajar berprestasi
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#program"
-                            class="bg-[#ffc436] text-[#0C356A] px-8 py-3 rounded-full font-semibold text-lg shadow-lg btn-hover-scale inline-block">
-                            Lihat Program
-                        </a>
-                        <a href="#tentang"
-                            class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-[#0C356A] transition-all duration-300 inline-block">
-                            Pelajari Lebih Lanjut
-                        </a>
+                    <div class="pb-16">
+                        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+                            Jelajahi berbagai program dan lomba menarik di <span class="text-[#ffc436]">OneInfo</span>!
+                        </h1>
+                        <p class="mt-4 text-lg md:text-xl opacity-90 mb-8">
+                            Website pusat informasi SMKN 1 Kota Bekasi mengenai berbagai program, lomba, dan kursus untuk
+                            pelajar berprestasi
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="#program"
+                                class="bg-[#ffc436] text-[#0C356A] px-8 py-3 rounded-full font-semibold text-lg shadow-lg btn-hover-scale inline-block">
+                                Lihat Program
+                            </a>
+                            <a href="#tentang"
+                                class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-white hover:text-[#0C356A] transition-all duration-300 inline-block">
+                                Pelajari Lebih Lanjut
+                            </a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="flex justify-center">
-                    <img class="w-full max-w-lg hero-float drop-shadow-2xl" src="{{ asset('assets/gambar-hero.png') }}"
+                    <img class="w-full max-w-lg drop-shadow-2xl" src="{{ asset('assets/gambar-hero.png') }}"
                         alt="gambar-hero">
                 </div>
             </div>

@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Superadmin\Siswa;
 
+use App\Exports\ExportSiswa;
 use App\Models\Siswa;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\Siswa as ImportSiswa;
+use Maatwebsite\Excel\Excel as MaatwebsiteExcel;
 
 class AkunSiswa extends Component
 {
@@ -17,13 +19,15 @@ class AkunSiswa extends Component
     public $confirmDeleteId = null;
     public $showDeleteModal = false;
     public $showExcelModal = false;
+    public $showExportModal = false;
+    public $exportFormat = 'xlsx';
 
     protected $listeners = ['cancelDelete'];
 
     protected function rules()
     {
         return [
-            'fileExcel' => 'required|file|mimes:xlsx,xls|max:10240', // max 10MB
+            'fileExcel' => 'required|file|mimes:xlsx,xls|max:10240',
         ];
     }
 
@@ -81,6 +85,32 @@ class AkunSiswa extends Component
         } catch (\Exception $e) {
             $this->addError('fileExcel', 'Gagal import: ' . $e->getMessage());
         }
+    }
+
+    public function openExportModal()
+    {
+        $this->showExportModal = true;
+        $this->exportFormat = 'xlsx';
+    }
+
+    public function closeExportModal()
+    {
+        $this->showExportModal = false;
+    }
+
+    public function exportExcel()
+    {
+        $this->validate([
+            'exportFormat' => 'required|in:xlsx,csv'
+        ]);
+
+        $filename = 'Akun_Siswa_' . now()->format('Y-m-d_H-i-s');
+
+        return Excel::download(
+            new ExportSiswa,
+            $filename . '.' . $this->exportFormat,
+            $this->exportFormat === 'csv' ? MaatwebsiteExcel::CSV : MaatwebsiteExcel::XLSX
+        );
     }
     public function mount()
     {

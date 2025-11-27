@@ -9,56 +9,76 @@ use Livewire\WithFileUploads;
 
 class Create extends Component
 {
-    use WithFileUploads; // Trait biar bisa upload file lewat Livewire
+    use WithFileUploads;
 
-    // Variabel untuk nampung input dari form create
-    public $judul, $foto, $video, $prestasi_id;
+    public $judul = '';
+    public $foto = [];           // Tetap ini
+    public $newPhotos = [];           
+    public $video = '';
+    public $prestasi_id = '';
 
-    // Rules validasi input
     protected $rules = [
         'prestasi_id' => 'required|exists:prestasi,id',
-        'judul' => 'required|string|max:255',
-        'foto' => 'required|image|max:3048', // foto wajib & max 3MB
-        'video' => 'nullable|url', // video opsional, tapi harus berupa URL
+        'judul'       => 'required|string|max:255',
+        'foto'        => 'required|array|min:1',
+        'foto.*'      => 'image|mimes:jpeg,jpg,png,gif|max:3072', // 3MB
+        'video'       => 'nullable|url',
     ];
 
-    // Pesan error custom biar user paham kalau salah input
     protected $messages = [
-        'prestasi_id.required' => 'Prestasi harus dipilih.',
-        'prestasi_id.exists' => 'Prestasi tidak ditemukan.',
-        'judul.required' => 'Judul wajib diisi.',
-        'foto.required' => 'Foto dokumentasi wajib diisi.',
-        'foto.image' => 'File foto harus berupa gambar.',
-        'foto.max' => 'Ukuran foto maksimal 3MB.',
-        'video.url' => 'Format URL video tidak valid.',
+        'prestasi_id.required' => 'Pilih prestasi terlebih dahulu.',
+        'judul.required'       => 'Judul dokumentasi wajib diisi.',
+        'foto.required'        => 'Minimal upload 1 foto.',
+        'foto.min'             => 'Minimal upload 1 foto.',
+        'foto.*.mimes'         => 'Foto harus format JPG, PNG, atau GIF.',
+        'foto.*.max'           => 'Ukuran foto maksimal 3MB.',
     ];
 
-    // Fungsi untuk simpan data dokumentasi baru
-    public function save()
+    // Hapus foto berdasarkan index
+    public function updatedNewPhotos()
     {
-        $this->validate(); // Jalankan validasi
+        foreach ($this->newPhotos as $newPhoto) {
+            $this->foto[] = $newPhoto;
+        }
+        $this->newPhotos = [];
 
-        // Simpan file foto ke storage/public/dokumentasi
-        $path = $this->foto->store('dokumentasi', 'public');
-
-        // Insert data ke database
-        Dokumentasi::create([
-            'prestasi_id' => $this->prestasi_id,
-            'judul' => $this->judul,
-            'foto' => $path,
-            'video' => $this->video,
-        ]);
-
-        // Redirect dengan pesan sukses
-        return redirect()->route('admin.dokumentasi')
-            ->with('message', 'Dokumentasi berhasil ditambahkan.');
+        $this->dispatch('$refresh');
     }
 
-    // Render halaman create + kirim data prestasi untuk dropdown
+    // removePhoto & save tetep sama
+    public function removePhoto($index)
+    {
+        if (isset($this->foto[$index])) {
+            unset($this->foto[$index]);
+            $this->foto = array_values($this->foto); // reindex
+        }
+    }
+
+    public function save()
+    {
+        $this->validate();
+
+        $fotoPaths = [];
+        foreach ($this->foto as $foto) {
+            $fotoPaths[] = $foto->store('dokumentasi', 'public');
+        }
+
+        Dokumentasi::create([
+            'prestasi_id' => $this->prestasi_id,
+            'judul'       => $this->judul,
+            'foto'        => json_encode($fotoPaths), // Simpan sebagai JSON array
+            'video'       => $this->video ?? null,
+        ]);
+
+        return redirect()->route('admin.dokumentasi')
+               ->with('message', 'Dokumentasi berhasil ditambahkan dengan ' . count($fotoPaths) . ' foto.');
+    }
+
+    
     public function render()
     {
         return view('livewire.admin.dokumentasi.create', [
-            'prestasis' => Prestasi::with('siswa')->get() // Ambil daftar prestasi + relasi siswa
+            'prestasis' => Prestasi::with('siswa')->get(),
         ]);
     }
 }

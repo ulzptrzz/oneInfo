@@ -7,6 +7,7 @@
     {{-- KONTEN UTAMA --}}
     <div class="flex-1 ml-64 mr-20 min-h-screen">
         <div class="w-full mx-8 my-7 bg-white rounded-2xl shadow-md overflow-hidden">
+            
             <div class="bg-[#0C356A] text-white p-7 flex justify-between items-center">
                 <h2 class="text-2xl font-bold items-center">Kelola Akun Siswa</h2>
                 <div class="flex gap-3 justify-end">
@@ -21,6 +22,10 @@
                     <button wire:click="openExcelModal"
                         class="bg-[#ffc436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
                         + Import Siswa
+                    </button>
+                    <button wire:click="openExportModal"
+                        class="bg-[#ffc436] text-[#0C356A] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
+                        ⇒ Export Akun
                     </button>
                 </div>
             </div>
@@ -181,6 +186,50 @@
                                     <td>1</td>
                                 </tr>
                             </table>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if ($showExportModal)
+                <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+                    wire:ignore.self>
+                    <div class="bg-white rounded-lg shadow-xl p-6 max-w-md w-full" @click.away="closeExportModal">
+                        <h3 class="text-lg font-semibold text-[#0C356A] mb-6">Export Data Siswa</h3>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-3">Pilih Format Export</label>
+                            <div class="space-y-3">
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="radio" wire:model="exportFormat" value="xlsx"
+                                        class="text-[#0C356A] focus:ring-[#0C356A]">
+                                    <span class="text-gray-700">Excel (.xlsx) - Cocok untuk edit & format</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer">
+                                    <input type="radio" wire:model="exportFormat" value="csv"
+                                        class="text-[#0C356A] focus:ring-[#0C356A]">
+                                    <span class="text-gray-700">CSV - Ringan & universal</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end gap-3">
+                            <button wire:click="closeExportModal"
+                                class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition">
+                                Batal
+                            </button>
+                            <button wire:click="exportExcel" wire:loading.attr="disabled"
+                                class="px-6 py-2 bg-[#0C356A] text-white rounded hover:bg-[#082d5b] disabled:opacity-50 transition flex items-center gap-2">
+                                <span wire:loading.remove>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Download
+                                </span>
+                                <span wire:loading>Mendownload...</span>
+                            </button>
                         </div>
                     </div>
                 </div>

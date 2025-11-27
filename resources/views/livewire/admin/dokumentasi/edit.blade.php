@@ -63,32 +63,28 @@
                         </label>
 
                         {{-- Current Photo --}}
-                        @if ($oldFoto)
-                            <div class="mb-4 bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
-                                <p class="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
-                                    <i class='bx bx-image-alt'></i>
-                                    Foto Saat Ini:
-                                </p>
-                                <div class="flex items-start gap-4">
-                                    <a href="{{ asset('storage/' . $oldFoto) }}" target="_blank" class="group">
-                                        <img src="{{ asset('storage/' . $oldFoto) }}" alt="Current Photo"
-                                            class="w-32 h-32 object-cover rounded-lg border-2 border-gray-300 group-hover:border-[#FFC436] transition cursor-pointer">
-                                    </a>
-                                    <div class="text-sm text-gray-600">
-                                        <p class="font-medium flex items-center gap-1">
-                                            <i class='bx bx-check-circle text-green-600'></i>
-                                            Foto yang sedang digunakan
-                                        </p>
-                                        <p class="text-xs text-gray-500 mt-1">Upload foto baru untuk mengganti</p>
+                        @if ($foto && count($foto) > 0)
+                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-6">
+                                @foreach ($foto as $index => $path)
+                                    <div
+                                        class="relative group bg-white rounded-xl shadow border overflow-hidden hover:shadow-xl transition">
+                                        <img src="{{ asset('storage/' . $path) }}" class="w-full h-40 object-cover"
+                                            alt="Foto dokumentasi">
+
+                                        <div
+                                            class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition flex items-center justify-center">
+                                            <button type="button" wire:click="removeOldPhoto({{ $index }})"
+                                                class="opacity-0 group-hover:opacity-100 bg-red-600 hover:bg-red-700 text-white rounded-full p-3 transition">
+                                                <i class='bx bx-trash text-xl'></i>
+                                            </button>
+                                        </div>
+
+                                        <div
+                                            class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 p-2">
+                                            <p class="text-xs text-white truncate">{{ basename($path) }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        @else
-                            <div class="mb-4 bg-gray-50 border-2 border-gray-200 rounded-lg p-4">
-                                <p class="text-gray-500 text-sm italic flex items-center gap-2">
-                                    <i class='bx bx-info-circle'></i>
-                                    Belum ada foto yang diupload
-                                </p>
+                                @endforeach
                             </div>
                         @endif
 
@@ -98,12 +94,11 @@
                         </label>
 
                         <div class="relative">
-                            <input type="file" wire:model="foto" id="fotoInput"
-                                accept="image/jpeg,image/png,image/jpg,image/gif"
-                                class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-[#FFC436] focus:outline-none transition file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#FFC436] file:text-[#0C356A] file:font-semibold hover:file:bg-yellow-400 file:cursor-pointer" />
-
+                            <!-- Upload Foto Baru -->
+                            <input type="file" wire:model="newPhotos" multiple accept="image/*"
+                                class="w-full border-2 border-gray-200 rounded-lg px-4 py-3 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#FFC436] file:text-[#0C356A] file:font-semibold hover:file:bg-yellow-400" />
                             {{-- Loading State --}}
-                            <div wire:loading wire:target="foto"
+                            <div wire:loading wire:target="newPhotos"
                                 class="absolute inset-0 bg-white bg-opacity-90 rounded-lg flex items-center justify-center">
                                 <div class="text-center">
                                     <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FFC436] mx-auto">
@@ -119,24 +114,30 @@
                         </p>
 
                         {{-- Preview New Photo --}}
-                        @if ($foto)
-                            <div class="mt-4 bg-green-50 border-2 border-green-200 rounded-lg p-4">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                                            <i class='bx bx-check text-white text-xl'></i>
-                                        </div>
-                                        <div>
-                                            <p class="text-sm font-semibold text-gray-800">
-                                                {{ $foto->getClientOriginalName() }}</p>
-                                            <p class="text-xs text-gray-500">
-                                                {{ number_format($foto->getSize() / 1024, 2) }} KB</p>
-                                        </div>
-                                    </div>
-                                    <button type="button" wire:click="$set('foto', null)"
-                                        class="text-red-500 hover:text-red-700 hover:bg-red-100 rounded-lg p-2 transition">
+                        @if ($newPhotos)
+                            <div class="relative group bg-white rounded-lg soverflow-hidden">
+
+                                <div class="w-full h-32 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class='bx bx-image text-3xl text-green-500'></i>
+                                </div>
+
+                                <!-- Tombol hapus -->
+                                <div class="absolute top-10 right-14 opacity-0 group-hover:opacity-100 transition">
+                                    <button type="button" wire:click="removePhoto({{ $index }})"
+                                        class="bg-red-600 hover:bg-red-700 text-white rounded-full p-2 shadow-lg">
                                         <i class='bx bx-trash text-xl'></i>
                                     </button>
+                                </div>
+
+                                <!-- Info file -->
+                                <div
+                                    class="absolute bottom-0 left-0 right-0 bg-gradient-to-t rounded-lg from-black/60 to-transparent p-3">
+                                    <p class="text-xs text-white font-medium truncate">
+                                        {{ Str::limit($photo->getClientOriginalName(), 20) }}
+                                    </p>
+                                    <p class="text-xs text-gray-300">
+                                        {{ number_format($photo->getSize() / 1024, 1) }} KB
+                                    </p>
                                 </div>
                             </div>
                         @endif
