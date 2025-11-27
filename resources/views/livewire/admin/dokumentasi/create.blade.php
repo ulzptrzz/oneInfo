@@ -35,7 +35,7 @@
                             <option value="">-- Pilih Prestasi --</option>
                             @foreach ($prestasis as $prestasi)
                                 <option value="{{ $prestasi->id }}">
-                                    {{ $prestasi->deskripsi }} @if($prestasi->siswa) - {{ $prestasi->siswa->nama }} @endif
+                                    {{ $prestasi->deskripsi }} @if($prestasi->siswa) @endif
                                 </option>
                             @endforeach
                         </select>

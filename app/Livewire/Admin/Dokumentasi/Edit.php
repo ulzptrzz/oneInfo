@@ -7,103 +7,128 @@ use App\Models\Prestasi;
 use App\Models\Dokumentasi;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class Edit extends Component
 {
-    use WithFileUploads; // Trait biar bisa upload file lewat Livewire
+    use WithFileUploads;
 
-    // Variabel yang dipakai di halaman edit
     public $dokumentasiId;
     public $judul, $video, $prestasi_id;
-    public $foto = [];
-    public $newPhotos = [];
+    public $foto = []; // Foto lama (path string)
+    public $newPhotos = []; // Foto baru (UploadedFile)
 
-    // Rules validasi
-    protected $rules = [
-        'prestasi_id' => 'required|exists:prestasi,id',
-        'judul'       => 'required|string|max:255',
-        'foto'        => 'required|array|min:1',
-        'foto.*'      => 'image|mimes:jpeg,jpg,png,gif|max:3072', // 3MB
-        'video'       => 'nullable|url',
-    ];
+    protected function rules()
+    {
+        return [
+            'prestasi_id' => 'required|exists:prestasi,id',
+            'judul'       => 'required|string|max:255',
+            'newPhotos.*' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:3072',
+            'video'       => 'nullable|url',
+        ];
+    }
 
-    // Pesan error custom
     protected $messages = [
         'prestasi_id.required' => 'Pilih prestasi terlebih dahulu.',
         'judul.required'       => 'Judul dokumentasi wajib diisi.',
-        'foto.required'        => 'Minimal upload 1 foto.',
-        'foto.min'             => 'Minimal upload 1 foto.',
-        'foto.*.mimes'         => 'Foto harus format JPG, PNG, atau GIF.',
-        'foto.*.max'           => 'Ukuran foto maksimal 3MB.',
+        'newPhotos.*.mimes'    => 'Foto harus format JPG, JPEG, PNG, GIF, atau WEBP.',
+        'newPhotos.*.max'      => 'Ukuran foto maksimal 3MB.',
     ];
 
-    public function updatedNewPhotos()
+    public function mount($id)
     {
-        foreach ($this->newPhotos as $photo) {
-            $this->foto[] = $photo;
-        }
-        $this->newPhotos = [];
+        $data = Dokumentasi::findOrFail($id);
+
+        $this->dokumentasiId = $data->id;
+        $this->prestasi_id = $data->prestasi_id;
+        $this->judul = $data->judul;
+        $this->video = $data->video;
+        
+        // Decode JSON foto
+        $this->foto = is_string($data->foto) 
+            ? json_decode($data->foto, true) ?? [] 
+            : $data->foto ?? [];
     }
 
-    public function removePhoto($index)
+    // Validasi real-time saat upload
+    public function updatedNewPhotos()
+    {
+        $this->validate([
+            'newPhotos.*' => 'image|mimes:jpeg,jpg,png,gif,webp|max:3072',
+        ]);
+    }
+
+    // Hapus foto lama
+    public function removeOldPhoto($index)
     {
         if (isset($this->foto[$index])) {
-            // Kalau foto lama → hapus dari storage
-            if (is_string($this->foto[$index])) {
-                Storage::disk('public')->delete($this->foto[$index]);
-            }
+            // Hapus file dari storage
+            Storage::disk('public')->delete($this->foto[$index]);
+            
+            // Hapus dari array
             unset($this->foto[$index]);
             $this->foto = array_values($this->foto);
         }
     }
 
-    // Fungsi yang dijalankan pas halaman pertama kali dibuka
-    public function mount($id)
+    // Hapus foto baru yang belum di-upload
+    public function removeNewPhoto($index)
     {
-        $data = Dokumentasi::findOrFail($id); // Ambil data dokumentasi
-
-        // Isi form dengan data lama
-        $this->dokumentasiId = $data->id;
-        $this->prestasi_id = $data->prestasi_id;
-        $this->judul = $data->judul;
-        $this->video = $data->video;
-        $this->foto = json_decode($data->foto, true) ?? [];
+        if (isset($this->newPhotos[$index])) {
+            unset($this->newPhotos[$index]);
+            $this->newPhotos = array_values($this->newPhotos);
+        }
     }
 
-    // Fungsi update data dokumentasi
     public function update()
     {
-        $this->validate(); // Validasi input
+        try {
+            // Validasi
+            $this->validate();
 
-        $data = Dokumentasi::findOrFail($this->dokumentasiId);
-
-        $fotoPaths = [];
-        foreach ($this->foto as $foto) {
-            if (is_string($foto)) {
-                $fotoPaths[] = $foto; // foto lama
-            } else {
-                $fotoPaths[] = $foto->store('dokumentasi', 'public'); // foto baru
+            // Validasi minimal 1 foto (lama atau baru)
+            if (empty($this->foto) && empty($this->newPhotos)) {
+                $this->addError('foto', 'Minimal upload 1 foto.');
+                return;
             }
+
+            $data = Dokumentasi::findOrFail($this->dokumentasiId);
+
+            // Gabungkan foto lama + foto baru
+            $fotoPaths = $this->foto; // Foto lama (sudah berupa path)
+
+            // Upload foto baru
+            if (!empty($this->newPhotos)) {
+                foreach ($this->newPhotos as $photo) {
+                    $path = $photo->store('dokumentasi', 'public');
+                    $fotoPaths[] = $path;
+                }
+            }
+
+            // Update ke database (encode jadi JSON)
+            $data->update([
+                'prestasi_id' => $this->prestasi_id,
+                'judul'       => $this->judul,
+                'foto'        => json_encode($fotoPaths), 
+                'video'       => $this->video,
+            ]);
+
+            // Set flash message
+            session()->flash('message', 'Dokumentasi berhasil diperbarui! Total foto: ' . count($fotoPaths));
+
+            // Redirect ke halaman list
+            return redirect()->route('admin.dokumentasi');
+
+        } catch (\Exception $e) {
+            Log::error('Error update dokumentasi: ' . $e->getMessage());
+            $this->addError('general', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        // Update data di database
-        $data->update([
-            'prestasi_id' => $this->prestasi_id,
-            'judul' => $this->judul,
-            'foto' => $fotoPaths,
-            'video' => $this->video,
-        ]);
-
-        session()->flash('message', 'Dokumentasi berhasil diperbarui.');
-
-        return redirect()->route('admin.dokumentasi');
     }
 
-    // Render halaman edit
     public function render()
     {
         return view('livewire.admin.dokumentasi.edit', [
-            'prestasis' => Prestasi::with('siswa')->get() // Data untuk dropdown
+            'prestasis' => Prestasi::with('siswa')->get()
         ]);
     }
 }
