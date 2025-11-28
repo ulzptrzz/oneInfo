@@ -148,35 +148,32 @@
 
     {{-- Modal Delete Confirmation --}}
     @if ($showDeleteModal)
-        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full transform transition-all">
-                <div class="flex justify-center mb-4">
-                    <div class="bg-red-100 rounded-full p-4">
-                        <svg class="w-16 h-16 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                    </div>
-                </div>
-                <h3 class="text-xl text-center font-bold mb-2 text-gray-800">
-                    Hapus Dokumentasi?
-                </h3>
-                <p class="text-sm text-center text-gray-600 mb-6">
-                    Data dokumentasi dan semua foto yang terkait akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.
-                </p>
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full">
+            <div class="flex justify-center mb-4">
+                <svg width="90px" height="90px" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M10 10V13M4 6H20M16 6L15.7294 5.18807C15.4671 4.40125 15.3359 4.00784 15.0927 3.71698C14.8779 3.46013 14.6021 3.26132 14.2905 3.13878C13.9376 3 13.523 3 12.6936 3H11.3064C10.477 3 10.0624 3 9.70951 3.13878C9.39792 3.26132 9.12208 3.46013 8.90729 3.71698C8.66405 4.00784 8.53292 4.40125 8.27064 5.18807L8 6M10 21H9C7.34315 21 6 19.6569 6 18V6M18 6V9M14 10V10.5M17 15.5V17H18.5M21 17C21 19.2091 19.2091 21 17 21C14.7909 21 13 19.2091 13 17C13 14.7909 14.7909 13 17 13C19.2091 13 21 14.7909 21 17Z"
+                        stroke="#0C356A" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+            </div>
+            <h3 class="text-lg text-center font-semibold mb-1 text-[#0C356A]">Hapus Dokumentasi?</h3>
+            <p class="text-sm text-center text-gray-600 mb-6">
+                Apakah anda yakin ingin menghapus dokumentasi ini?
+            </p>
 
-                <div class="flex gap-3">
-                    <button wire:click="cancelDelete"
-                        class="flex-1 px-4 py-2.5 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition">
-                        Batal
-                    </button>
-                    <button wire:click="hapus" wire:loading.attr="disabled"
-                        class="flex-1 px-4 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
-                        <span wire:loading.remove wire:target="hapus">Hapus</span>
-                        <span wire:loading wire:target="hapus">
-                            <i class='bx bx-loader-alt animate-spin'></i>
-                            Menghapus...
-                        </span>
-                    </button>
+            <div class="flex justify-end gap-3">
+                <button wire:click="cancelDelete"
+                    class="px-3 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">
+                    Batal
+                </button>
+                <button wire:click="hapus" wire:loading.attr="disabled"
+                    class="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50">
+                    <span wire:loading.remove>Hapus</span>
+                    <span wire:loading>Hapus...</span>
+                </button>
                 </div>
             </div>
         </div>

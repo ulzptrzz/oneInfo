@@ -22,7 +22,7 @@ class Create extends Component
         'judul'       => 'required|string|max:255',
         'foto'        => 'required|array|min:1',
         'foto.*'      => 'image|mimes:jpeg,jpg,png,gif|max:3072', // 3MB
-        'video'       => 'nullable|url',
+        'video'       => 'nullable|string',
     ];
 
     protected $messages = [

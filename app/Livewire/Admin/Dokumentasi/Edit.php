@@ -24,7 +24,7 @@ class Edit extends Component
             'prestasi_id' => 'required|exists:prestasi,id',
             'judul'       => 'required|string|max:255',
             'newPhotos.*' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:3072',
-            'video'       => 'nullable|url',
+            'video'       => 'nullable|string',
         ];
     }
 
