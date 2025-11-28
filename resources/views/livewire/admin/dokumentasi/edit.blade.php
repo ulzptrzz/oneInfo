@@ -167,11 +167,10 @@
                                                 <i class='bx bx-image text-5xl text-green-600 mb-2'></i>
                                             </div>
 
-                                            {{-- Tombol hapus --}}
-                                            <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition">
+                                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition flex items-center justify-center">
                                                 <button type="button" wire:click="removeNewPhoto({{ $index }})"
-                                                    class="bg-red-600 hover:bg-red-700 text-white rounded-full p-2 shadow-lg">
-                                                    <i class='bx bx-trash text-lg'></i>
+                                                    class="opacity-0 group-hover:opacity-100 bg-red-600 hover:bg-red-700 text-white rounded-full p-3 transition">
+                                                    <i class='bx bx-trash text-xl'></i>
                                                 </button>
                                             </div>
 

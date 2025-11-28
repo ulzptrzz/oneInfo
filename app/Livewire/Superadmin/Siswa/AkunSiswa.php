@@ -119,7 +119,11 @@ class AkunSiswa extends Component
 
     public function loadData()
     {
-        $this->sesions = Siswa::orderBy('name', 'desc')->get();
+        $this->sesions = Siswa::with('kelas')
+            ->join('kelas', 'kelas.id', '=', 'siswa.kelas_id')
+            ->orderBy('kelas.tahun_ajaran', 'asc')
+            ->select('siswa.*')
+            ->get();
     }
 
     public function confirmDelete($id)

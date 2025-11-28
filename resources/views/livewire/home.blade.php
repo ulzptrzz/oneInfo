@@ -4,22 +4,6 @@
             background: linear-gradient(135deg, #0C356A 0%, #1e40af 50%, #3b82f6 100%);
         }
 
-        .hero-float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
         .stat-card-hover {
             transition: all 0.3s ease;
         }

@@ -58,7 +58,7 @@
                             <td class="px-5 py-4 whitespace-nowrap">
                                 <span class="text-sm font-medium text-gray-900">{{ $sesion->name }}</span>
                             </td>
-                            <td class="px-5 py-4 whitespace-nowrap">
+                            <td class="px-4 py-4 whitespace-nowrap">
                                 <span class="text-sm font-medium text-gray-900">{{ $sesion->user->email }}</span>
                             </td>
                             <td class="px-5 py-4 whitespace-nowrap">
@@ -69,7 +69,7 @@
                             </td>
                             <td class="px-5 py-4 whitespace-nowrap">
                                 <img src="{{ asset('storage/' . $sesion->foto) }}" alt="Foto Siswa"
-                                    class="w-32 rounded">
+                                    class="w-28 h-28 object-cover rounded border-2 border-gray-200">
                             </td>
                             <td class="px-5 py-4 whitespace-nowrap text-sm">
                                 <a href="{{ route('superadmin.siswa.edit-siswa', $sesion->id) }}"
@@ -220,13 +220,13 @@
                             </button>
                             <button wire:click="exportExcel" wire:loading.attr="disabled"
                                 class="px-6 py-2 bg-[#0C356A] text-white rounded hover:bg-[#082d5b] disabled:opacity-50 transition flex items-center gap-2">
-                                <span wire:loading.remove>
+                                <span wire:loading.remove class="flex gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                     </svg>
-                                    Download
+                                    <p class="font-semibold">Download</p>
                                 </span>
                                 <span wire:loading>Mendownload...</span>
                             </button>

@@ -1,4 +1,4 @@
-="flex min-h-screen">
+<div class="flex min-h-screen">
 
     <aside class="fixed overflow-y-auto">
         <x-sidebar-superadmin />
