@@ -4,39 +4,47 @@ namespace App\Livewire\Admin\Dokumentasi;
 
 use App\Models\Dokumentasi;
 use Livewire\Component;
+use Illuminate\Support\Facades\Storage;
 
 class Index extends Component
 {
-    // Variabel untuk nampung semua data dokumentasi
-    public $dokumentasi;
-
     // Variabel untuk proses konfirmasi hapus
     public $confirmDeleteId = null;
     public $showDeleteModal = false;
 
-    // Fungsi yang dijalankan pas halaman pertama dibuka
-    public function mount()
-    {
-        $this->dokumentasi = Dokumentasi::all(); // Ambil semua dokumentasi
-    }
-
     // Pas tombol hapus diklik muncul modal konfirmasi
-    public function confirmDelete($id){
+    public function confirmDelete($id)
+    {
         $this->confirmDeleteId = $id;
         $this->showDeleteModal = true;
     }
 
     // Eksekusi hapus data
-    public function hapus(){
-        Dokumentasi::findOrFail($this->confirmDeleteId)->delete(); // Hapus dari DB
+    public function hapus()
+    {
+        $dokumentasi = Dokumentasi::findOrFail($this->confirmDeleteId);
+        
+        // Decode foto JSON dan hapus file dari storage
+        $foto = is_string($dokumentasi->foto) 
+            ? json_decode($dokumentasi->foto, true) ?? [] 
+            : $dokumentasi->foto ?? [];
+        
+        foreach ($foto as $path) {
+            Storage::disk('public')->delete($path);
+        }
+        
+        // Hapus data dari database
+        $dokumentasi->delete();
 
         $this->showDeleteModal = false; // Tutup modal
         $this->confirmDeleteId = null; // Reset id
-        $this->mount(); // Refresh data agar tampilan update
+        
+        session()->flash('message', 'Dokumentasi berhasil dihapus.');
     }
 
     // Kalau user batal
-    public function cancelDelete(){
+    public function cancelDelete()
+    {
         $this->showDeleteModal = false;
         $this->confirmDeleteId = null;
     }
@@ -44,8 +52,11 @@ class Index extends Component
     // Tampilkan halaman index
     public function render()
     {
+        // Ambil data dokumentasi dengan relasi prestasi dan siswa
+        $dokumentasi = Dokumentasi::with(['prestasi.siswa'])->latest()->get();
+        
         return view('livewire.admin.dokumentasi.index', [
-            'dokumentasi' => $this->dokumentasi, // Kirim data ke view
+            'dokumentasi' => $dokumentasi,
         ]);
     }
 }

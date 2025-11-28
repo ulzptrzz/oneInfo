@@ -25,6 +25,7 @@ use App\Livewire\Admin\Dokumentasi\Edit as DokumentasiEdit;
 use App\Livewire\Admin\Perizinan\Create as PerizinanCreate;
 use App\Livewire\Admin\Dokumentasi\Index as DokumentasiIndex;
 use App\Livewire\Admin\Dokumentasi\Create as DokumentasiCreate;
+use App\Livewire\Admin\Dokumentasi\Detail as DokumentasiDetail;
 
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('admin.dashboard');
@@ -47,6 +48,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dokumentasi', DokumentasiIndex::class)->name('admin.dokumentasi');
     Route::get('/dokumentasi/create', DokumentasiCreate::class)->name('create-dokumentasi');
     Route::get('/dokumentasi/edit/{id}', DokumentasiEdit::class)->name('edit-dokumentasi');
+    Route::get('/dokumentasi/detail/{id}', DokumentasiDetail::class)->name('detail-dokumentasi');
 
     Route::get('/prestasi', PrestasiIndex::class)->name('admin.prestasi');
     Route::get('/prestasi/create', PrestasiCreate::class)->name('create-prestasi');
