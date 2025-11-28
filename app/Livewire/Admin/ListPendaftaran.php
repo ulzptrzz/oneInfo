@@ -5,9 +5,8 @@ namespace App\Livewire\Admin;
 use App\Models\Pendaftaran;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\PendaftaranDisetujuiMail;
-use App\Mail\PendaftaranDitolakMail;
+use App\Jobs\SendPendaftaranDisetujuiEmail;
+use App\Jobs\SendPendaftaranDitolakEmail;
 
 class ListPendaftaran extends Component
 {
@@ -30,7 +29,7 @@ class ListPendaftaran extends Component
 
             $pendaftaran->update(['status' => 'approved']);
 
-            Mail::to($siswaEmail)->send(new PendaftaranDisetujuiMail($pendaftaran));
+            dispatch(new SendPendaftaranDisetujuiEmail($pendaftaran));
 
             session()->flash(
                 'success',
@@ -40,7 +39,7 @@ class ListPendaftaran extends Component
 
             $pendaftaran->update(['status' => 'rejected']);
 
-            Mail::to($siswaEmail)->send(new PendaftaranDitolakMail($pendaftaran));
+            dispatch(new SendPendaftaranDitolakEmail($pendaftaran));
 
             session()->flash(
                 'error',
@@ -48,7 +47,6 @@ class ListPendaftaran extends Component
             );
         }
     }
-
 
     public function render()
     {

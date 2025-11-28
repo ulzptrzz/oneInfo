@@ -63,11 +63,11 @@ class UserSeeder extends Seeder
             'foto'     => 'default.jpg'
         ]);
 
-        User::firstOrCreate(['email' => 'admin@gmail.com'], [
+        User::firstOrCreate(['email' => 'mathildaanneke10@gmail.com'], [
             'name'     => 'Admin Sekolah',
-            'email'    => 'admin@gmail.com',
+            'email'    => 'mathildaanneke10@gmail.com',
             'phone'    => '081234567891',
-            'password' => Hash::make('admin12345'),
+            'password' => Hash::make('mamat123'),
             'role_id'  => $admin->id,
             'foto'     => 'default.jpg'
         ]);
@@ -127,7 +127,6 @@ class UserSeeder extends Seeder
             ['name' => 'Nurhaliza maya',   'nis' => '20250002', 'nisn' => '0051234568', 'kelas_id' => $kelasX->id],
             ['name' => 'Rina Melati',      'nis' => '20241001', 'nisn' => '0041234567', 'kelas_id' => $kelasXI->id],
             ['name' => 'Nadia Cahyani',    'nis' => '20232004', 'nisn' => '0031234570', 'kelas_id' => $kelasXII->id],
-            ['name' => 'Nadia Cahyani',    'nis' => '20232003', 'nisn' => '0031234520', 'kelas_id' => $kelasXI->id],
         ];
 
         foreach ($dataSiswa as $item) {

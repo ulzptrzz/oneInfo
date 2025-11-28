@@ -16,7 +16,6 @@ use App\Livewire\Admin\Prestasi\Edit as PrestasiEdit;
 use App\Livewire\Admin\Program\Index as ProgramIndex;
 use App\Livewire\Admin\Artikel\Create as ArtikelCreate;
 use App\Livewire\Admin\Artikel\Detail as ArtikelDetail;
-use App\Livewire\Admin\Perizinan\Edit as PerizinanEdit;
 use App\Livewire\Admin\Prestasi\Index as PrestasiIndex;
 use App\Livewire\Admin\Program\Create as ProgramCreate;
 use App\Livewire\Admin\Program\Detail as ProgramDetail;
@@ -44,7 +43,6 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/perizinan', PerizinanIndex::class)->name('admin.perizinan');
     Route::get('/perizinan/create/{pendaftaranId}', PerizinanCreate::class)->name('create-perizinan');
-    Route::get('/perizinan/edit/{id}', PerizinanEdit::class)->name('edit-perizinan');
 
     Route::get('/dokumentasi', DokumentasiIndex::class)->name('admin.dokumentasi');
     Route::get('/dokumentasi/create', DokumentasiCreate::class)->name('create-dokumentasi');

@@ -24,13 +24,13 @@ class ProgramEmail extends Mailable
     public function build()
     {
         return $this->subject('Program Baru: ' . $this->program->name)
-                    ->markdown('emails.program-baru');
+                    ->markdown('emails.program');
     }
     
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Program Email',
+            subject: 'Program Baru OneInfo',
         );
     }
 

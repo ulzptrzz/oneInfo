@@ -21,7 +21,7 @@ class Home extends Component
             ->get();
 
         // Semua program untuk katalog
-        $this->program = Program::latest()->get();
+        $this->program = Program::latest()->take(3)->get();
 
         // Artikel terbaru 
         $this->artikel = Artikel::latest('tanggal')->first();

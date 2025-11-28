@@ -29,7 +29,7 @@ Tidak ada catatan tambahan dari admin.
 
 Jika kamu merasa ada kesalahan atau ingin mengajukan ulang, silakan hubungi pihak sekolah.
 
-@component('mail::button', ['url' => url('/pendaftaran')])
+@component('mail::button', ['url' => route('guest.bukti-pendaftaran', $pendaftaran->id), 'color' => 'primary'])
 Lihat Semua Pendaftaran
 @endcomponent
 

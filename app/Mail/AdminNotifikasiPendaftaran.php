@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
+use App\Models\Pendaftaran;
 
 class AdminNotifikasiPendaftaran extends Mailable
 {
@@ -16,7 +16,7 @@ class AdminNotifikasiPendaftaran extends Mailable
 
     public $pendaftaran;
 
-    public function __construct($pendaftaran)
+    public function __construct(Pendaftaran $pendaftaran)
     {
         $this->pendaftaran = $pendaftaran;
     }
@@ -24,7 +24,7 @@ class AdminNotifikasiPendaftaran extends Mailable
 
     public function build()
     {
-        return $this->subject('Pendaftaran Siswa Baru')
+        return $this->subject('Pendaftaran Baru Masuk')
             ->markdown('emails.admin.pendaftaran');
     }
 

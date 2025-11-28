@@ -51,9 +51,9 @@ class Edit extends Component
         $this->status = $program->status;
 
         $this->oldPoster = $program->poster;
-        $this->penyelenggara = json_decode($program->penyelenggara, true);
+        $this->penyelenggara = $program->penyelenggara ?? [];
         $this->tingkat = $program->tingkat;
-        $this->mata_lomba = json_decode($program->mata_lomba, true);
+        $this->mata_lomba = $program->mata_lomba ?? [];
         $this->pelaksanaan = $program->pelaksanaan;
 
         $this->link_pendaftaran = $program->link_pendaftaran;
@@ -67,7 +67,7 @@ class Edit extends Component
         $this->validate();
 
         $program = Program::findOrFail($this->program_id);
-        
+
         $this->tingkat = $this->tingkat ?: null;
 
         // POSTER
@@ -101,9 +101,9 @@ class Edit extends Component
             'tanggal_selesai' => $this->tanggal_selesai,
             'status' => $this->status,
             'poster' => $posterPath,
-            'penyelenggara' => json_encode($penyelenggara),
+            'penyelenggara' => $penyelenggara,
             'tingkat' => $this->tingkat,
-            'mata_lomba' => json_encode($mata_lomba),
+            'mata_lomba' => $mata_lomba,
             'pelaksanaan' => $this->pelaksanaan,
             'link_pendaftaran' => $this->link_pendaftaran,
             'panduan_lomba' => $pathPanduan,

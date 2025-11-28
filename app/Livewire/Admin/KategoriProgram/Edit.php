@@ -12,6 +12,7 @@ class Edit extends Component
         'nama_kategori' => 'required|string|max:255',
         'deskripsi' => 'required|string',
     ];
+    
     public function mount($id) {
         $kategori = KategoriProgram::findOrFail($id);
         $this->kategori_program_id = $kategori->id;

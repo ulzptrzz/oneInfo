@@ -9,6 +9,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminNotifikasiPendaftaran;
+use App\Jobs\SendPendaftaranMasukEmail;
+use App\Models\User;
 
 class BuktiPendaftaran extends Component
 {
@@ -27,7 +29,7 @@ class BuktiPendaftaran extends Component
     protected function rules()
     {
         return [
-            'foto'                => 'required|image|mimes:jpg,jpeg,png,pdf|max:3048',
+            'foto'                => 'required|image|mimes:jpg,jpeg,png|max:3048',
             'tanggal_pendaftaran' => 'required|date',
             'pelaksanaan'         => 'required|in:online,offline',
         ];
@@ -64,8 +66,9 @@ class BuktiPendaftaran extends Component
             'siswa_id'           => $this->user->siswa->id,
             'program_id'         => $this->bukti->id,
         ]);
+        $admin = User::where('role_id', 1)->first();
 
-        Mail::to('mathildaanneke10@gmail.com')->send(new AdminNotifikasiPendaftaran($pendaftaran));
+        dispatch(new SendPendaftaranMasukEmail($admin->email, $pendaftaran));
 
         // Reset form
         $this->reset(['foto', 'tanggal_pendaftaran', 'pelaksanaan']);

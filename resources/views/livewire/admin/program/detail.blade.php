@@ -1,15 +1,15 @@
 @php
-    use Carbon\Carbon;
+use Carbon\Carbon;
 
-    $tanggalMulai = Carbon::parse($program->tanggal_mulai)->translatedFormat('d F Y');
-    $tanggalSelesai = Carbon::parse($program->tanggal_selesai)->translatedFormat('d F Y');
+$tanggalMulai = Carbon::parse($program->tanggal_mulai)->translatedFormat('d F Y');
+$tanggalSelesai = Carbon::parse($program->tanggal_selesai)->translatedFormat('d F Y');
 
-    $statusColor = match ($program->status) {
-        'published' => 'bg-green-500',
-        'draft' => 'bg-yellow-400',
-        'archived' => 'bg-red-500',
-        default => 'bg-gray-400',
-    };
+$statusColor = match ($program->status) {
+'published' => 'bg-green-500',
+'draft' => 'bg-yellow-400',
+'archived' => 'bg-red-500',
+default => 'bg-gray-400',
+};
 @endphp
 
 <div class="flex min-h-screen">
@@ -101,8 +101,8 @@
                         <div>
                             <p class="text-gray-500 font-semibold text-sm">Penyelenggara</p>
                             <ul class="list-disc ml-5 space-y-1">
-                                @foreach (json_decode($program->penyelenggara, true) as $pg)
-                                    <li>{{ $pg }}</li>
+                                @foreach ($program->penyelenggara as $pg)
+                                <li>{{ $pg }}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -111,10 +111,10 @@
                             <p class="text-gray-500 font-semibold text-sm">Mata Lomba</p>
 
                             <div class="flex flex-wrap gap-2">
-                                @foreach (json_decode($program->mata_lomba, true) as $ml)
-                                    <span class="px-3 py-1 bg-yellow-100 text-yellow-500 rounded-full text-sm">
-                                        {{ $ml }}
-                                    </span>
+                                @foreach ($program->mata_lomba as $ml)
+                                <span class="px-3 py-1 bg-yellow-100 text-yellow-500 rounded-full text-sm">
+                                    {{ $ml }}
+                                </span>
                                 @endforeach
                             </div>
                         </div>
@@ -126,12 +126,12 @@
                             <p class="text-gray-500 font-semibold text-sm mb-1">Link Pendaftaran</p>
 
                             @if ($program->link_pendaftaran)
-                                <a href="{{ $program->link_pendaftaran }}" target="_blank"
-                                    class="text-blue-600 underline">
-                                    Buka Link Pendaftaran
-                                </a>
+                            <a href="{{ $program->link_pendaftaran }}" target="_blank"
+                                class="text-blue-600 underline">
+                                Buka Link Pendaftaran
+                            </a>
                             @else
-                                <p class="text-gray-400 italic">Tidak ada link pendaftaran</p>
+                            <p class="text-gray-400 italic">Tidak ada link pendaftaran</p>
                             @endif
                         </div>
 
@@ -139,16 +139,16 @@
                             <p class="text-gray-500 font-semibold text-sm mb-1">Panduan Lomba</p>
 
                             @if (Str::contains($program->panduan_lomba, '.pdf'))
-                                <a href="{{ asset('storage/' . $program->panduan_lomba) }}" target="_blank">
-                                    <i class='bx bx-file text-lg'></i> Download Panduan PDF
-                                </a>
+                            <a href="{{ asset('storage/' . $program->panduan_lomba) }}" target="_blank">
+                                <i class='bx bx-file text-lg'></i> Download Panduan PDF
+                            </a>
                             @endif
 
 
                             @if (Str::startsWith($program->panduan_lomba, 'http'))
-                                <a href="{{ $program->panduan_lomba }}" target="_blank">
-                                    Lihat Panduan
-                                </a>
+                            <a href="{{ $program->panduan_lomba }}" target="_blank">
+                                Lihat Panduan
+                            </a>
                             @endif
 
                         </div>
@@ -172,7 +172,7 @@
                     class="px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-100 transition">
                     Kembali
                 </a>
-    
+
                 <a href="{{ route('edit-program', $program->id) }}"
                     class="px-6 py-3 bg-[#FFC436] text-[#0C356A] font-bold rounded-lg hover:bg-yellow-400 transition">
                     Edit Program

@@ -9,6 +9,11 @@ class Program extends Model
     protected $table = 'program';
     protected $primaryKey = 'id';
 
+    protected $casts = [
+        'penyelenggara' => 'array',
+        'mata_lomba' => 'array',
+    ];
+
     protected $fillable = [
         'name',
         'deskripsi',
@@ -36,10 +41,11 @@ class Program extends Model
     }
     public function pendaftaran()
     {
-        return $this->hasMany(Pendaftaran::class, 'program_id'); 
+        return $this->hasMany(Pendaftaran::class, 'program_id');
     }
 
-    public function siswa(){
+    public function siswa()
+    {
         return $this->belongsTo(Siswa::class, 'siswa_id');
     }
 

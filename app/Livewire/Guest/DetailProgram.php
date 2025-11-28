@@ -9,6 +9,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminNotifikasiPendaftaran;
+use App\Models\User;
+use App\Jobs\SendPendaftaranMasukEmail;
 
 class DetailProgram extends Component
 {
@@ -27,7 +29,7 @@ class DetailProgram extends Component
         $this->program = Program::with('kategoriProgram')->findOrFail($id);
         $this->user    = Auth::user();
 
-        $this->mata_lomba = json_decode($this->program->mata_lomba, true) ?? [];
+        $this->mata_lomba = $this->program->mata_lomba ?? [];
 
         $this->tanggal_pendaftaran = now()->format('Y-m-d');
         $this->pelaksanaan = $this->program->pelaksanaan ?? 'offline';
@@ -84,7 +86,7 @@ class DetailProgram extends Component
             $pathSyarat = $this->syarat_program->store('panduan', 'public');
         }
 
-        Pendaftaran::create([
+        $pendaftaran = Pendaftaran::create([
             'tanggal_daftar'     => $this->tanggal_pendaftaran,
             'status'             => 'pending',
             'pelaksanaan'        => $this->pelaksanaan,
@@ -95,7 +97,9 @@ class DetailProgram extends Component
             'program_id'         => $this->program->id,
         ]);
 
-        Mail::to('mathildaanneke10@gmail.com')->send(new AdminNotifikasiPendaftaran($this->user));
+        $admin = User::where('role_id', 1)->first();
+
+        dispatch(new SendPendaftaranMasukEmail($admin->email, $pendaftaran));
 
         $this->reset(['foto', 'mata_lomba_terpilih']);
         session()->flash('success', 'Pendaftaran berhasil! Menunggu verifikasi admin.');

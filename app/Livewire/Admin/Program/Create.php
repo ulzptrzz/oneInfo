@@ -2,23 +2,23 @@
 
 namespace App\Livewire\Admin\Program;
 
-use App\Mail\ProgramEmail;
 use App\Models\KategoriProgram;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use App\Models\Program;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendProgramEmail;
 
 class Create extends Component
 {
     use WithFileUploads;
+
     public $name = '';
     public $deskripsi = '';
     public $tanggal_mulai = '';
     public $tanggal_selesai = '';
     public $status = '';
-    public $poster = '';
+    public $poster;
     public $penyelenggara = [];
     public $penyelenggaraInput = "";
     public $tingkat = '';
@@ -37,23 +37,38 @@ class Create extends Component
         'tanggal_mulai' => 'required|date',
         'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
         'status' => 'required|in:draft,published,archived',
-        'poster' => 'required|image|max:2048',
+        'poster' => 'required|image|max:2048',        
         'penyelenggara' => 'required|array|min:1',
         'tingkat' => 'nullable|string|max:255',
         'mata_lomba' => 'nullable|array',
         'pelaksanaan' => 'required|in:online,offline',
         'link_pendaftaran' => 'nullable|url',
-        'panduan_file' => 'nullable|mimes:pdf|max:20000',
+        'panduan_file' => 'nullable|mimes:pdf|max:20000', 
         'panduan_link' => 'nullable|url',
         'kategori_program_id' => 'required|exists:kategori_program,id',
     ];
 
+    public function updatedPoster()
+    {
+        // Upload langsung saat dipilih (mengurangi beban saat submit)
+        $this->validateOnly('poster');
+    }
+
+    public function updatedPanduanFile()
+    {
+        // Validasi langsung supaya tidak menunda
+        $this->validateOnly('panduan_file');
+    }
+
     public function save()
     {
+        // Validasi penuh
         $this->validate();
 
-        $path = $this->poster ? $this->poster->store('posters', 'public') : null;
+        // Upload poster
+        $pathPoster = $this->poster ? $this->poster->store('posters', 'public') : null;
 
+        // Upload panduan
         if ($this->panduan_file) {
             $pathPanduan = $this->panduan_file->store('panduan', 'public');
         } elseif (!empty($this->panduan_link)) {
@@ -62,18 +77,20 @@ class Create extends Component
             $pathPanduan = null;
         }
 
+        // Null untuk tingkat jika kosong
         $this->tingkat = $this->tingkat === "" ? null : $this->tingkat;
 
+        // Simpan program
         $program = Program::create([
             'name' => $this->name,
             'deskripsi' => $this->deskripsi,
             'tanggal_mulai' => $this->tanggal_mulai,
             'tanggal_selesai' => $this->tanggal_selesai,
             'status' => $this->status,
-            'poster' => $path,
-            'penyelenggara' => json_encode($this->penyelenggara),
+            'poster' => $pathPoster,
+            'penyelenggara' => $this->penyelenggara,  // pakai cast di model
             'tingkat' => $this->tingkat,
-            'mata_lomba' => json_encode($this->mata_lomba),
+            'mata_lomba' => $this->mata_lomba,        // pakai cast di model
             'pelaksanaan' => $this->pelaksanaan,
             'link_pendaftaran' => $this->link_pendaftaran,
             'panduan_lomba' => $pathPanduan,
@@ -81,12 +98,22 @@ class Create extends Component
             'user_id' => auth()->id(),
         ]);
 
-        $siswa = User::where('role_id', 3)->get();
+        // Ambil semua email siswa (pluck = ambil 1 kolom saja dari db)
+        $siswa = User::where('role_id', 3)->pluck('email')->toArray();
 
-        foreach ($siswa as $akun) {
-            Mail::to($akun->email)->send(new ProgramEmail($program));
+        // Bagi siswa menjadi chunk per 10 email, potong array menjadi kelompok kecil berisi 10 email
+        $chunks = array_chunk($siswa, 10);
+
+        foreach ($chunks as $batchIndex => $emails) { //loop setiap batch (mulai kirim batch demi batch)
+            foreach ($emails as $email) { //loop setiap email dalam setiap batch 
+
+                // Delay: batchIndex (batch/chunk/kelompok ke index) * 3 menit
+                $delay = now()->addMinutes($batchIndex * 3);
+
+                dispatch(new SendProgramEmail($email, $program))
+                    ->delay($delay);
+            }
         }
-
         session()->flash('message', 'Program berhasil ditambahkan.');
         return redirect()->route('admin.program');
     }
@@ -118,14 +145,6 @@ class Create extends Component
         unset($this->mata_lomba[$index]);
         $this->mata_lomba = array_values($this->mata_lomba);
     }
-
-    protected $messages = [
-        'poster.image' => 'Poster harus berupa gambar dengan format JPG, PNG, JPEG, atau WEBP.',
-        'poster.max' => 'Ukuran poster maksimal 2MB.',
-
-        'panduan_file.mimes' => 'Panduan file harus berformat PDF.',
-        'panduan_file.max' => 'Ukuran file panduan maksimal 20MB.',
-    ];
 
     public function render()
     {

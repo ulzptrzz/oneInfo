@@ -31,7 +31,7 @@ Admin akan segera mengirimkan surat perizinan tersebut melalui sistem.
 
 Jika kamu membutuhkan bantuan, silakan hubungi admin sekolah.
 
-@component('mail::button', ['url' => url('/pendaftaran/'.$pendaftaran->id)])
+@component('mail::button', ['url' => route('guest.bukti-pendaftaran', $pendaftaran->id), 'color' => 'primary'])
 Lihat Detail Pendaftaran
 @endcomponent
 

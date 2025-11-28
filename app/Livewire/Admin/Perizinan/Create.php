@@ -66,6 +66,7 @@ class Create extends Component
 
         // send email to siswa (ke email user terkait siswa)
         $siswaUser = $this->pendaftaran->siswa->user;
+
         Mail::to($siswaUser->email)->send(new PerizinanMail($perizinan));
 
         session()->flash('success', 'Perizinan berhasil dikirim dan email sudah dikirim ke siswa.');
